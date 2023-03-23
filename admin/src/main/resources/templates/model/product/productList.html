@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>BookList</title>
+</head>
+<body>
+<div layout:fragment="content">
+<div class="container-fluid">
+    <div th:if="${param.success}">
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> Success!</h4>
+            Information saved successfully.
+        </div>
+    </div>
+    <div th:if="${param.deleted}">
+        <div class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> Deleted!</h4>
+            Information deleted successfully.
+        </div>
+    </div>
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Books</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+        For more information about DataTables, please visit the
+        <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Book list here</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+<!--                        <th>E-price</th>-->
+<!--                        <th>Printed-price</th>-->
+<!--                        <th>Audio-price</th>-->
+                        <th>Published-date</th>
+<!--                        <th>Page numb</th>-->
+<!--                        <th>Description</th>-->
+                        <th>Language</th>
+                        <th>isBNNumber</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Name</th>
+<!--                        <th>E-price</th>-->
+<!--                        <th>Printed-price</th>-->
+<!--                        <th>Audio-price</th>-->
+                        <th>Published-date</th>
+<!--                        <th>Page numb</th>-->
+<!--                        <th>Description</th>-->
+                        <th>Language</th>
+                        <th>isBNNumber</th>
+                        <th>Action</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    <tr th:each="product:${productList}">
+                        <td th:text="${product.bookName}"></td>
+                        <td th:text="${product.yearOfPublished}"></td>
+                        <td th:text="${product.language}"></td>
+                        <td th:text="${product.isbnNumber}"></td>
+                        <td>
+                            <a href="#" class="btn btn-primary btn-xs purple editView" title="Edit"
+                               th:href="@{'/book/edit/'+${product.id}}"><i class="fa fa-edit"></i> Edit</a>
+                            <a href="#" class="btn btn-danger btn-xs purple deleteView" title="Delete"
+                               th:href="@{'/book/delete/'+${product.id}}"><i class="fa fa-trash-o"></i>
+                                Delete</a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</div>
+</body>
+</html>

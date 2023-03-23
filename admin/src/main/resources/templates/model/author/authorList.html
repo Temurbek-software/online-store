@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>AuthorList</title>
+
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <div th:if="${param.success}">
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> Success!</h4>
+                Information saved successfully.
+            </div>
+        </div>
+        <div th:if="${param.deleted}">
+            <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> Deleted!</h4>
+                Information deleted successfully.
+            </div>
+        </div>
+        <!-- Page Heading -->
+        <h1 style="text-align: center" class="h3 mb-2 text-gray-800">Author</h1>
+        <p class="mb-4">Our mission is simple: To help local,
+            independent bookstores thrive in the age of ecommerce
+            It is written in our governance documents that we will never
+            sell the company to Amazon or any major U.S. retailer.
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Author table</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Email</th>
+                            <th>PhoneNumber</th>
+<!--                            <th>Description</th>-->
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Email</th>
+                            <th>PhoneNumber</th>
+<!--                            <th>Description</th>-->
+                            <th>Action</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr th:each="authors:${authorList}">
+                            <td th:text="${authors.firstName}"></td>
+                            <td th:text="${authors.lastName}"></td>
+                            <td th:text="${authors.email}"></td>
+                            <td th:text="${authors.phoneNumber}"></td>
+<!--                            <td th:text="${authors.description}"></td>-->
+                            <td>
+                                <a href="#" class="btn btn-primary btn-xs purple editView" title="Edit"
+                                   th:href="@{'/author/edit/'+${authors.id}}"><i class="fa fa-edit"></i>Edit</a>
+                                <a href="#" class="btn btn-danger btn-xs purple deleteView"
+                                   title="Delete"th:href="@{'/author/delete/'+${authors.id}}">
+                                    <i class="fa fa-trash-o"></i>Delete</a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

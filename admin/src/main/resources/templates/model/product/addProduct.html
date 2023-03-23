@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        label {
+            margin: 0 0 0 2px;
+        }
+
+        .form-row, .form-group {
+            margin-top: 16px !important;
+        }
+
+        select {
+            width: 20em;
+        }
+    </style>
+
+    <!-- datepicker styles -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 px-5">
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Books</h1>
+                <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                    For more information about DataTables, please visit the
+
+
+                    <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Book list here</h6>
+                    </div>
+                    <div class="card-body">
+                        <form accept-charset="UTF-8" th:action="@{/book/save}" th:object="${productWrapper}"
+                              method="POST"
+                              enctype="multipart/form-data">
+
+                            <!--                                <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">-->
+                            <!--                                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>-->
+                            <!--                                </div>-->
+
+                            <div class="form-group">
+                                <label for="id">Book ID</label>
+                                <input type="text" name="id" class="form-control" id="id"
+                                       placeholder="Book id" readonly="readonly"
+                                       th:field="*{id}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName">Book Name</label>
+                                <input type="text" name="fullname" class="form-control" id="exampleInputName"
+                                       placeholder="Enter book name" required="required"
+                                       th:field="*{bookName}">
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="exampleInputName">electron price</label>
+                                    <input type="text" class="form-control" placeholder="electron price"
+                                           th:field="*{e_price}">
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputName">Papper version</label>
+                                    <input type="text" class="form-control" placeholder="Printed version"
+                                           th:field="*{printed_Price}">
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputName">audio price</label>
+                                    <input type="text" class="form-control" placeholder="Audio price"
+                                           th:field="*{audio_price}">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="exampleInputName">Page Number</label>
+                                    <input type="text" class="form-control" placeholder="Page number"
+                                           th:field="*{pageNumb}">
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputName">Language</label>
+                                    <input type="text" class="form-control" placeholder="Language"
+                                           th:field="*{language}">
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputName">ISNB number</label>
+                                    <input type="text" class="form-control" placeholder="ISNB number"
+                                           th:field="*{isbnNumber}">
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputName">date</label>
+                                    <div class="datepicker date input-group">
+                                        <input type="text" placeholder="Choose Date" th:field="*{yearOfPublished}"
+                                               class="form-control" id="fecha1">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="col">
+                                    <label for="exampleFormControlSelect2">Category</label>
+                                    <select class="form-control" th:field="*{categoryItems.id}"
+                                            id="exampleFormControlSelect2"
+                                            required="required">
+                                        <option value="">Select...</option>
+                                        <option th:each="categoryIn : ${categories}" th:utext="${categoryIn.name}"
+                                                th:value="${categoryIn.id}"></option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleFormControlSelect12">SubCategory</label>
+                                    <select class="form-control" th:field="*{subCategory.id}"
+                                            id="exampleFormControlSelect12"
+                                            required="required">
+                                        <option value="">Select...</option>
+                                        <option th:each="catego : ${subcategoryList}" th:utext="${catego.categoryName}"
+                                                th:value="${catego.id}"></option>
+                                    </select>
+                                </div>
+
+
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="exampleFormControlSelect3">Company</label>
+                                    <select class="form-control" th:field="*{productCompany.id}"
+                                            id="exampleFormControlSelect3"
+                                            required="required">
+                                        <option value="">Select...</option>
+                                        <option th:each="comp : ${companies}" th:utext="${comp.nameOfCompany}"
+                                                th:value="${comp.id}"></option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleFormControlSelect4">Publisher</label>
+                                    <select class="form-control" th:field="*{productPublisherList.id}"
+                                            id="exampleFormControlSelect4"
+                                            required="required">
+                                        <option value="">Select...</option>
+                                        <option th:each="publisher : ${publishers}" th:utext="${publisher.name}"
+                                                th:value="${publisher.id}"></option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="multiple-checkboxes">Authors</label>
+                                    <select class="form-control" th:field="*{productAuthorList}"
+                                            id="multiple-checkboxes" multiple="multiple">
+                                        <option th:each="author : ${authorList}"
+                                                th:utext="${author.getFirstName()}"
+                                                th:value="${{author.id}}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea11">Description</label>
+                                <textarea class="form-control" th:field="*{description}"
+                                          id="exampleFormControlTextarea11" rows="3"></textarea>
+                            </div>
+                            <hr>
+                            <!-- upload image -->
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label for="image_posted1">Upload image 1</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input id="image_posted1" type="file" name="image_posted1"
+                                           th:field="*{image_posted1}"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="hidden" th:field="*{imageData}"/>
+                                    <img th:src="@{${productWrapper.getFullImage1Url()}}"
+                                         style="width:150px;height:150px;"/>
+                                </div>
+                            </div>
+
+                            <hr>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<th:block layout:fragment="script">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+    <!-- Datepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script th:src="@{/static/js/multiselect.js}"></script>
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            $('#multiple-checkboxes').multiselect({
+                includeSelectAllOption: true,
+            });
+
+
+            $('.datepicker').datepicker({
+                language: "es",
+                autoclose: true,
+                format: "dd/mm/yyyy"
+            });
+        });
+
+    </script>
+</th:block>
+</body>
+</html>

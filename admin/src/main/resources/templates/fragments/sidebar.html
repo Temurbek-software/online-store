@@ -1,0 +1,185 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+    xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Welcome <sup>2</sup></div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" th:href="@{/}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Interface
+    </div>
+
+    <!-- Book services -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <i class='fa fa-book'></i>
+            <span>Book</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Book services:</h6>
+                <a class="collapse-item" th:href="@{/book/add}">Add book</a>
+                <a class="collapse-item" th:href="@{/book/list}">Manage</a>
+                <a class="collapse-item" th:href="@{/book/deleted}">Deleted</a>
+            </div>
+        </div>
+    </li>
+
+<!--    Author services-->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2"
+           aria-expanded="true" aria-controls="collapseUtilities2">
+            <i class='fa fa-address-book'></i>
+            <span>Author</span>
+        </a>
+        <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Author services:</h6>
+                <a class="collapse-item" th:href="@{/author/add}">Add author</a>
+                <a class="collapse-item" th:href="@{/author/list}">Manage</a>
+                <a class="collapse-item" th:href="@{/author/deleted}">Deleted</a>
+            </div>
+        </div>
+    </li>
+<!--    Category services-->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities1"
+           aria-expanded="true" aria-controls="collapseUtilities1">
+            <i class='fa fa-bars'></i>
+            <span>Category</span>
+        </a>
+        <div id="collapseUtilities1" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Category services:</h6>
+                <a class="collapse-item" th:href="@{/category/add}">Add category</a>
+                <a class="collapse-item" th:href="@{/category/list}">Manage</a>
+                <a class="collapse-item" th:href="@{/category/deleted}">Deleted</a>
+            </div>
+        </div>
+    </li>
+<!--    SubCategory-->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3"
+           aria-expanded="true" aria-controls="collapseUtilities3">
+            <i class='fa fa-qrcode'></i>
+            <span>SubCategory</span>
+        </a>
+        <div id="collapseUtilities3" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">SubCategory services:</h6>
+                <a class="collapse-item" th:href="@{/subcategory/add}">Add subcategory</a>
+                <a class="collapse-item" th:href="@{/subcategory/list}">Manage</a>
+                <a class="collapse-item" th:href="@{/subcategory/deleted}">Deleted</a>
+            </div>
+        </div>
+    </li>
+<!--    Publisher service-->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities4"
+           aria-expanded="true" aria-controls="collapseUtilities4">
+            <i class='fas fa-city'></i>
+            <span>Publisher service</span>
+        </a>
+        <div id="collapseUtilities4" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">SubCategory services:</h6>
+                <a class="collapse-item" th:href="@{/publisher/add}">Add Publisher</a>
+                <a class="collapse-item" th:href="@{/publisher/list}">Manage</a>
+                <a class="collapse-item" th:href="@{/publisher/deleted}">Deleted</a>
+            </div>
+        </div>
+    </li>
+<!--    Company service-->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities5"
+           aria-expanded="true" aria-controls="collapseUtilities5">
+            <i class='fas fa-map-marked'></i>
+            <span>Company</span>
+        </a>
+        <div id="collapseUtilities5" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Company services:</h6>
+                <a class="collapse-item" th:href="@{/company/add}">Add company</a>
+                <a class="collapse-item" th:href="@{/company/list}">Manage</a>
+                <a class="collapse-item" th:href="@{/company/deleted}">Deleted</a>
+            </div>
+        </div>
+    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Additional
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+           aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Pages</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Login Screens:</h6>
+                <a class="collapse-item" href="login.html">Login</a>
+                <a class="collapse-item" href="register.html">Register</a>
+                <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                <div class="collapse-divider"></div>
+                <h6 class="collapse-header">Other Pages:</h6>
+                <a class="collapse-item" href="404.html">404 Page</a>
+                <a class="collapse-item" href="blank.html">Blank Page</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Charts -->
+    <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Charts</span></a>
+    </li>
+
+    <!-- Nav Item - Tables -->
+    <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Tables</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+
+</ul>

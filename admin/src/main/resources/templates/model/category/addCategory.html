@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Category</title>
+    <style>
+        label {
+            margin: 0 0 0 2px;
+        }
+
+        .form-row, .form-group {
+            margin-top: 16px !important;
+        }
+
+        select {
+            width: 20em;
+        }
+    </style>
+
+    <!-- datepicker styles -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 px-5">
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Category</h1>
+                <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                    For more information about DataTables, please visit the
+                    <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Saving new category</h6>
+                    </div>
+                    <div class="card-body">
+                        <form accept-charset="UTF-8" th:action="@{/category/save}" th:object="${categoryNewData}"
+                              method="POST"
+                              enctype="multipart/form-data">
+                            <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                                <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="id">Category ID</label>
+                                <input type="text" name="id" class="form-control" id="id"
+                                       placeholder="Category id" readonly="readonly"
+                                       th:field="*{id}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName">Category name</label>
+                                <input type="text" name="fullname" class="form-control" id="exampleInputName"
+                                       placeholder="Enter your name and surname" required="required"
+                                       th:field="*{name}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea11">Description</label>
+                                <textarea class="form-control" th:field="*{description}"
+                                          id="exampleFormControlTextarea11" rows="3"></textarea>
+                            </div>
+                            <hr>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block layout:fragment="script">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+    <!-- Datepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script th:src="@{/static/js/multiselect.js}"></script>
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            $('#multiple-checkboxes').multiselect({
+                includeSelectAllOption: true,
+            });
+
+
+            $('.datepicker').datepicker({
+                language: "es",
+                autoclose: true,
+                format: "dd/mm/yyyy"
+            });
+        });
+
+    </script>
+</th:block>
+</body>
+</html>

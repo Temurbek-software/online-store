@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Subcategory</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 px-5">
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Subcategory</h1>
+                <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                    For more information about DataTables, please visit the
+                    <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Sub Category here</h6>
+                    </div>
+                    <div class="card-body">
+                        <form accept-charset="UTF-8" th:action="@{/subcategory/save}" th:object="${categoryDTO}" method="POST"
+                              enctype="multipart/form-data">
+                            <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                                <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="id">Subcategory ID</label>
+                                <input type="text" name="id" class="form-control" id="id"
+                                       placeholder="Subcategory" readonly="readonly"
+                                       th:field="*{id}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName">Sub Category name</label>
+                                <input type="text" name="fullname" class="form-control" id="exampleInputName"
+                                       placeholder="Enter sub category" required="required"
+                                       th:field="*{categoryName}">
+                            </div>
+
+                            <div class="form-row">
+                                    <label for="exampleFormControlSelect4">Choose category</label>
+                                    <select class="form-control" th:field="*{subcategory.id}"
+                                            id="exampleFormControlSelect4"
+                                            required="required">
+                                        <option th:each="categ : ${categoryList}" th:utext="${categ.name}"
+                                                th:value="${categ.id}"></option>
+                                    </select>
+                            </div>
+                            <hr>
+                            <button type="submit"  class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

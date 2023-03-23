@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Company List</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <div th:if="${param.success}">
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> Success!</h4>
+                Information saved successfully.
+            </div>
+        </div>
+        <div th:if="${param.deleted}">
+            <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> Deleted!</h4>
+                Information deleted successfully.
+            </div>
+        </div>
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Company</h1>
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+            For more information about DataTables, please visit the
+            <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Company list here</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Company name</th>
+                            <th>Address</th>
+                            <th>Phone number</th>
+                            <th>Email</th>
+                            <th>Published date</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Company name</th>
+                            <th>Address</th>
+                            <th>Phone number</th>
+                            <th>Email</th>
+                            <th>Published date</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr th:each="company:${companyList}">
+                            <td th:text="${company.nameOfCompany}"></td>
+                            <td th:text="${company.address}"></td>
+                            <td th:text="${company.phoneNumber}"></td>
+                            <td th:text="${company.email}"></td>
+                            <td th:text="${company.yearOfPublished}"></td>
+                            <td th:text="${company.description}"></td>
+                            <td>
+                                <a  class="btn btn-primary btn-xs purple editView" title="Edit"
+                                   th:href="@{'/company/edit/'+${company.id}}"><i class="fa fa-edit"></i> Edit</a>
+                                <a  class="btn btn-danger btn-xs purple deleteView" title="Delete"
+                                   th:href="@{'/company/delete/'+${company.id}}">
+                                    <i class="fa fa-trash-o"></i>Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

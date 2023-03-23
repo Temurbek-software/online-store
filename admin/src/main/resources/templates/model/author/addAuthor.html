@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new Author</title>
+    <style>
+        label {
+            margin: 0 0 0 2px;
+        }
+
+        .form-row, .form-group {
+            margin-top: 16px !important;
+        }
+
+        select {
+            width: 20em;
+        }
+    </style>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 style="text-align: center" class="h3 mb-2 text-gray-800">Author</h1>
+        <p class="mb-4">Our mission is simple: To help local,
+            independent bookstores thrive in the age of ecommerce
+            It is written in our governance documents that we will never
+            sell the company to Amazon or any major U.S. retailer.
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Author table</h6>
+            </div>
+            <div class="card-body">
+                <form  accept-charset="UTF-8" th:action="@{/author/save}" th:object="${authorDtoData}"
+                       method="POST"
+                      enctype="multipart/form-data">
+<!--                    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">-->
+<!--                        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>-->
+<!--                    </div>-->
+                    <div class="form-group">
+                        <label for="id">Book ID</label>
+                        <input type="text" name="id" class="form-control" id="id"
+                               placeholder="Book id" readonly="readonly"
+                               th:field="*{id}">
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="exampleInputName">First name</label>
+                            <input type="text" name="firstName" class="form-control" id="exampleInputName"
+                                   placeholder="Enter your first name" required="required"
+                                   th:field="*{firstName}">
+                        </div>
+                        <div class="col">
+                            <label for="exampleInputName">Last name</label>
+                            <input type="text" name="lastName" class="form-control" placeholder="Last name"
+                                   th:field="*{lastName}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col">
+                            <label for="multiple-checkboxes">Choose product</label>
+                            <select class="form-control" th:field="*{productDTOSet}"
+                                    id="multiple-checkboxes"  multiple="multiple">
+                                <option th:each="pro : ${productList}"
+                                        th:utext="${pro.getBookName()}"
+                                        th:value="${pro.id}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="exampleInputName">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Email"
+                                   th:field="*{email}">
+                        </div>
+                        <div class="col">
+                            <label for="exampleInputName">Page Number</label>
+                            <input type="text" name="phoneNumber" class="form-control" placeholder="phone number"
+                                   th:field="*{phoneNumber}">
+                        </div>
+                        <div class="col">
+                            <label for="exampleInputName">Short description</label>
+                            <input type="text" name="phoneNumber" class="form-control" placeholder="short description"
+                                   th:field="*{shortDescription}">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea11">Description</label>
+                        <textarea class="form-control" th:field="*{description}"
+                                  id="exampleFormControlTextarea11" rows="3"></textarea>
+                    </div>
+                    <hr>
+                    <!-- upload image -->
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <label for="image_posted1">Upload image 1</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input id="image_posted1" type="file" name="image_posted1"  th:field="*{image_posted1}"/>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="hidden" th:field="*{image1}"/>
+                            <img th:src="@{${authorDtoData.getFullImage1Url()}}" style="width:150px;height:150px;"/>
+                        </div>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block layout:fragment="script">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+    <!-- Datepicker -->
+    <script th:src="@{/static/js/multiselect.js}"></script>
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            $('#multiple-checkboxes').multiselect({
+                includeSelectAllOption: true,
+            });
+        });
+    </script>
+</th:block>
+</body>
+</html>

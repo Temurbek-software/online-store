@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <th:block layout:fragment="links">
+<!--        <link rel="stylesheet" th:href="@{/css/authors.css}"/>-->
+    </th:block>
+<style>
+    .product-image img {
+        aspect-ratio: 3/4 !important;
+        height: fit-content;
+        object-fit: contain;
+    }
+    .single-product .product-info {
+        padding: 5px;
+    }
+    .product-image {
+        height: 194px;
+
+    }
+    .single-product{
+        height: 90%;
+    }
+    .footer-card{
+        padding: 0 25px !important;
+    }
+    .footer-card .list-inline{
+        margin-top: 8px;
+    }
+    .price h1{
+        font-size: 28px !important;
+    }
+</style>
+</head>
+<body>
+<!--breadcrumb-->
+<div layout:fragment="breadcrumb">
+
+</div>
+<div layout:fragment="content">
+    <section class="hero-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-12 custom-padding-right">
+                    <div class="slider-head">
+                        <div class="tns-outer" id="tns1-ow">
+                            <div class="tns-controls"
+                                 aria-label="Carousel Navigation"
+                                 tabindex="0">
+                                <button
+                                        type="button"
+                                        data-controls="prev"
+                                        tabindex="-1"
+                                        aria-controls="tns1"
+                                >
+                                    <i class="lni lni-chevron-left"></i>
+                                </button>
+                                <button
+                                        type="button"
+                                        data-controls="next"
+                                        tabindex="-1"
+                                        aria-controls="tns1"
+                                >
+                                    <i class="lni lni-chevron-right"></i>
+                                </button>
+                            </div>
+                            <div
+                                    class="tns-liveregion tns-visually-hidden"
+                                    aria-live="polite"
+                                    aria-atomic="true"
+                            >
+                                slide <span class="current">4</span> of 2
+                            </div>
+                            <div id="tns1-mw" class="tns-ovh">
+                                <div class="tns-inner" id="tns1-iw">
+                                    <div
+                                            class="hero-slider tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal"
+                                            id="tns1"
+                                            style="transform: translate3d(-50%, 0px, 0px);transition-duration: 0s; ">
+                                        <div
+                                                class="single-slider tns-item tns-slide-cloned"
+                                                th:style="'background-image: url(https://www.kfadv.it/wp-content/uploads/2020/02/2_febbraio_2020-1.jpg);'"
+                                                aria-hidden="true"
+                                                tabindex="-1">
+                                            <div class="content">
+
+                                            </div>
+                                        </div>
+                                        <div
+                                                class="single-slider tns-item tns-slide-cloned"
+                                                th:style="'background-image: url(https://www.quotemaster.org/images/a3/a3d729d794f07f194d21566b1ee055a9.jpg);'"
+                                                aria-hidden="true"
+                                                tabindex="-1">
+                                            <div class="content">
+
+                                            </div>
+                                        </div>
+
+                                        <div
+                                                class="single-slider tns-item"
+                                                th:style="'background-image: url(https://static01.nyt.com/images/2022/09/30/books/00OCTOBER-BOOKS-COMBO/00OCTOBER-BOOKS-COMBO-videoSixteenByNine3000.jpg);'"
+                                                id="tns1-item0"
+                                                aria-hidden="true"
+                                                tabindex="-1">
+                                            <div class="content">
+
+                                            </div>
+                                        </div>
+
+                                        <div
+                                                class="single-slider tns-item tns-slide-active"
+                                                th:style="'background-image: url(https://images.squarespace-cdn.com/content/v1/57c6b79629687fde090a0fdd/3272f834-e8e3-460c-b332-df3b6875ec20/bundle-new.png?format=1000w);'"
+                                                id="tns1-item1">
+                                            <div class="content">
+<!--                                                <h2>-->
+<!--                                                    <span>Big Sale Offer</span>-->
+<!--                                                    Get the Best Deal on CCTV Camera-->
+<!--                                                </h2>-->
+<!--                                                <p>-->
+<!--                                                    Lorem ipsum dolor sit amet, consectetur elit, sed do-->
+<!--                                                    eiusmod tempor incididunt ut labore dolore magna-->
+<!--                                                    aliqua.-->
+<!--                                                </p>-->
+<!--                                                <h3><span>Combo Only:</span> $590.00</h3>-->
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- New books in this week -->
+    <section class="trending-product section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h2>Best seller book</h2>
+                        <p>
+                            There are many variations of passages of Lorem Ipsum available,
+                            but the majority have suffered alteration in some form.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mt-4" style="display: flex; justify-content: end;">
+                    <a class="see-all-link float-right mt-xs"
+                       href="#">See All</a></div>
+
+            </div>
+            <div class="row">
+                <div th:each="books:${bookList}"  class="col-lg-2 col-md-6 col-12">
+                    <div class="single-product">
+                        <div class="product-image">
+                            <img th:src="#{adminPath}+${books.getFullImage1Url()}" alt="#"/>
+                            <div class="button">
+                                <a th:href="@{/book-details(id=${books.id})}" class="btn">
+                                    <i class="lni lni-cart"></i> Add to Cart</a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span th:text="${books.getSubCategory().categoryName}" class="category"></span>
+                            <h4 class="title">
+                                <a th:text="${books.bookName}" href="product-grids.html"> </a>
+                            </h4>
+                            <ul class="review">
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star"></i></li>
+                                <li><span>4.0 Review(s)</span></li>
+                            </ul>
+                            <div class="price">
+                                <span th:text="${books.e_price}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!-- Best seller -->
+    <section class="trending-product section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h2>new books in this week</h2>
+                        <p>
+                            There are many variations of passages of Lorem Ipsum available,
+                            but the majority have suffered alteration in some form.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mt-4" style="display: flex; justify-content: end;">
+                    <a class="see-all-link float-right mt-xs"
+                       href="https://www.barnesandnoble.com/b/books/_/N-1sZ29Z8q8">See All</a></div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-6 col-12">
+                    <div class="single-product">
+                        <div class="product-image">
+                            <img
+                                    th:src="@{https://kitaabnow.com/wp-content/uploads/2020/10/Secondary-English-Book-Two-KitaabNow.com_.jpg}"
+
+                                    alt="#"
+                            />
+                            <div class="button">
+                                <a href="product-details.html" class="btn"
+                                ><i class="lni lni-cart"></i> Add to Cart</a
+                                >
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="category">Watches</span>
+                            <h4 class="title">
+                                <a href="product-grids.html">Xiaomi Mi Band 5</a>
+                            </h4>
+                            <ul class="review">
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star"></i></li>
+                                <li><span>4.0 Review(s)</span></li>
+                            </ul>
+                            <div class="price">
+                                <span>$199.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-12">
+                    <div class="single-product">
+                        <div class="product-image">
+                            <img
+                                    th:src="@{https://sahitya.b-cdn.net/wp-content/uploads/2021/07/2292-1.jpg}"
+                                    alt="#"
+                            />
+                            <span class="sale-tag">-25%</span>
+                            <div class="button">
+                                <a href="product-details.html" class="btn"
+                                ><i class="lni lni-cart"></i> Add to Cart</a
+                                >
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="category">Speaker</span>
+                            <h4 class="title">
+                                <a href="product-grids.html">Big Power Sound Speaker</a>
+                            </h4>
+                            <ul class="review">
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><span>5.0 Review(s)</span></li>
+                            </ul>
+                            <div class="price">
+                                <span>$275.00</span>
+                                <span class="discount-price">$300.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-12">
+                    <div class="single-product">
+                        <div class="product-image">
+                            <img th:src="@{https://inwfile.com/s-do/x5mjig.jpg}" alt="#"/>
+                            <div class="button">
+                                <a href="product-details.html" class="btn"
+                                ><i class="lni lni-cart"></i> Add to Cart</a
+                                >
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="category">Camera</span>
+                            <h4 class="title">
+                                <a href="product-grids.html">WiFi Security Camera</a>
+                            </h4>
+                            <ul class="review">
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><span>5.0 Review(s)</span></li>
+                            </ul>
+                            <div class="price">
+                                <span>$399.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-12">
+                    <div class="single-product">
+                        <div class="product-image">
+                            <img th:src="@{/images/products/product-4.jpg}" alt="#"/>
+                            <span class="new-tag">New</span>
+                            <div class="button">
+                                <a href="product-details.html" class="btn"
+                                ><i class="lni lni-cart"></i> Add to Cart</a
+                                >
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="category">Phones</span>
+                            <h4 class="title">
+                                <a href="product-grids.html">iphone 6x plus</a>
+                            </h4>
+                            <ul class="review">
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><span>5.0 Review(s)</span></li>
+                            </ul>
+                            <div class="price">
+                                <span>$400.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-12">
+                    <div class="single-product">
+                        <div class="product-image">
+                            <img th:src="@{https://inwfile.com/s-do/x5mjig.jpg}" alt="#"/>
+                            <div class="button">
+                                <a href="product-details.html" class="btn"
+                                ><i class="lni lni-cart"></i> Add to Cart</a
+                                >
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="category">Camera</span>
+                            <h4 class="title">
+                                <a href="product-grids.html">WiFi Security Camera</a>
+                            </h4>
+                            <ul class="review">
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><span>5.0 Review(s)</span></li>
+                            </ul>
+                            <div class="price">
+                                <span>$399.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-12">
+                    <div class="single-product">
+                        <div class="product-image">
+                            <img th:src="@{/images/products/product-4.jpg}" alt="#"/>
+                            <span class="new-tag">New</span>
+                            <div class="button">
+                                <a href="product-details.html" class="btn"
+                                ><i class="lni lni-cart"></i> Add to Cart</a
+                                >
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="category">Phones</span>
+                            <h4 class="title">
+                                <a href="product-grids.html">iphone 6x plus</a>
+                            </h4>
+                            <ul class="review">
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><span>5.0 Review(s)</span></li>
+                            </ul>
+                            <div class="price">
+                                <span>$400.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- Authors -->
+    <section class="featured-categories section">
+        <div class="py-5 team3">
+            <div class="container">
+                <div class="row justify-content-center mb-4">
+                    <div class="col-md-7 text-center">
+                        <h3 class="mb-3">Experienced & Professional Team</h3>
+                        <p>You can relay on our amazing features list and also our customer services
+                            will be great experience for you without doubt and in no-time</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mt-4" style="display: flex; justify-content: end;">
+                        <a class="see-all-link float-right mt-xs"
+                           href="https://www.barnesandnoble.com/b/books/_/N-1sZ29Z8q8">See All</a></div>
+
+                </div>
+                <br>
+                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-10 offset-1">
+                            <div  class="row">
+                                    <div th:each="author:${authors}" class="col-lg-3 col-md-3 px-6 mb-4 footer-card">
+                                        <!-- Row -->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <img th:src="#{adminPath}+${author.getFullImage1Url()}" alt="wrapkit" class="img-fluid rounded-circle"/>
+                                            </div>
+                                            <div class="col-md-12 text-center">
+                                                <div class="pt-2">
+                                                    <h5 th:text="${author.firstName.concat(' ') +author.lastName}" class="mt-4 font-weight-medium mb-0"></h5>
+                                                    <h6 th:text="${author.email}" class="subtitle mb-3"></h6>
+                                                    <p th:text="${author.shortDescription}"></p>
+                                                    <ul class="list-inline">
+                                                        <li class="list-inline-item"><a href="#"
+                                                                                        class="text-decoration-none d-block px-1">
+                                                            <i class="lni lni-facebook-filled"></i>
+                                                        </a>
+                                                        </li>
+                                                        <li class="list-inline-item">
+                                                            <a href="#" class="text-decoration-none d-block px-1">
+                                                                <i class="lni lni-twitter-original"></i></a>
+                                                        </li>
+                                                        <li class="list-inline-item">
+                                                            <a href="#" class="text-decoration-none d-block px-1">
+                                                                <i class="lni lni-instagram"></i></a>
+                                                        </li>
+                                                        <li class="list-inline-item">
+                                                            <a href="#" class="text-decoration-none d-block px-1">
+                                                                <i class="lni lni-behance"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Row -->
+                                    </div>
+                                <!-- column  -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!--    Tariff services-->
+    <section class="blog-section section">
+        <div class="text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            <h2>Our book store tariffs</h2>
+                            <p>
+                                There are many variations of passages of Lorem Ipsum available,
+                                but the majority have suffered alteration in some form.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-4 price">
+                    <div class="col-md-3">
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">Free</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1><b>$0 </b><small class="text-muted">/ mo</small></h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>10 users included</li>
+                                    <li>2 GB of storage</li>
+                                    <li>Email support</li>
+                                    <li>Help center access</li>
+                                </ul>
+                                <button type="button" class="btn btn-lg btn-block btn-outline-info">Sign up for free
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">Pro</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1><b>$15 </b><small class="text-muted">/ mo</small></h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>20 users included</li>
+                                    <li>10 GB of storage</li>
+                                    <li>Priority email support</li>
+                                    <li>Help center access</li>
+                                </ul>
+                                <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">Pro</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1><b>$15 </b><small class="text-muted">/ mo</small></h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>20 users included</li>
+                                    <li>10 GB of storage</li>
+                                    <li>Priority email support</li>
+                                    <li>Help center access</li>
+                                </ul>
+                                <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">Enterprise</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1><b>$29 </b><small class="text-muted">/ mo</small></h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>30 users included</li>
+                                    <li>15 GB of storage</li>
+                                    <li>Phone and email support</li>
+                                    <li>Help center access</li>
+                                </ul>
+                                <button type="button" class="btn btn-lg btn-block btn-primary">Contact us</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!--    Special offer-->
+<!--    <section class="special-offer section">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!--                <div class="col-12">-->
+<!--                    <div class="section-title">-->
+<!--                        <h2>Special Offer</h2>-->
+<!--                        <p>-->
+<!--                            There are many variations of passages of Lorem Ipsum available,-->
+<!--                            but the majority have suffered alteration in some form.-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+    <!--    Shipping-->
+    <section class="shipping-info">
+        <div class="container">
+            <ul>
+                <li>
+                    <div class="media-icon">
+                        <i class="lni lni-delivery"></i>
+                    </div>
+                    <div class="media-body">
+                        <h5>Cheap delivery</h5>
+                        <span>On order over $99</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="media-icon">
+                        <i class="lni lni-support"></i>
+                    </div>
+                    <div class="media-body">
+                        <h5>24/7 Support.</h5>
+                        <span>Live Chat Or Call.</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="media-icon">
+                        <i class="lni lni-credit-cards"></i>
+                    </div>
+                    <div class="media-body">
+                        <h5>Online Payment.</h5>
+                        <span>Secure Payment Services.</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="media-icon">
+                        <i class="lni lni-reload"></i>
+                    </div>
+                    <div class="media-body">
+                        <h5>Exchange</h5>
+                        <span>Hassle Free Shopping.</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+<!--for script -->
+<th:block layout:fragment="script1">
+    <script type="text/javascript">
+        //========= Hero Slider
+        tns({
+            container: ".hero-slider",
+            slideBy: "page",
+            autoplay: true,
+            autoplayButtonOutput: false,
+            mouseDrag: true,
+            gutter: 0,
+            items: 1,
+            nav: false,
+            controls: true,
+            controlsText: [
+                '<i class="lni lni-chevron-left"></i>',
+                '<i class="lni lni-chevron-right"></i>',
+            ],
+        });
+
+        //======== Brand Slider
+        tns({
+            container: ".brands-logo-carousel",
+            autoplay: true,
+            autoplayButtonOutput: false,
+            mouseDrag: true,
+            gutter: 15,
+            nav: false,
+            controls: false,
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                540: {
+                    items: 3,
+                },
+                768: {
+                    items: 5,
+                },
+                992: {
+                    items: 6,
+                },
+            },
+        });
+    </script>
+    <script>
+        const finaleDate = new Date("February 15, 2023 00:00:00").getTime();
+
+        const timer = () => {
+            const now = new Date().getTime();
+            let diff = finaleDate - now;
+            if (diff < 0) {
+                document.querySelector(".alert").style.display = "block";
+                document.querySelector(".container").style.display = "none";
+            }
+
+            let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            let hours = Math.floor(
+                (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+            );
+            let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            days <= 99 ? (days = `0${days}`) : days;
+            days <= 9 ? (days = `00${days}`) : days;
+            hours <= 9 ? (hours = `0${hours}`) : hours;
+            minutes <= 9 ? (minutes = `0${minutes}`) : minutes;
+            seconds <= 9 ? (seconds = `0${seconds}`) : seconds;
+
+            document.querySelector("#days").textContent = days;
+            document.querySelector("#hours").textContent = hours;
+            document.querySelector("#minutes").textContent = minutes;
+            document.querySelector("#seconds").textContent = seconds;
+        };
+        timer();
+        setInterval(timer, 1000);
+    </script>
+
+</th:block>
+</body>
+</html>
