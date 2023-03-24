@@ -121,38 +121,37 @@
                                     <div class="col-md-6">
                                         <label for="firstName" class="form-label">First Name *</label>
                                         <input type="text" class="form-control" th:field="*{firstName}" id="firstName"
-                                               placeholder="" aria-label="First name"
-                                               th:value="${firstName}">
+                                               placeholder="" aria-label="First name">
                                     </div>
                                     <!-- Last name -->
                                     <div class="col-md-6">
                                         <label class="form-label">Last Name *</label>
-                                        <input type="text" class="form-control" th:field="*{lastName}" placeholder="" aria-label="Last name"
-                                               th:value="${customer.getLastName()}">
+                                        <input type="text" class="form-control" th:field="*{lastName}"
+                                               placeholder="" aria-label="Last name">
                                     </div>
                                     <!-- Phone number -->
                                     <div class="col-md-6">
                                         <label class="form-label">Phone number *</label>
-                                        <input type="text" class="form-control" th:field="*{phoneNumber}" placeholder="" aria-label="Phone number"
-                                               th:value="${customer.getPhoneNumber()}">
+                                        <input type="text" class="form-control" th:field="*{phoneNumber}"
+                                               placeholder="" aria-label="Phone number">
                                     </div>
                                     <!-- Mobile number -->
                                     <div class="col-md-6">
                                         <label class="form-label">Country *</label>
-                                        <input type="text" class="form-control" th:field="*{countryName}" placeholder="" aria-label="Phone number"
-                                               th:value="${customer.getCountryName()}">
+                                        <input type="text" class="form-control" th:field="*{countryName}"
+                                               placeholder="" aria-label="Phone number">
                                     </div>
                                     <!-- Email -->
                                     <div class="col-md-6">
                                         <label for="inputEmail4" class="form-label">Email *</label>
-                                        <input type="email" class="form-control" th:field="*{username}" id="inputEmail4"
-                                               th:value="${customer.getUsername()}">
+                                        <input type="email" class="form-control" th:field="*{username}"
+                                               id="inputEmail4">
                                     </div>
                                     <!-- Skype -->
                                     <div class="col-md-6">
                                         <label class="form-label">City *</label>
-                                        <input type="text" class="form-control" th:field="*{cityName}" placeholder="" aria-label="Phone number"
-                                               th:value="${customer.getCityName()}">
+                                        <input type="text" class="form-control" th:field="*{cityName}"
+                                               placeholder="" aria-label="Phone number">
                                     </div>
                                 </div> <!-- Row END -->
                             </div>

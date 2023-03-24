@@ -11,6 +11,7 @@ import online.market.model.repository.UserRepository;
 import online.market.service.entity.CustomerService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,14 +30,13 @@ public class CustomerServiceImpl implements CustomerService {
     private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        Users user = userRepository.findByUsername(username);
-        if(user == null) {
+        Customer customer = customerRepository.findByUsername(username);
+        if(customer == null) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),
-                user.getPassword()
-                , mapRolesToAuthorities(user.getRoles()));
+        return new User(customer.getUsername(),
+                customer.getPassword()
+                , mapRolesToAuthorities(customer.getRoles()));
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){

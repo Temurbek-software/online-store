@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,7 +41,7 @@ public class LoginController
         return "/auth/login";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login-second")
     public String signInPage(@ModelAttribute("customerRegistration") CustomerDto customerDto,
                              @RequestParam(name = "username") String username,
                              @RequestParam(name = "password") String password,
@@ -50,14 +51,28 @@ public class LoginController
             Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(username, password));
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            request.getSession().setAttribute("customer", customerDto);
+            Customer customer=customerService.findByUsername(username);
+            request.getSession().setAttribute("customer", customer);
+            System.out.println(customer);
             return "redirect:/";
         }
-        catch (AuthenticationException e) {
+        catch (AuthenticationException e)
+        {
+            model.addAttribute("classActiveMyAccount", "home active");
+            model.addAttribute("customerRegistration", customerDto);
             model.addAttribute("error", "Invalid username or password");
             return "/auth/login";
         }
     }
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/login?logout";
+    }
+
 
     @GetMapping("/forget-password")
     public String forgetPassword(Model model) {

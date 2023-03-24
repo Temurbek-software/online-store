@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -51,11 +52,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-
+//my account
         http
-                .authorizeRequests().
-                antMatchers(PUBLIC_MATCHERS).
-                permitAll().anyRequest().authenticated();
+                .authorizeRequests()
+                .antMatchers("/")
+                .antMatchers(PUBLIC_MATCHERS)
+                .permitAll()
+                .anyRequest().authenticated();
 
         http
                 .csrf().disable().cors().disable()
@@ -65,6 +68,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/?logout")//.deleteCookies("remember-me").permitAll()
+                .addLogoutHandler(new CookieClearingLogoutHandler("JSESSIONID"))
+                .permitAll()
                 .and()
                 .rememberMe();
     }
@@ -81,6 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/mail/**",
             "/ico/**",
             "/",
+            "/login-second",
             "/category",
             "/part-search",
             "/part-details",

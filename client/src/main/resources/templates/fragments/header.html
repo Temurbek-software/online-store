@@ -44,11 +44,9 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-12">
                     <div class="top-end">
-                        <div class="user">
-                            <i class="lni lni-user"></i>
-                            Hello
-                        </div>
-                        <ul class="user-login">
+
+                        <span sec:authorize="!isAuthenticated()">
+                            <ul class="user-login">
                             <li>
                                 <a th:href="@{/login}">Sign In</a>
                             </li>
@@ -56,6 +54,16 @@
                                 <a th:href="@{/register}">Register</a>
                             </li>
                         </ul>
+                        </span>
+                        <div sec:authorize="isAuthenticated()" class="user">
+                            <i class="lni lni-user"></i>
+                            <span sec:authentication="name"></span>
+                            <ul class="user-login">
+                                <li>
+                                    <a th:href="@{/logout}">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -209,7 +217,8 @@
                                      <i class="lni lni-chevron-right"></i>
                                 </a>
                                  <ul th:each="subcategory:${category.subCategories}" class="inner-sub-category">
-                                    <li><a th:href="@{/bookList-subcategory(id=${subcategory.id})}" th:text="${subcategory.categoryName}"></a></li>
+                                    <li><a th:href="@{/bookList-subcategory(id=${subcategory.id})}"
+                                           th:text="${subcategory.categoryName}"></a></li>
                                  </ul>
                                  </li>
                             </span>
