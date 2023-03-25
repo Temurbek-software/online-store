@@ -52,12 +52,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-//my account
         http
                 .authorizeRequests()
-                .antMatchers("/")
                 .antMatchers(PUBLIC_MATCHERS)
                 .permitAll()
+                .antMatchers("/my-account")
+                .hasRole("CUSTOMER")
                 .anyRequest().authenticated();
 
         http
