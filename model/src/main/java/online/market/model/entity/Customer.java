@@ -73,7 +73,7 @@ public class Customer extends BaseEntity {
                     name = "role_id"))
     private List<Role> roles = new ArrayList<>();
 
-    @OneToOne(mappedBy = "customer")
+    @OneToOne(mappedBy = "customer",cascade = CascadeType.ALL)
     private ShoppingCart shoppingCart;
 
     @OneToMany(mappedBy = "customer")

@@ -56,10 +56,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(PUBLIC_MATCHERS)
                 .permitAll()
-                .antMatchers("/my-account")
-                .hasRole("CUSTOMER")
+                .antMatchers("/my-account").authenticated()
                 .anyRequest().authenticated();
-
         http
                 .csrf().disable().cors().disable()
                 .formLogin().failureUrl("/login?error")
@@ -74,9 +72,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .rememberMe();
     }
 
-    public void configure(WebSecurity web) throws Exception {
-        // web.ignoring().antMatchers("/resources/static/**").anyRequest();
-    }
+//    public void configure(WebSecurity web) throws Exception {
+//         web.ignoring().antMatchers("/resources/static/**").anyRequest();
+//    }
 
     private static final String[] PUBLIC_MATCHERS = {
             "/css/**",

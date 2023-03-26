@@ -59,7 +59,6 @@ public class HomeController
         try {
             //Get product
             model.addAttribute("oneProduct", product);
-
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
             return "/client/product-details";

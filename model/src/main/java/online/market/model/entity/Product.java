@@ -90,7 +90,8 @@ public class Product extends BaseEntity {
     @JsonIgnore
     private Set<Author> productAuthorList = new HashSet<>();
 
-
+    @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)
+    private Advertisement advertisement;
 
     public void addAuthor(Author author) {
         this.productAuthorList.add(author);

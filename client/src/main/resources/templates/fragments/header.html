@@ -44,11 +44,10 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-12">
                     <div class="top-end">
-
                         <span sec:authorize="!isAuthenticated()">
                             <ul class="user-login">
                             <li>
-                                <a th:href="@{/login}">Sign In</a>
+                                <a style="color: white" th:href="@{/login}">Sign In</a>
                             </li>
                             <li>
                                 <a th:href="@{/register}">Register</a>
@@ -57,7 +56,9 @@
                         </span>
                         <div sec:authorize="isAuthenticated()" class="user">
                             <i class="lni lni-user"></i>
-                            <span sec:authentication="name"></span>
+                            <a th:href="@{/my-account}">
+                                <span sec:authentication="name"></span>
+                            </a>
                             <ul class="user-login">
                                 <li>
                                     <a th:href="@{/logout}">Logout</a>
