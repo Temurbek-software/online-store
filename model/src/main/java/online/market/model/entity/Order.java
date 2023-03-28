@@ -19,6 +19,7 @@ import java.util.List;
 @Table(name="orders")
 public class Order extends BaseEntity
 {
+
     //------------ Mapped Column -----------//
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id",nullable = false, referencedColumnName = "id")

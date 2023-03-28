@@ -185,7 +185,10 @@
                                     <!-- Nav Classic -->
                                     <ul class="col-lg-4 col-xl-3 pt-9 border-top d-lg-block tabs wc-tabs nav justify-content-lg-center flex-nowrap flex-lg-wrap overflow-auto overflow-lg-visble" id="pills-tab" role="tablist">
                                         <li class="flex-shrink-0 flex-lg-shrink-1 nav-item mb-3">
-                                            <a class="py-1 d-inline-block nav-link font-weight-medium active" id="pills-one-example1-tab" data-toggle="pill" href="#pills-one-example1" role="tab" aria-controls="pills-one-example1" aria-selected="true">
+                                            <a class="py-1 d-inline-block nav-link font-weight-medium active"
+                                               id="pills-one-example1-tab" data-toggle="pill"
+                                               href="#pills-one-example1" role="tab"
+                                               aria-controls="pills-one-example1" aria-selected="true">
                                                 Description
                                             </a>
                                         </li>
@@ -211,17 +214,16 @@
                                     <div class="tab-content col-lg-8 col-xl-9 border-top" id="pills-tabContent">
                                         <div class="woocommerce-Tabs-panel panel entry-content wc-tab tab-pane fade border-left pl-4 pt-4 pl-lg-6 pt-lg-6 pl-xl-9 pt-xl-9 show active" id="pills-one-example1" role="tabpanel" aria-labelledby="pills-one-example1-tab">
                                             <!-- Mockup Block -->
-                                            <p class="mb-0">We aim to show you accurate product information. Manufacturers,
-                                                suppliers and others provide what you see here,
-                                                and we have not verified it. See our disclaimer</p>
-                                            <p class="mb-0">#1 New York Times Bestseller</p>
-                                            <p class="mb-0">A Reese Witherspoon x Hello Sunshine Book Club Pick</p>
-                                            <p class="mb-4">"I can't even express how much I love this book! I didn't want this story to end!"--Reese Witherspoon</p>
-                                            <p class="mb-4">"Painfully beautiful."--The New York Times Book Review</p>
-                                            <p>"Perfect for fans of Barbara Kingsolver."--Bustle</p>
-                                            <p class="mb-4">For years, rumors of the "Marsh Girl" have haunted Barkley Cove, a quiet town on the North Carolina coast. So in late 1969, when handsome Chase Andrews is found dead, the locals immediately suspect Kya Clark, the so-called Marsh Girl. But Kya is not what they say. Sensitive and intelligent, she has survived for years alone in the marsh that she calls home, finding friends in the gulls and lessons in the sand. Then the time comes when she yearns to be touched and loved. When two young men from town become intrigued by her wild beauty, Kya opens herself to a new life--until the unthinkable happens.</p>
-                                            <p class="mb-4">Perfect for fans of Barbara Kingsolver and Karen Russell, Where the Crawdads Sing is at once an exquisite ode to the natural world, a heartbreaking coming-of-age story, and a surprising tale of possible murder. Owens reminds us that we are forever shaped by the children we once were, and that we are all subject to the beautiful and violent secrets that nature keeps</p>
-                                            <p>WHERE THE CRAWDADS LP</p>
+                                            <p class="mb-0" th:text="${oneProduct.description}">
+                                            </p>
+<!--                                            <p class="mb-0">#1 New York Times Bestseller</p>-->
+<!--                                            <p class="mb-0">A Reese Witherspoon x Hello Sunshine Book Club Pick</p>-->
+<!--                                            <p class="mb-4">"I can't even express how much I love this book! I didn't want this story to end!"&#45;&#45;Reese Witherspoon</p>-->
+<!--                                            <p class="mb-4">"Painfully beautiful."&#45;&#45;The New York Times Book Review</p>-->
+<!--                                            <p>"Perfect for fans of Barbara Kingsolver."&#45;&#45;Bustle</p>-->
+<!--                                            <p class="mb-4">For years, rumors of the "Marsh Girl" have haunted Barkley Cove, a quiet town on the North Carolina coast. So in late 1969, when handsome Chase Andrews is found dead, the locals immediately suspect Kya Clark, the so-called Marsh Girl. But Kya is not what they say. Sensitive and intelligent, she has survived for years alone in the marsh that she calls home, finding friends in the gulls and lessons in the sand. Then the time comes when she yearns to be touched and loved. When two young men from town become intrigued by her wild beauty, Kya opens herself to a new life&#45;&#45;until the unthinkable happens.</p>-->
+<!--                                            <p class="mb-4">Perfect for fans of Barbara Kingsolver and Karen Russell, Where the Crawdads Sing is at once an exquisite ode to the natural world, a heartbreaking coming-of-age story, and a surprising tale of possible murder. Owens reminds us that we are forever shaped by the children we once were, and that we are all subject to the beautiful and violent secrets that nature keeps</p>-->
+<!--                                            <p>WHERE THE CRAWDADS LP</p>-->
                                             <!-- End Mockup Block -->
                                         </div>
                                         <div class="woocommerce-Tabs-panel panel entry-content wc-tab tab-pane fade border-left pl-4 pt-4 pl-lg-6 pt-lg-6 pl-xl-9 pt-xl-9" id="pills-two-example1" role="tabpanel" aria-labelledby="pills-two-example1-tab">
@@ -243,7 +245,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th class="px-4 px-xl-5">Publisher:</th>
-                                                        <td>Little, Brown Book Group</td>
+                                                        <td th:text="${oneProduct.getProductPublisherList().name}"></td>
                                                     </tr>
                                                     <tr>
                                                         <th class="px-4 px-xl-5">Imprint:</th>
@@ -251,11 +253,11 @@
                                                     </tr>
                                                     <tr>
                                                         <th class="px-4 px-xl-5">Publication City/Country:</th>
-                                                        <td>London, United Kingdom</td>
+                                                        <td th:text="${oneProduct.getProductPublisherList().address}"></td>
                                                     </tr>
                                                     <tr>
                                                         <th class="px-4 px-xl-5">Language:</th>
-                                                        <td>English</td>
+                                                        <td th:text="${oneProduct.getLanguage()}"></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -539,47 +541,47 @@
                     <div id="secondary" class="sidebar widget-area order-1" role="complementary">
                         <div id="widgetAccordion">
                             <div class="widget p-4d875 border mb-5">
-                                <div class="mb-5">
+                                <div th:each="items:${productList}" class="mb-5">
                                     <div class="media d-md-flex">
                                         <a class="d-block" href="#">
-                                            <img class="img-fluid" th:src="@{/images/image_posted1.png}"
+                                            <img class="img-fluid" th:src="@{'http://localhost:81/admin' + ${items.getFullImage1Url()}}"
                                                  style="width:70px;height: 92px"
                                                  alt="Image-Description">
                                         </a>
                                         <div class="media-body ml-3 pl-1">
                                             <h6 class="font-size-2 text-lh-md font-weight-normal">
-                                                <a href="#">Lessons Learned from  15 Years as CEO...</a>
+                                                <a href="#" th:text="${items.description}"></a>
                                             </h6>
-                                            <span class="font-weight-medium">$37</span>
+                                            <span class="font-weight-medium" th:text="${items.printed_Price}"></span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-5">
-                                    <div class="media d-md-flex">
-                                        <a class="d-block" href="#">
-                                            <img class="img-fluid" th:src="@{/images/image_posted1.png}" alt="Image-Description">
-                                        </a>
-                                        <div class="media-body ml-3 pl-1">
-                                            <h6 class="font-size-2 text-lh-md font-weight-normal">
-                                                <a href="#">Love, Livestock, and Big Life Lessons...</a>
-                                            </h6>
-                                            <span class="font-weight-medium">$21</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="media d-md-flex">
-                                        <a class="d-block" href="#">
-                                            <img class="img-fluid" th:src="@{/images/image_posted1.png}"alt="Image-Description">
-                                        </a>
-                                        <div class="media-body ml-3 pl-1">
-                                            <h6 class="font-size-2 text-lh-md font-weight-normal">
-                                                <a href="#">Sleeper Cells, Ghost Stories, and Hunt...</a>
-                                            </h6>
-                                            <span class="font-weight-medium">$182</span>
-                                        </div>
-                                    </div>
-                                </div>
+<!--                                <div class="mb-5">-->
+<!--                                    <div class="media d-md-flex">-->
+<!--                                        <a class="d-block" href="#">-->
+<!--                                            <img class="img-fluid" th:src="@{/images/image_posted1.png}" alt="Image-Description">-->
+<!--                                        </a>-->
+<!--                                        <div class="media-body ml-3 pl-1">-->
+<!--                                            <h6 class="font-size-2 text-lh-md font-weight-normal">-->
+<!--                                                <a href="#">Love, Livestock, and Big Life Lessons...</a>-->
+<!--                                            </h6>-->
+<!--                                            <span class="font-weight-medium">$21</span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div>-->
+<!--                                    <div class="media d-md-flex">-->
+<!--                                        <a class="d-block" href="#">-->
+<!--                                            <img class="img-fluid" th:src="@{/images/image_posted1.png}"alt="Image-Description">-->
+<!--                                        </a>-->
+<!--                                        <div class="media-body ml-3 pl-1">-->
+<!--                                            <h6 class="font-size-2 text-lh-md font-weight-normal">-->
+<!--                                                <a href="#">Sleeper Cells, Ghost Stories, and Hunt...</a>-->
+<!--                                            </h6>-->
+<!--                                            <span class="font-weight-medium">$182</span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
 
                             <div class="widget border mb-5">
@@ -645,7 +647,8 @@
                         <h2 class="font-size-7 mb-3 mb-md-0">Customers Also Considered</h2>
                     </header>
 
-                    <div class="js-slick-carousel products no-gutters border-top border-left border-right" data-arrows-classes="u-slick__arrow u-slick__arrow-centered--y"
+                    <div class="js-slick-carousel products no-gutters border-top border-left border-right"
+                         data-arrows-classes="u-slick__arrow u-slick__arrow-centered--y"
                          data-arrow-left-classes="fas fa-chevron-left u-slick__arrow-inner u-slick__arrow-inner--left ml-lg-n10"
                          data-arrow-right-classes="fas fa-chevron-right u-slick__arrow-inner u-slick__arrow-inner--right mr-lg-n10"
                          data-slides-show="5" data-responsive='[{

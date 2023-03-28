@@ -122,101 +122,30 @@
             <div class="row">
                 <div class="col-lg-12 col-12 custom-padding-right">
                     <div class="slider-head">
-                        <div class="tns-outer" id="tns1-ow">
-                            <div
-                                    class="tns-controls"
-                                    aria-label="Carousel Navigation"
-                                    tabindex="0"
-                            >
-                                <button
-                                        type="button"
-                                        data-controls="prev"
-                                        tabindex="-1"
-                                        aria-controls="tns1"
-                                >
-                                    <i class="lni lni-chevron-left"></i>
-                                </button>
-                                <button
-                                        type="button"
-                                        data-controls="next"
-                                        tabindex="-1"
-                                        aria-controls="tns1"
-                                >
-                                    <i class="lni lni-chevron-right"></i>
-                                </button>
-                            </div>
-                            <div
-                                    class="tns-liveregion tns-visually-hidden"
-                                    aria-live="polite"
-                                    aria-atomic="true"
-                            >
-                                slide <span class="current">4</span> of 2
-                            </div>
-                            <div id="tns1-mw" class="tns-ovh">
-                                <div class="tns-inner" id="tns1-iw">
-                                    <div
-                                            class="hero-slider tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal"
-                                            id="tns1"
-                                            style="
-                        transform: translate3d(-50%, 0px, 0px);
-                        transition-duration: 0s;
-                      "
-                                    >
-                                        <div th:each="item:${ads}"
-                                                class="single-slider tns-item tns-slide-cloned"
-                                             th:style="'background-image: url(' + @{'http://localhost:81/admin' + ${item.getFullImage1Url()}} + ')'"
-
-                                             aria-hidden="true"
-                                                tabindex="-1"
-                                        >
-                                            <div class="content">
-                                                <h2>
-                                                    <span>No restocking fee ($35 savings)</span>
-                                                    M75 Sport Watch
-                                                </h2>
-
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur elit, sed do
-                                                    eiusmod tempor incididunt ut labore dolore magna
-                                                    aliqua.
-                                                </p>
-                                                <h3><span>Now Only</span> $320.99</h3>
-                                                <div class="button">
-                                                    <a href="product-grids.html" class="btn"
-                                                    >Shop Now</a
-                                                    >
-                                                </div>
-                                            </div>
-                                        </div>
-
+                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div th:each="item,iterStat : ${ads}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
+                                    <img th:src="@{'http://localhost:81/admin' + ${item.getFullImage1Url()}}" class="d-block w-100" alt="...">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5 th:text="${item.titleForAd}"></h5>
+                                        <p th:text="${item.description}"></p>
                                     </div>
                                 </div>
                             </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </a>
                         </div>
-<!--                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">-->
-<!--                            <ol class="carousel-indicators">-->
-<!--                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>-->
-<!--                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>-->
-<!--                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>-->
-<!--                            </ol>-->
-<!--                            <div class="carousel-inner">-->
-<!--                                <div th:each="item,iterStat : ${ads}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">-->
-<!--                                    <img th:src="@{'http://localhost:81/admin' + ${item.getFullImage1Url()}}" class="d-block w-100" alt="...">-->
-<!--                                    <div class="carousel-caption d-none d-md-block">-->
-<!--                                        <h5 th:text="${item.titleForAd}"></h5>-->
-<!--                                        <p th:text="${item.description}"></p>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">-->
-<!--                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-<!--                                <span class="visually-hidden">Previous</span>-->
-<!--                            </a>-->
-<!--                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">-->
-<!--                                <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-<!--                                <span class="visually-hidden">Next</span>-->
-<!--                            </a>-->
-<!--                        </div>-->
 
                     </div>
                 </div>

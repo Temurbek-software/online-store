@@ -91,6 +91,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getProductsBySubcategoryId(Long id) {
+        List<Product> productList=productRepository.findProductByCategoryItems(id);
+        return productList;
+    }
+
+    @Override
     public List<Product> productListBySubCategoryId(Long id, Object o) {
         if (o.getClass() == SubCategory.class) {
             List<Product> productList = productRepository.findAll()

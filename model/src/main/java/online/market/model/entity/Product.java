@@ -46,6 +46,8 @@ public class Product extends BaseEntity {
     @NotNull
     private Integer pageNumb;
 
+
+
     @Column(name = "description")
     @NotNull
     private String description;

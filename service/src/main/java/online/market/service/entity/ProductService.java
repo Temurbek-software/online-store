@@ -18,5 +18,7 @@ public interface ProductService {
     boolean deleteProduct(long id);
 //  get @Products by subcategoryId or categoryId
     List<Product> productListBySubCategoryId(Long id,Object o);
+//  Show Product by its subcategory
+    List<Product> getProductsBySubcategoryId(Long id);
 
 }

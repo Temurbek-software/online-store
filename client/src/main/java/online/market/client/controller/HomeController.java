@@ -54,19 +54,7 @@ public class HomeController
         return "client/product-grid";
     }
 
-    @RequestMapping("/book-details")
-    public String getOneBookPage(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
-        Product product = productService.getOneProductDto(id);
-        try {
-            //Get product
-            model.addAttribute("oneProduct", product);
-        } catch (Exception ex) {
-            model.addAttribute("error", ex.getMessage());
-            return "/client/product-details";
-        }
-        return "/client/product-details";
-    }
+
 
     @RequestMapping("/authors")
     public String getAuthorPage(Model model) {
