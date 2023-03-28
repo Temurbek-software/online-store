@@ -40,26 +40,37 @@
             </div>
         </div>
         <!-- Page Heading -->
-        <h1 style="text-align: center" class="h3 mb-2 text-gray-800">Author</h1>
+        <h1 style="text-align: center" class="h3 mb-2 text-gray-800">Advertisement for books</h1>
         <p class="mb-4">Our mission is simple: To help local,
             independent bookstores thrive in the age of ecommerce
             It is written in our governance documents that we will never
             sell the company to Amazon or any major U.S. retailer.
-        <div th:each="ads:${adsList}" class="card mb-3">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="180"
-                 th:src="@{${ads.getFullImage1Url()}}"/>
-            <div class="card-body">
-                <h5 class="card-title" th:text="${ads.titleForAd}"></h5>
-                <p class="card-text" th:text="${ads.description}"></p>
-                <p class="card-text" th:text="${ads.date_released}"><small class="text-muted"></small></p>
+        </p>
+        <div class="container">
+            <div th:each="ads:${adsList}" class="card mb-3 p-3 col-lg-6 col-md-6 col-6">
+                <img class="bd-placeholder-img card-img-top"
+                     style="width: auto; height: 180px"
+                     th:src="@{${ads.getFullImage1Url()}}"/>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${ads.titleForAd}"></h5>
+                    <p class="card-text" th:text="${ads.description}"></p>
+                    <small class="text-muted">
+                        <p class="card-text" th:text="${ads.date_released}">
+                        </p>
+                    </small>
+                    <br>
+                    <a th:href="@{'/ads/update/'+${ads.id}}" class="btn btn-success">update</a>
+                    <a th:href="@{'/ads/delete/'+${ads.id}}" class="btn btn-danger">delete</a>
+                </div>
             </div>
         </div>
+
     </div>
 </div>
 <th:block layout:fragment="script">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
     <!-- Datepicker -->
-<!--    <script th:src="@{/static/js/multiselect.js}"></script>-->
+    <!--    <script th:src="@{/static/js/multiselect.js}"></script>-->
     <script th:inline="javascript">
         $(document).ready(function () {
             $('#multiple-checkboxes').multiselect({

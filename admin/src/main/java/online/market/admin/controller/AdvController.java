@@ -7,10 +7,7 @@ import online.market.service.entity.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,15 +21,14 @@ public class AdvController {
     @GetMapping("/list")
     public String advertisementList(Model model) {
         model.addAttribute("adsList", advertisementService.findAllItems());
-        advertisementService.findAllItems().forEach(
-                advertisement ->
-                {
-                    System.out.println(advertisement.getImageData());
-                    System.out.println(advertisement.getFullImage1Url());
-                }
-
-        );
         return "model/ads/advertisePage";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteByIdAds(@PathVariable("id") Long id, Model model) {
+        advertisementService.deleteItems(id);
+        model.addAttribute("msg", true);
+        return "redirect:/ads/list?deleted";
     }
 
     @GetMapping("/add")

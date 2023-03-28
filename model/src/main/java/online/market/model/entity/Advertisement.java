@@ -39,7 +39,7 @@ public class Advertisement extends BaseEntity
     private Product product;
     public String getFullImage1Url() {
         if (id != null && imageData != null) {
-            return "/upload/ads/" + id + "/" + imageData;
+            return "/upload/advertisement/" + id + "/" + imageData;
         } else {
             return "/upload/no_preview.jpg";
         }

@@ -72,15 +72,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .rememberMe();
     }
 
-//    public void configure(WebSecurity web) throws Exception {
-//         web.ignoring().antMatchers("/resources/static/**").anyRequest();
-//    }
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/upload/**");
+    }
 
     private static final String[] PUBLIC_MATCHERS = {
             "/css/**",
             "/js/**",
             "/fonts/**",
-            "/image/**",
+            "/images/**",
             "/mail/**",
             "/ico/**",
             "/",

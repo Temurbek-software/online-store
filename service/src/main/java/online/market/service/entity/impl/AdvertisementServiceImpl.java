@@ -16,20 +16,18 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class AdvertisementServiceImpl implements AdvertisementService
-{
+public class AdvertisementServiceImpl implements AdvertisementService {
     private final AdvertisementRepository advertisementRepository;
+
     @Override
     public List<Advertisement> findAllItems() {
         return advertisementRepository.findAll();
     }
 
     @Override
-    public void updateWithNewOne(Advertisement advertisement, Long id)
-    {
-        Optional<Advertisement> advertisement1=advertisementRepository.findById(id);
-        if (advertisement1.isPresent())
-        {
+    public void updateWithNewOne(Advertisement advertisement, Long id) {
+        Optional<Advertisement> advertisement1 = advertisementRepository.findById(id);
+        if (advertisement1.isPresent()) {
             Advertisement advertisement2 = advertisement1.get();
             advertisement2.setProduct(advertisement.getProduct());
             advertisement2.setDescription(advertisement.getDescription());
@@ -39,60 +37,29 @@ public class AdvertisementServiceImpl implements AdvertisementService
             advertisement2.setImageData(advertisement.getImageData());
             advertisement2.setImage_posted1(advertisement.getImage_posted1());
             advertisementRepository.save(advertisement2);
-        }
-        else
-        {
+        } else {
             throw new EntityNotFoundException();
         }
     }
 
     @Override
     public void deleteItems(Long id) {
-
+        Optional<Advertisement> optionalAdvertisement = advertisementRepository.findById(id);
+        if (optionalAdvertisement.isPresent()) {
+            advertisementRepository.deleteAdvertisementById(id);
+        }
     }
 
     @Override
-    public boolean createNew(Advertisement advertisement)
-    {
+    public boolean createNew(Advertisement advertisement) {
         advertisementRepository.save(advertisement);
         if (advertisement.getImage_posted1().getSize() > 0) {
             if (advertisement.getImage_posted1().getSize() > 0) {
-                String image1 = ProductServiceImpl.ImageUpload(advertisement.getId(), advertisement.getImage_posted1(),"advertisement");
+                String image1 = ProductServiceImpl.ImageUpload(advertisement.getId(), advertisement.getImage_posted1(), "advertisement");
                 advertisement.setImageData(image1);
             }
             advertisementRepository.save(advertisement);
         }
         return false;
     }
-//    private String ImageUpload(Long productId, MultipartFile productImage1) {
-//        String fileName = "";
-//
-//        String productFolder = "admin/src/main/resources/static/upload/product";
-//
-//        //Save image
-//        try {
-//            byte[] bytes = productImage1.getBytes();
-//
-//            //Create directory if not exists
-//            File file = new File(productFolder + "/" + productId);
-//            if (!file.exists()) {
-//                file.mkdirs();
-//            }
-//
-//            fileName = productImage1.getName() + ".png";
-//
-//            String fileWithFolderName = productFolder + "/" + productId + "/" + fileName;
-//
-//            BufferedOutputStream stream = new BufferedOutputStream(
-//                    new FileOutputStream(
-//                            new File(fileWithFolderName)));
-//
-//            stream.write(bytes);
-//            stream.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return fileName;
-//    }
 }

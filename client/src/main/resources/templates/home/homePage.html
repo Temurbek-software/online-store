@@ -6,39 +6,115 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <th:block layout:fragment="links">
-<!--        <link rel="stylesheet" th:href="@{/css/authors.css}"/>-->
-    </th:block>
-<style>
-    .product-image img {
-        aspect-ratio: 3/4 !important;
-        height: fit-content;
-        object-fit: contain;
-    }
-    .single-product .product-info {
-        padding: 5px;
-    }
-    .product-image {
-        height: 194px;
+        <script
+                type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
+        ></script>
 
-    }
-    .single-product{
-        height: 90%;
-    }
-    .footer-card{
-        padding: 0 25px !important;
-    }
-    .footer-card .list-inline{
-        margin-top: 8px;
-    }
-    .price h1{
-        font-size: 28px !important;
-    }
-</style>
+    </th:block>
+
+    <style>
+        carousel-indicators {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            margin-right: 15%;
+            margin-bottom: 1rem;
+            margin-left: 15%;
+            list-style: none
+        }
+
+        .carousel-indicators [data-mdb-target] {
+            box-sizing: content-box;
+            flex: 0 1 auto;
+            width: 30px;
+            height: 3px;
+            padding: 0;
+            margin-right: 3px;
+            margin-left: 3px;
+            text-indent: -999px;
+            cursor: pointer;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            opacity: .5;
+            transition: opacity .6s ease
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .carousel-indicators [data-mdb-target] {
+                transition: none
+            }
+        }
+
+        .carousel-indicators .active {
+            opacity: 1
+        }
+
+        .carousel-caption {
+            position: absolute;
+            right: 15%;
+            bottom: 1.25rem;
+            left: 15%;
+            padding-top: 1.25rem;
+            padding-bottom: 1.25rem;
+            color: #fff;
+            text-align: center
+        }
+
+        .carousel-dark .carousel-control-next-icon, .carousel-dark .carousel-control-prev-icon {
+            filter: invert(1) grayscale(100)
+        }
+
+        .carousel-dark .carousel-indicators [data-mdb-target] {
+            background-color: #000
+        }
+
+        /*carosel        */
+
+
+        .product-image img {
+            aspect-ratio: 3/4 !important;
+            height: fit-content;
+            object-fit: contain;
+        }
+
+        .single-product .product-info {
+            padding: 5px;
+        }
+
+        .product-image {
+            height: 194px;
+        }
+
+        .single-product {
+            height: 90%;
+        }
+
+        .footer-card {
+            padding: 0 25px !important;
+        }
+
+        .footer-card .list-inline {
+            margin-top: 8px;
+        }
+
+        .price h1 {
+            font-size: 28px !important;
+        }
+
+    </style>
 </head>
 <body>
 <!--breadcrumb-->
 <div layout:fragment="breadcrumb">
-
 </div>
 <div layout:fragment="content">
     <section class="hero-area">
@@ -47,9 +123,11 @@
                 <div class="col-lg-12 col-12 custom-padding-right">
                     <div class="slider-head">
                         <div class="tns-outer" id="tns1-ow">
-                            <div class="tns-controls"
-                                 aria-label="Carousel Navigation"
-                                 tabindex="0">
+                            <div
+                                    class="tns-controls"
+                                    aria-label="Carousel Navigation"
+                                    tabindex="0"
+                            >
                                 <button
                                         type="button"
                                         data-controls="prev"
@@ -79,62 +157,67 @@
                                     <div
                                             class="hero-slider tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal"
                                             id="tns1"
-                                            style="transform: translate3d(-50%, 0px, 0px);transition-duration: 0s; ">
-                                        <div
+                                            style="
+                        transform: translate3d(-50%, 0px, 0px);
+                        transition-duration: 0s;
+                      "
+                                    >
+                                        <div th:each="item:${ads}"
                                                 class="single-slider tns-item tns-slide-cloned"
-                                                aria-hidden="true"
-                                                tabindex="-1">
-                                            <img src="https://www.kfadv.it/wp-content/uploads/2020/02/2_febbraio_2020-1.jpg" alt="">
-                                            <div class="content">
+                                             th:style="'background-image: url(' + @{'http://localhost:81/admin' + ${item.getFullImage1Url()}} + ')'"
 
-                                            </div>
-                                        </div>
-                                        <div
-                                                class="single-slider tns-item tns-slide-cloned" aria-hidden="true"
-                                                tabindex="-1">
-<!--                                                th:style="'background-image: url(https://www.quotemaster.org/images/a3/a3d729d794f07f194d21566b1ee055a9.jpg);'"-->
-
-                                            <img src="https://www.quotemaster.org/images/a3/a3d729d794f07f194d21566b1ee055a9.jpg" alt="">
-                                            <div class="content">
-
-                                            </div>
-                                        </div>
-
-                                        <div
-                                                class="single-slider tns-item"
-                                                id="tns1-item0"
-                                                aria-hidden="true"
-                                                tabindex="-1">
-                                            <img src="https://static01.nyt.com/images/2022/09/30/books/00OCTOBER-BOOKS-COMBO/00OCTOBER-BOOKS-COMBO-videoSixteenByNine3000.jpg" alt="">
-<!--                                            <div class="content">-->
-
-<!--                                            </div>-->
-                                        </div>
-
-                                        <div class="single-slider tns-item tns-slide-active" id="tns1-item1">
-<!--                                                th:style="'background-image: url(https://images.squarespace-cdn.com/content/v1/57c6b79629687fde090a0fdd/3272f834-e8e3-460c-b332-df3b6875ec20/bundle-new.png?format=1000w);'"-->
-
-                                            <img src="https://images.squarespace-cdn.com/content/v1/57c6b79629687fde090a0fdd/3272f834-e8e3-460c-b332-df3b6875ec20/bundle-new.png?format=1000w" alt="">
+                                             aria-hidden="true"
+                                                tabindex="-1"
+                                        >
                                             <div class="content">
                                                 <h2>
-                                                    <span>Big Sale Offer</span>
-                                                    Get the Best Deal on CCTV Camera
+                                                    <span>No restocking fee ($35 savings)</span>
+                                                    M75 Sport Watch
                                                 </h2>
+
                                                 <p>
                                                     Lorem ipsum dolor sit amet, consectetur elit, sed do
                                                     eiusmod tempor incididunt ut labore dolore magna
                                                     aliqua.
                                                 </p>
-                                                <h3><span>Combo Only:</span> $590.00</h3>
-
+                                                <h3><span>Now Only</span> $320.99</h3>
+                                                <div class="button">
+                                                    <a href="product-grids.html" class="btn"
+                                                    >Shop Now</a
+                                                    >
+                                                </div>
                                             </div>
                                         </div>
-
 
                                     </div>
                                 </div>
                             </div>
                         </div>
+<!--                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">-->
+<!--                            <ol class="carousel-indicators">-->
+<!--                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>-->
+<!--                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>-->
+<!--                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>-->
+<!--                            </ol>-->
+<!--                            <div class="carousel-inner">-->
+<!--                                <div th:each="item,iterStat : ${ads}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">-->
+<!--                                    <img th:src="@{'http://localhost:81/admin' + ${item.getFullImage1Url()}}" class="d-block w-100" alt="...">-->
+<!--                                    <div class="carousel-caption d-none d-md-block">-->
+<!--                                        <h5 th:text="${item.titleForAd}"></h5>-->
+<!--                                        <p th:text="${item.description}"></p>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">-->
+<!--                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--                                <span class="visually-hidden">Previous</span>-->
+<!--                            </a>-->
+<!--                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">-->
+<!--                                <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--                                <span class="visually-hidden">Next</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+
                     </div>
                 </div>
             </div>
@@ -161,7 +244,7 @@
 
             </div>
             <div class="row">
-                <div th:each="books:${bookList}"  class="col-lg-2 col-md-6 col-12">
+                <div th:each="books:${bookList}" class="col-lg-2 col-md-6 col-12">
                     <div class="single-product">
                         <div class="product-image">
                             <img th:src="#{adminPath}+${books.getFullImage1Url()}" alt="#"/>
@@ -426,43 +509,45 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-10 offset-1">
-                            <div  class="row">
-                                    <div th:each="author:${authors}" class="col-lg-3 col-md-3 px-6 mb-4 footer-card">
-                                        <!-- Row -->
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <img th:src="#{adminPath}+${author.getFullImage1Url()}" alt="wrapkit" class="img-fluid rounded-circle"/>
-                                            </div>
-                                            <div class="col-md-12 text-center">
-                                                <div class="pt-2">
-                                                    <h5 th:text="${author.firstName.concat(' ') +author.lastName}" class="mt-4 font-weight-medium mb-0"></h5>
-                                                    <h6 th:text="${author.email}" class="subtitle mb-3"></h6>
-                                                    <p th:text="${author.shortDescription}"></p>
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item"><a href="#"
-                                                                                        class="text-decoration-none d-block px-1">
-                                                            <i class="lni lni-facebook-filled"></i>
+                            <div class="row">
+                                <div th:each="author:${authors}" class="col-lg-3 col-md-3 px-6 mb-4 footer-card">
+                                    <!-- Row -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <img th:src="#{adminPath}+${author.getFullImage1Url()}" alt="wrapkit"
+                                                 class="img-fluid rounded-circle"/>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <div class="pt-2">
+                                                <h5 th:text="${author.firstName.concat(' ') +author.lastName}"
+                                                    class="mt-4 font-weight-medium mb-0"></h5>
+                                                <h6 th:text="${author.email}" class="subtitle mb-3"></h6>
+                                                <p th:text="${author.shortDescription}"></p>
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item"><a href="#"
+                                                                                    class="text-decoration-none d-block px-1">
+                                                        <i class="lni lni-facebook-filled"></i>
+                                                    </a>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <a href="#" class="text-decoration-none d-block px-1">
+                                                            <i class="lni lni-twitter-original"></i></a>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <a href="#" class="text-decoration-none d-block px-1">
+                                                            <i class="lni lni-instagram"></i></a>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <a href="#" class="text-decoration-none d-block px-1">
+                                                            <i class="lni lni-behance"></i>
                                                         </a>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <a href="#" class="text-decoration-none d-block px-1">
-                                                                <i class="lni lni-twitter-original"></i></a>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <a href="#" class="text-decoration-none d-block px-1">
-                                                                <i class="lni lni-instagram"></i></a>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <a href="#" class="text-decoration-none d-block px-1">
-                                                                <i class="lni lni-behance"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
-                                        <!-- Row -->
                                     </div>
+                                    <!-- Row -->
+                                </div>
                                 <!-- column  -->
                             </div>
                         </div>
@@ -563,25 +648,25 @@
             </div>
         </div>
     </section>
-<!--    Special offer-->
-<!--    <section class="special-offer section">-->
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                <div class="col-12">-->
-<!--                    <div class="section-title">-->
-<!--                        <h2>Special Offer</h2>-->
-<!--                        <p>-->
-<!--                            There are many variations of passages of Lorem Ipsum available,-->
-<!--                            but the majority have suffered alteration in some form.-->
-<!--                        </p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
+    <!--    Special offer-->
+    <!--    <section class="special-offer section">-->
+    <!--        <div class="container">-->
+    <!--            <div class="row">-->
+    <!--                <div class="col-12">-->
+    <!--                    <div class="section-title">-->
+    <!--                        <h2>Special Offer</h2>-->
+    <!--                        <p>-->
+    <!--                            There are many variations of passages of Lorem Ipsum available,-->
+    <!--                            but the majority have suffered alteration in some form.-->
+    <!--                        </p>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <div class="row">-->
 
-<!--            </div>-->
-<!--        </div>-->
-<!--    </section>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </section>-->
     <!--    Shipping-->
     <section class="shipping-info">
         <div class="container">
@@ -631,6 +716,7 @@
 </div>
 <!--for script -->
 <th:block layout:fragment="script1">
+
     <script type="text/javascript">
         //========= Hero Slider
         tns({

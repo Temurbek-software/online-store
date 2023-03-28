@@ -7319,6 +7319,11 @@ fieldset:disabled .btn {
 .w-100 {
     width: 100% !important
 }
+.w-101
+{
+    width: 1300px;
+    height: 500px;
+}
 
 .w-auto {
     width: auto !important
