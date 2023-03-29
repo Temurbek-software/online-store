@@ -84,20 +84,20 @@
                                             <figure class="woocommerce-product-gallery__wrapper mb-0">
                                                 <div class="js-slick-carousel u-slick" data-pagi-classes="text-center u-slick__pagination my-4">
                                                     <div class="js-slide">
-                                                        <img style="width: 300px;height: 452px;" th:src="@{/images/image_posted1.png}" alt="Image Description" class="mx-auto img-fluid">
+                                                        <img style="width: 300px;height: 452px;" th:src="@{'http://localhost:81/admin' + ${oneProduct.getFullImage1Url()}}" alt="Image Description" class="mx-auto img-fluid">
                                                     </div>
                                                     <div class="js-slide">
-                                                        <img style="width: 300px;height: 452px;"  th:src="@{/images/image_posted1.png}" alt="Image Description" class="mx-auto img-fluid">
+                                                        <img style="width: 300px;height: 452px;"  th:src="@{'http://localhost:81/admin' + ${oneProduct.getFullImage1Url()}}" alt="Image Description" class="mx-auto img-fluid">
                                                     </div>
                                                     <div class="js-slide">
-                                                        <img style="width: 300px;height: 452px;"  th:src="@{/images/image_posted1.png}" alt="Image Description" class="mx-auto img-fluid">
+                                                        <img style="width: 300px;height: 452px;"  th:src="@{'http://localhost:81/admin' + ${oneProduct.getFullImage1Url()}}" alt="Image Description" class="mx-auto img-fluid">
                                                     </div>
                                                 </div>
                                             </figure>
                                         </div>
                                         <div class="col-lg-7 pl-lg-0 summary entry-summary">
                                             <div class="px-lg-4 px-xl-6">
-                                                <h1 class="product_title entry-title font-size-7 mb-3">Where the Crawdads Sing</h1>
+                                                <h1 class="product_title entry-title font-size-7 mb-3" th:text="${oneProduct.bookName}"></h1>
                                                 <div class="font-size-2 mb-4">
                                                 <span class="text-yellow-darker">
                                                     <span class="fas fa-star"></span>
@@ -108,7 +108,9 @@
                                                 </span>
                                                     <span class="ml-3">(3,714)</span>
                                                     <span class="ml-3 font-weight-medium">By (author)</span>
-                                                    <span class="ml-2 text-gray-600">Anna Banks</span>
+                                                    <span class="ml-2 text-gray-600" th:each="items:${oneProduct.getProductAuthorList()}" th:text="${items.lastName+' '+items.firstName}">
+
+                                                    </span>
                                                 </div>
 
                                                 <div class="woocommerce-product-details__short-description font-size-2 mb-4">
@@ -241,7 +243,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th class="px-4 px-xl-5">Publication date: </th>
-                                                        <td>20 Dec 2020</td>
+                                                        <td th:text="${#dates.format(oneProduct.getYearOfPublished(), 'd MMMM yyyy, hh:mm')}"></td>
                                                     </tr>
                                                     <tr>
                                                         <th class="px-4 px-xl-5">Publisher:</th>

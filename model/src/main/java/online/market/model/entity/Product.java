@@ -30,6 +30,10 @@ public class Product extends BaseEntity {
     @NotNull
     private Double e_price;
 
+    @Transient
+    private MultipartFile forE_Price;
+
+
     @Column(name = "printed_price")
     @NotNull
     private Double printed_Price;
@@ -38,6 +42,10 @@ public class Product extends BaseEntity {
     @NotNull
     private Double audio_price;
 
+    @Transient
+    private MultipartFile for_Audio_Price;
+
+
     @Column(name = "yearOfPublished")
     @NotNull
     private Date yearOfPublished;
@@ -45,8 +53,6 @@ public class Product extends BaseEntity {
     @Column(name = "pageNumber")
     @NotNull
     private Integer pageNumb;
-
-
 
     @Column(name = "description")
     @NotNull
@@ -73,7 +79,7 @@ public class Product extends BaseEntity {
     private Category categoryItems;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subcategory_id",referencedColumnName = "id")
+    @JoinColumn(name = "subcategory_id", referencedColumnName = "id")
     private SubCategory subCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -92,7 +98,7 @@ public class Product extends BaseEntity {
     @JsonIgnore
     private Set<Author> productAuthorList = new HashSet<>();
 
-    @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private Advertisement advertisement;
 
     public void addAuthor(Author author) {
@@ -105,15 +111,23 @@ public class Product extends BaseEntity {
         author.getProductDTOSet().remove(this);
     }
 
-    public void removeAuthors()
-    {
+    public void removeAuthors() {
         for (Author author : new HashSet<>(productAuthorList)) {
             removeAuthor(author);
         }
     }
+
     public String getFullImage1Url() {
         if (id != null && imageData != null) {
-            return "/upload/product/" + id + "/" + imageData;
+            return "/upload/product/" + id + "/image/" + imageData;
+        } else {
+            return "/upload/no_preview.jpg";
+        }
+    }
+    public String getFullAudioUrl()
+    {
+        if (id != null && imageData != null) {
+            return "/upload/product/" + id + "/audio/" + imageData;
         } else {
             return "/upload/no_preview.jpg";
         }

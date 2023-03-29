@@ -51,14 +51,23 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(productDTO);
         if (productDTO.getImage_posted1().getSize() > 0) {
             if (productDTO.getImage_posted1().getSize() > 0) {
-                String image1 = ImageUpload(productDTO.getId(), productDTO.getImage_posted1(),"product");
+                String image1 = ImageUpload(productDTO.getId(), productDTO.getImage_posted1(),"product","image");
                 productDTO.setImageData(image1);
+            }
+            if (productDTO.getFor_Audio_Price().getSize()>0)
+            {
+                String audio=ImageUpload(productDTO.getId(),productDTO.getFor_Audio_Price(),"product","audio");
+
+            }
+            if (productDTO.getForE_Price().getSize()>0)
+            {
+                String e_price=ImageUpload(productDTO.getId(),productDTO.getForE_Price(),"product","e_price");
             }
             productRepository.save(productDTO);
         }
     }
 
-    public static String ImageUpload(Long productId, MultipartFile productImage1,String folderName) {
+    public static String ImageUpload(Long productId, MultipartFile productImage1,String folderName,String type) {
         String fileName = "";
 
         String productFolder = "admin/src/main/resources/static/upload/"+folderName;
@@ -83,7 +92,8 @@ public class ProductServiceImpl implements ProductService {
 
             stream.write(bytes);
             stream.close();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
 

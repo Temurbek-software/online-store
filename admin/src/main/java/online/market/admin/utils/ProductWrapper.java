@@ -19,8 +19,11 @@ public class ProductWrapper
     private Long id;
     private String bookName;
     private Double e_price;
+    private MultipartFile forE_Price;
     private Double printed_Price;
+    private MultipartFile for_Printed_Price;
     private Double audio_price;
+    private MultipartFile for_Audio_Price;
     private Date yearOfPublished;
     private Integer pageNumb;
     private String description;
