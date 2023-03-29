@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -48,8 +49,37 @@ public class ShoppingCartService {
         return subTotal;
     }
 
-    public ShoppingCart addItemToCart(Product product, Customer customer, Long quantity) {
+    private CartItem findCartItem(ShoppingCart shoppingCart, Long productId) {
+
+        System.out.println("Cart item count" + shoppingCart.getCartItemList().stream().count());
+
+        for (CartItem cartItem : shoppingCart.getCartItemList()) {
+            //item found
+            if (cartItem.getProduct().getId().equals(productId)) {
+                return cartItem;
+            }
+        }
         return null;
+    }
+
+    public ShoppingCart addItemToCart(Product product, Customer customer, Long quantity) {
+        Float subTotal = 0.0F, totalPrice = 0.0F, totalTax = 0.0F, grandTotal = 0.0F;
+        long totalQty = 0;
+        ShoppingCart shoppingCart = findShoppingCart(customer);
+        CartItem cartItem = findCartItem(shoppingCart, product.getId());
+        if(cartItem == null){
+            cartItem = new CartItem();
+
+            cartItem.setProduct(product);
+            cartItem.setShoppingCart(shoppingCart);
+
+            //get items list and item in it
+            List<CartItem> cartItemList = shoppingCart.getCartItemList();
+            cartItemList.add(cartItem);
+
+            shoppingCart.setCartItemList(cartItemList);
+        }
+        cartItem.setOurPrice(product.getOurPrice());
     }
 
     public void emptyShoppingCart(Customer customer) {

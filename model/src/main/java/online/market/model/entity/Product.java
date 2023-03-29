@@ -27,7 +27,6 @@ public class Product extends BaseEntity {
     private String bookName;
 
     @Column(name = "electronic_price")
-    @NotNull
     private Double e_price;
 
     @Transient
@@ -35,11 +34,9 @@ public class Product extends BaseEntity {
 
 
     @Column(name = "printed_price")
-    @NotNull
     private Double printed_Price;
 
     @Column(name = "audio_price")
-    @NotNull
     private Double audio_price;
 
     @Transient
@@ -119,21 +116,21 @@ public class Product extends BaseEntity {
 
     public String getFullImage1Url() {
         if (id != null && imageData != null) {
-            return "/upload/product/" + id +"/"+ imageData;
+            return "/upload/product/" + id + "/" + imageData;
         } else {
             return "/upload/no_preview.jpg";
         }
     }
-    public String getFullAudioUrl()
-    {
+
+    public String getFullAudioUrl() {
         if (id != null) {
             return "/upload/product/" + id + "/audio.mp3";
         } else {
             return "/upload/no_preview.jpg";
         }
     }
-    public String getFullPdf()
-    {
+
+    public String getFullPdf() {
         if (id != null && imageData != null) {
             return "/upload/product/" + id + "/e_book.pdf";
         } else {
