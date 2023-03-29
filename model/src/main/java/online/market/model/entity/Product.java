@@ -119,15 +119,23 @@ public class Product extends BaseEntity {
 
     public String getFullImage1Url() {
         if (id != null && imageData != null) {
-            return "/upload/product/" + id + "/image/" + imageData;
+            return "/upload/product/" + id +"/"+ imageData;
         } else {
             return "/upload/no_preview.jpg";
         }
     }
     public String getFullAudioUrl()
     {
+        if (id != null) {
+            return "/upload/product/" + id + "/audio.mp3";
+        } else {
+            return "/upload/no_preview.jpg";
+        }
+    }
+    public String getFullPdf()
+    {
         if (id != null && imageData != null) {
-            return "/upload/product/" + id + "/audio/" + imageData;
+            return "/upload/product/" + id + "/e_book.pdf";
         } else {
             return "/upload/no_preview.jpg";
         }

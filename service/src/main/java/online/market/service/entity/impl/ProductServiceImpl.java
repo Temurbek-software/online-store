@@ -51,26 +51,23 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(productDTO);
         if (productDTO.getImage_posted1().getSize() > 0) {
             if (productDTO.getImage_posted1().getSize() > 0) {
-                String image1 = ImageUpload(productDTO.getId(), productDTO.getImage_posted1(),"product","image");
+                String image1 = ImageUpload(productDTO.getId(), productDTO.getImage_posted1(), "product", "image");
                 productDTO.setImageData(image1);
             }
-            if (productDTO.getFor_Audio_Price().getSize()>0)
-            {
-                String audio=ImageUpload(productDTO.getId(),productDTO.getFor_Audio_Price(),"product","audio");
-
+            if (productDTO.getFor_Audio_Price().getSize() > 0) {
+                String audio = ImageUpload(productDTO.getId(), productDTO.getFor_Audio_Price(), "product", "audio");
             }
-            if (productDTO.getForE_Price().getSize()>0)
-            {
-                String e_price=ImageUpload(productDTO.getId(),productDTO.getForE_Price(),"product","e_price");
+            if (productDTO.getForE_Price().getSize() > 0) {
+                String e_price = ImageUpload(productDTO.getId(), productDTO.getForE_Price(), "product", "e_price");
             }
             productRepository.save(productDTO);
         }
     }
 
-    public static String ImageUpload(Long productId, MultipartFile productImage1,String folderName,String type) {
+    public static String ImageUpload(Long productId, MultipartFile productImage1, String folderName, String type) {
         String fileName = "";
 
-        String productFolder = "admin/src/main/resources/static/upload/"+folderName;
+        String productFolder = "admin/src/main/resources/static/upload/" + folderName;
 
         //Save image
         try {
@@ -81,8 +78,19 @@ public class ProductServiceImpl implements ProductService {
             if (!file.exists()) {
                 file.mkdirs();
             }
+            if (type=="image")
+            {
+                fileName = productImage1.getName() + ".png";
+            }
+            if (type=="audio")
+            {
+                fileName = productImage1.getName() + ".mp3";
+            }
+            if (type=="e_price")
+            {
+                fileName = productImage1.getName() + ".pdf";
+            }
 
-            fileName = productImage1.getName() + ".png";
 
             String fileWithFolderName = productFolder + "/" + productId + "/" + fileName;
 
@@ -92,8 +100,7 @@ public class ProductServiceImpl implements ProductService {
 
             stream.write(bytes);
             stream.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -102,7 +109,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductsBySubcategoryId(Long id) {
-        List<Product> productList=productRepository.findProductByCategoryItems(id);
+        List<Product> productList = productRepository.findProductByCategoryItems(id);
         return productList;
     }
 
@@ -129,7 +136,7 @@ public class ProductServiceImpl implements ProductService {
 
         if (productDTO.getImage_posted1().getSize() != 0) {
             product.setImage_posted1(productDTO.getImage_posted1());
-            String image1 = ImageUpload(productDTO.getId(), productDTO.getImage_posted1(),"product");
+            String image1 = ImageUpload(productDTO.getId(), productDTO.getImage_posted1(), "product","image");
             productDTO.setImageData(image1);
             productRepository.save(productDTO);
         }

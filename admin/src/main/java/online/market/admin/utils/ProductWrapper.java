@@ -44,7 +44,23 @@ public class ProductWrapper
 
     public String getFullImage1Url() {
         if (id != null && imageData != null) {
-            return "/upload/product/" + id + "/" + imageData;
+            return "/upload/product/" + id +"/"+ imageData;
+        } else {
+            return "/upload/no_preview.jpg";
+        }
+    }
+    public String getFullAudioUrl()
+    {
+        if (id != null) {
+            return "/upload/product/" + id + "/for_Audio_Price.mp3";
+        } else {
+            return "/upload/no_preview.jpg";
+        }
+    }
+    public String getFullPdf()
+    {
+        if (id != null && imageData != null) {
+            return "/upload/product/" + id + "/forE_Price.pdf";
         } else {
             return "/upload/no_preview.jpg";
         }

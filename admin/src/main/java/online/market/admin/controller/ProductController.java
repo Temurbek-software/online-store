@@ -65,7 +65,9 @@ public class ProductController {
 
         productWrapper1.setId(product.getId());
         productWrapper1.setAudio_price(product.getAudio_price());
+        productWrapper1.setFor_Audio_Price(product.getFor_Audio_Price());
         productWrapper1.setE_price(product.getE_price());
+        productWrapper1.setFor_Printed_Price(product.getForE_Price());
         productWrapper1.setImage_posted1(product.getImage_posted1());
         productWrapper1.setImageData(product.getImageData());
         productWrapper1.setBookName(product.getBookName());
@@ -125,11 +127,18 @@ public class ProductController {
         productDTO.setIsbnNumber(productWrapper.getIsbnNumber());
         productDTO.setLanguage(productWrapper.getLanguage());
         productDTO.setYearOfPublished(productWrapper.getYearOfPublished());
+
         productDTO.setAudio_price(productWrapper.getAudio_price());
+        productDTO.setFor_Audio_Price(productWrapper.getFor_Audio_Price());
+
+        productDTO.setE_price(productWrapper.getE_price());
+        productDTO.setForE_Price(productWrapper.getForE_Price());
+
+
+        productDTO.setPrinted_Price(productWrapper.getPrinted_Price());
+
         productDTO.setBookName(productWrapper.getBookName());
         productDTO.setDescription(productWrapper.getDescription());
-        productDTO.setE_price(productWrapper.getE_price());
-        productDTO.setPrinted_Price(productWrapper.getPrinted_Price());
 
         productDTO.setImage_posted1(productWrapper.getImage_posted1());
         productDTO.setImageData(productWrapper.getImageData());

@@ -10,7 +10,8 @@ import java.util.List;
  * @author Temurbek
  * @version 1.0
  */
-public interface ProductService {
+public interface ProductService
+{
     List<Product> productDtoList(boolean info);
     Product getOneProductDto(long id);
     void saveNewProduct(Product productDTO) throws IOException;
@@ -20,5 +21,4 @@ public interface ProductService {
     List<Product> productListBySubCategoryId(Long id,Object o);
 //  Show Product by its subcategory
     List<Product> getProductsBySubcategoryId(Long id);
-
 }
