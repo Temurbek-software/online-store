@@ -1,6 +1,7 @@
 package online.market.client.controller;
 
 import lombok.RequiredArgsConstructor;
+import online.market.client.utils.ProductCart;
 import online.market.model.entity.Product;
 import online.market.service.entity.*;
 import org.springframework.stereotype.Controller;
@@ -22,12 +23,14 @@ public class ProductController {
     @RequestMapping("/book-details")
     public String getOneBookPage(@RequestParam("id") Long id, Model model) {
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
+        ProductCart productCart=new ProductCart();
         Product product = productService.getOneProductDto(id);
         try {
             //Extra products
             model.addAttribute("productList",productService.getProductsBySubcategoryId(id));
             //Get product
             model.addAttribute("oneProduct", product);
+            model.addAttribute("productCart",productCart);
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
             return "/client/product-details";

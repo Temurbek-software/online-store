@@ -25,10 +25,19 @@ public class CartItem extends BaseEntity {
     @Column(name = "quantity")
     private Long quantity=0L;
 
-    @Column(name = "our_price")
-    private Float ourPrice=0.0F;
-
     @Column(name = "total_price")
     private Float totalPrice=0.0F;
+
+    @Column(name = "format")
+    private String book_format;
+
+    @Column(name = "in_Stock")
+    private boolean in_stock;
+
+    @Override
+    public int hashCode() {
+        return 42;
+    }
+
 
 }

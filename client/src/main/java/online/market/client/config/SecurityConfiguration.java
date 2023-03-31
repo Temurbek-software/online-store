@@ -85,6 +85,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/mail/**",
             "/ico/**",
             "/",
+            "/add-to-cart",
             "/login-second",
             "/category",
             "/part-search",

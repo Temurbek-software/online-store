@@ -39,10 +39,7 @@ public class Customer extends BaseEntity {
     @Column(name = "password")
     private String password;
 
-    //    @NotNull(message = "Select Country!")
-//    @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "country_id", referencedColumnName = "id")
-//    private Country country;
+
     @NotNull(message = "Enter country!")
     @Column(name = "countryName")
     private String countryName;
@@ -54,10 +51,7 @@ public class Customer extends BaseEntity {
     @NotNull(message = "Enter city Name !")
     @Column(name = "cityName")
     private String cityName;
-//    @NotNull(message = "Select city!")
-//    @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "city_id", referencedColumnName = "id")
-//    private City countryCity;
+
 
     @NotNull(message = "Enter address !")
     @Column(name = "address")

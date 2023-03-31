@@ -20,7 +20,7 @@ public class ShoppingCartService {
     private final ShoppingCartRepository shoppingCartRepository;
     private final CartItemRepository cartItemRepository;
 
-    private Float TAX_RATE = 5.0F; //5% Percent
+    private Float SHIPPING_PRICE = 5.0F; //5% Percent
 
     public ShoppingCart findShoppingCart(Customer customer) {
         if (customer.getShoppingCart() == null) {
@@ -62,12 +62,13 @@ public class ShoppingCartService {
         return null;
     }
 
-    public ShoppingCart addItemToCart(Product product, Customer customer, Long quantity) {
-        Float subTotal = 0.0F, totalPrice = 0.0F, totalTax = 0.0F, grandTotal = 0.0F;
+    public ShoppingCart addItemToCart(Product product, Customer customer, Long quantity, String format) {
+        Float subTotal = 0.0F;
+        double totalPrice = 0.0F;
         long totalQty = 0;
         ShoppingCart shoppingCart = findShoppingCart(customer);
         CartItem cartItem = findCartItem(shoppingCart, product.getId());
-        if(cartItem == null){
+        if (cartItem == null) {
             cartItem = new CartItem();
 
             cartItem.setProduct(product);
@@ -79,7 +80,36 @@ public class ShoppingCartService {
 
             shoppingCart.setCartItemList(cartItemList);
         }
-        cartItem.setOurPrice(product.getOurPrice());
+        cartItem.setIn_stock(true);
+
+        cartItem.setBook_format(format);
+        totalQty = cartItem.getQuantity() + quantity;
+        cartItem.setQuantity(totalQty);
+        if (format == "Printed") {
+            cartItem.setTotalPrice((float) (quantity * product.getPrinted_Price()));
+            //total
+            totalPrice = product.getPrinted_Price() * totalQty;
+            cartItem.setTotalPrice((float) totalPrice);
+        }
+        if (format == "Audio") {
+            cartItem.setTotalPrice((float) (quantity * product.getAudio_price()));
+            //total
+            totalPrice = product.getAudio_price() * totalQty;
+            cartItem.setTotalPrice((float) totalPrice);
+        }
+        if (format == "Pdf") {
+            cartItem.setTotalPrice((float) (quantity * product.getE_price()));
+            //total
+            totalPrice = product.getE_price() * totalQty;
+            cartItem.setTotalPrice((float) totalPrice);
+        }
+//shopping cart
+        shoppingCart.setShippingTotal(SHIPPING_PRICE);
+        subTotal = getSubTotal(shoppingCart);
+        shoppingCart.setSubTotal(subTotal);
+        shoppingCart.setTotalAmount(subTotal - SHIPPING_PRICE);
+        shoppingCartRepository.save(shoppingCart);
+        return shoppingCart;
     }
 
     public void emptyShoppingCart(Customer customer) {

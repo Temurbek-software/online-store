@@ -21,21 +21,24 @@ public class ShoppingCart extends BaseEntity {
     @Column(name = "shipping_total")
     private Float shippingTotal;
 
-    //Default 5 %
-    @Column(name = "tax_rate")
-    private Float taxRate;
 
     @Column(name = "tax_total")
-    private Float taxTotal;
+    private Float totalAmount;
 
-    @Column(name = "grand_total")
-    private Float grandTotal;
+    @Column(name = "discount_Code:")
+    private String discount_code;
+
+    @Column(name = "discount_amount")
+    private Double discount_amount;
 
     @Column(name = "shipping_method")
     private String shippingMethod;
 
     @Column(name = "payment_method")
     private String paymentMethod;
+
+    @Column(name = "status")
+    private boolean status;
 
     @Column(name = "description")
     private String description;
