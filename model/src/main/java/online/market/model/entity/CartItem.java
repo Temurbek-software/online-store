@@ -13,14 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="cart_item")
 public class CartItem extends BaseEntity {
-    //------------ Mapped Column -----------//
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "shopping_cart_id", referencedColumnName = "id")
-    private ShoppingCart shoppingCart;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private Product product;
     //--------------------------------------//
     @Column(name = "quantity")
     private Long quantity=0L;
@@ -34,10 +27,12 @@ public class CartItem extends BaseEntity {
     @Column(name = "in_Stock")
     private boolean in_stock;
 
-    @Override
-    public int hashCode() {
-        return 42;
-    }
+    //------------ Mapped Column -----------//
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "shopping_cart_id", referencedColumnName = "id")
+    private ShoppingCart shoppingCarts;
 
-
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product;
 }

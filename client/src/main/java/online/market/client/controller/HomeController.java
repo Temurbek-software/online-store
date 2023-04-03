@@ -34,6 +34,7 @@ public class HomeController
         model.addAttribute("bookList", productService.productDtoList(false));
         model.addAttribute("authors", authorService.authorDtoList(false));
         model.addAttribute("ads",advertisementService.findAllItems());
+        model.addAttribute("weekBookList",productService.productWeekList());
         return "home/homePage";
     }
 

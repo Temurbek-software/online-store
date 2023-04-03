@@ -14,5 +14,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findProductById(long id);
     @Query(value = "SELECT p.* FROM product p JOIN product p2 ON p.subcategory_id = p2.subcategory_id WHERE p2.id = :id ORDER BY p.created_at ASC limit 3", nativeQuery = true)
     List<Product> findProductByCategoryItems(Long id);
+    @Query(value = "SELECT * "
+            + "FROM public.product "
+            + "WHERE created_at BETWEEN now() - interval '7 days' AND now() "
+            + "AND is_deleted = false "
+            + "ORDER BY created_at DESC "
+            + "LIMIT 6", nativeQuery = true)
+    List<Product> findNewBooksList();
+
 
 }

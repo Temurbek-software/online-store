@@ -124,24 +124,29 @@
                     <div class="slider-head">
                         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                             <ol class="carousel-indicators">
-                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                                    class="active"></li>
                                 <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
                                 <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
                             </ol>
                             <div class="carousel-inner">
-                                <div th:each="item,iterStat : ${ads}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
-                                    <img th:src="@{'http://localhost:81/admin' + ${item.getFullImage1Url()}}" class="d-block w-100" alt="...">
+                                <div th:each="item,iterStat : ${ads}" class="carousel-item"
+                                     th:classappend="${iterStat.index == 0} ? 'active'">
+                                    <img th:src="@{'http://localhost:81/admin' + ${item.getFullImage1Url()}}"
+                                         class="d-block w-100" alt="...">
                                     <div class="carousel-caption d-none d-md-block">
                                         <h5 th:text="${item.titleForAd}"></h5>
                                         <p th:text="${item.description}"></p>
                                     </div>
                                 </div>
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                               data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                               data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </a>
@@ -227,24 +232,19 @@
 
             </div>
             <div class="row">
-                <div class="col-lg-2 col-md-6 col-12">
+                    <div th:each="item:${weekBookList}" class="col-lg-2 col-md-6 col-12">
                     <div class="single-product">
                         <div class="product-image">
-                            <img
-                                    th:src="@{https://kitaabnow.com/wp-content/uploads/2020/10/Secondary-English-Book-Two-KitaabNow.com_.jpg}"
-
-                                    alt="#"
-                            />
+                            <img th:src="#{adminPath}+${item.getFullImage1Url()}" alt="#"/>
                             <div class="button">
-                                <a href="product-details.html" class="btn"
-                                ><i class="lni lni-cart"></i> Add to Cart</a
-                                >
+                                <a th:href="@{/book-details(id=${item.id})}" class="btn">
+                                    <i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
                         </div>
                         <div class="product-info">
-                            <span class="category">Watches</span>
+                            <span th:text="${item.getSubCategory().categoryName}" class="category"></span>
                             <h4 class="title">
-                                <a href="product-grids.html">Xiaomi Mi Band 5</a>
+                                <a th:text="${item.bookName}" href="product-grids.html"> </a>
                             </h4>
                             <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -255,163 +255,11 @@
                                 <li><span>4.0 Review(s)</span></li>
                             </ul>
                             <div class="price">
-                                <span>$199.00</span>
+                                <span th:text="${item.e_price}"></span>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-2 col-md-6 col-12">
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img
-                                    th:src="@{https://sahitya.b-cdn.net/wp-content/uploads/2021/07/2292-1.jpg}"
-                                    alt="#"
-                            />
-                            <span class="sale-tag">-25%</span>
-                            <div class="button">
-                                <a href="product-details.html" class="btn"
-                                ><i class="lni lni-cart"></i> Add to Cart</a
-                                >
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Speaker</span>
-                            <h4 class="title">
-                                <a href="product-grids.html">Big Power Sound Speaker</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><span>5.0 Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>$275.00</span>
-                                <span class="discount-price">$300.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 col-12">
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img th:src="@{https://inwfile.com/s-do/x5mjig.jpg}" alt="#"/>
-                            <div class="button">
-                                <a href="product-details.html" class="btn"
-                                ><i class="lni lni-cart"></i> Add to Cart</a
-                                >
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Camera</span>
-                            <h4 class="title">
-                                <a href="product-grids.html">WiFi Security Camera</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><span>5.0 Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>$399.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 col-12">
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img th:src="@{/images/products/product-4.jpg}" alt="#"/>
-                            <span class="new-tag">New</span>
-                            <div class="button">
-                                <a href="product-details.html" class="btn"
-                                ><i class="lni lni-cart"></i> Add to Cart</a
-                                >
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Phones</span>
-                            <h4 class="title">
-                                <a href="product-grids.html">iphone 6x plus</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><span>5.0 Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>$400.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 col-12">
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img th:src="@{https://inwfile.com/s-do/x5mjig.jpg}" alt="#"/>
-                            <div class="button">
-                                <a href="product-details.html" class="btn"
-                                ><i class="lni lni-cart"></i> Add to Cart</a
-                                >
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Camera</span>
-                            <h4 class="title">
-                                <a href="product-grids.html">WiFi Security Camera</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><span>5.0 Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>$399.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 col-12">
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img th:src="@{/images/products/product-4.jpg}" alt="#"/>
-                            <span class="new-tag">New</span>
-                            <div class="button">
-                                <a href="product-details.html" class="btn"
-                                ><i class="lni lni-cart"></i> Add to Cart</a
-                                >
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Phones</span>
-                            <h4 class="title">
-                                <a href="product-grids.html">iphone 6x plus</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><span>5.0 Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>$400.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </span>
             </div>
 
         </div>

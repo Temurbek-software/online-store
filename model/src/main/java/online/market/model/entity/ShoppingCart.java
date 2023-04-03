@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="shopping_cart")
+@Table(name="shoppingCart")
 public class ShoppingCart extends BaseEntity {
 
     @Column(name = "sub_total")
@@ -21,11 +21,10 @@ public class ShoppingCart extends BaseEntity {
     @Column(name = "shipping_total")
     private Float shippingTotal;
 
-
     @Column(name = "tax_total")
     private Float totalAmount;
 
-    @Column(name = "discount_Code:")
+    @Column(name = "discount_Code")
     private String discount_code;
 
     @Column(name = "discount_amount")
@@ -49,6 +48,6 @@ public class ShoppingCart extends BaseEntity {
     private Customer customer;
     //-------------------//
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shoppingCart")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shoppingCarts")
     private List<CartItem> cartItemList;
 }

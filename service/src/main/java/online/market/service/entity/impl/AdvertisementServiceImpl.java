@@ -16,7 +16,8 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class AdvertisementServiceImpl implements AdvertisementService {
+public class AdvertisementServiceImpl implements AdvertisementService
+{
     private final AdvertisementRepository advertisementRepository;
 
     @Override

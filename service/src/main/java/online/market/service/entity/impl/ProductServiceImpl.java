@@ -40,6 +40,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> productWeekList() {
+        List<Product> products=productRepository.findNewBooksList();
+        return products;
+    }
+
+    @Override
     public Product getOneProductDto(long id) {
         return productRepository.findById(id).get();
     }

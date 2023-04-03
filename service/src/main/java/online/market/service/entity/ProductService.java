@@ -21,4 +21,6 @@ public interface ProductService
     List<Product> productListBySubCategoryId(Long id,Object o);
 //  Show Product by its subcategory
     List<Product> getProductsBySubcategoryId(Long id);
+//  New book from week
+    List<Product> productWeekList();
 }

@@ -95,6 +95,11 @@ public class Product extends BaseEntity {
     @JsonIgnore
     private Set<Author> productAuthorList = new HashSet<>();
 
+    @ManyToMany(mappedBy = "products")
+    @JsonIgnore
+    private Set<Tariffs> tariffsSet = new HashSet<>();
+
+
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private Advertisement advertisement;
 

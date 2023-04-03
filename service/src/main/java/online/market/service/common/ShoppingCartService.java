@@ -72,7 +72,7 @@ public class ShoppingCartService {
             cartItem = new CartItem();
 
             cartItem.setProduct(product);
-            cartItem.setShoppingCart(shoppingCart);
+            cartItem.setShoppingCarts(shoppingCart);
 
             //get items list and item in it
             List<CartItem> cartItemList = shoppingCart.getCartItemList();

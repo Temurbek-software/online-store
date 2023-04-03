@@ -14,13 +14,14 @@ public class TariffServicesImpl implements TariffServices {
     private final TariffRepository tariffRepository;
 
     @Override
-    public List<Tariffs> getAllTariffs() {
-        return tariffRepository.findAll();
+    public List<Tariffs> getAllTariffs()
+    {
+        return tariffRepository.getTariffsBy();
     }
 
     @Override
     public void createNewTariff(Tariffs tariffs) {
-      tariffRepository.save(tariffs);
+        tariffRepository.save(tariffs);
     }
 
     @Override
@@ -30,6 +31,6 @@ public class TariffServicesImpl implements TariffServices {
 
     @Override
     public void deleteTariffById(Long id) {
-       tariffRepository.deleteById(id);
+        tariffRepository.deleteById(id);
     }
 }

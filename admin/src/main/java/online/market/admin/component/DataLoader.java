@@ -47,7 +47,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     @Transactional
     Users createUserIfNotFound(String username) {
         Users users = userRepository.findByUsername(username);
-        if (users == null) {
+        if (users == null)  {
             users = new Users();
             users.setIsActive(true);
             users.setFirstName("Temurbek");
@@ -61,5 +61,10 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
             userRepository.save(users);
         }
         return users;
+    }
+    @Transactional
+    void createTariffWhenStartUp()
+    {
+
     }
 }

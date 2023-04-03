@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new tariff</title>
+    <style>
+        label {
+            margin: 0 0 0 2px;
+        }
+
+        .form-row, .form-group {
+            margin-top: 16px !important;
+        }
+
+        select {
+            width: 20em;
+        }
+    </style>
+
+    <!-- datepicker styles -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 px-5">
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Tariffs</h1>
+                <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                    For more information about DataTables, please visit the
+
+
+                    <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Book list here</h6>
+                    </div>
+                    <div class="card-body">
+                        <form accept-charset="UTF-8" th:action="@{/tariff/save}" th:object="${tariff}"
+                              method="POST"
+                              enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="id">Tariff ID</label>
+                                <input type="text" name="id" class="form-control" id="id"
+                                       placeholder="Tariff id" readonly="readonly"
+                                       th:field="*{id}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName0">Tariff name</label>
+                                <input type="text" name="fullname" class="form-control" id="exampleInputName0"
+                                       placeholder="Enter name" required="required"
+                                       th:field="*{tariffName}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputDuration">Duration</label>
+                                <select class="form-control" id="exampleInputDuration" name="duration" required="required" th:field="*{duration}">
+                                    <option th:value="MONTHLY">Monthly</option>
+                                    <option th:value="QUARTERLY">Quarterly</option>
+                                    <option th:value="YEARLY">Yearly</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName2">Tariff price</label>
+                                <input type="number" name="fullname" class="form-control" id="exampleInputName2"
+                                       placeholder="Enter price" required="required"
+                                       th:field="*{priceFor}">
+                            </div>
+                            <div class="form-group">
+                                <label for="availability">Availability:</label>
+                                <input type="checkbox" id="availability" name="availability"
+                                       th:checked="${tariff.availability}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="renewal">Renewal:</label>
+                                <input type="checkbox" id="renewal" name="renewal" th:checked="${tariff.renewal}"/>
+                            </div>
+                            <input type="hidden" id="customerId" name="customerId" value="${customer.id}"/>
+                            <input type="hidden" id="bookId" name="bookId" value="${book.id}"/>
+
+
+                            <div class="form-row">
+                                <div class="col">
+                                    <label>Tariff discount</label>
+                                    <input type="number" class="form-control" placeholder="discount only"
+                                           th:field="*{discount}">
+                                </div>
+                                <div class="col">
+                                    <label>start date</label>
+                                    <div class="datepicker date input-group">
+                                        <input type="text" placeholder="Choose release Date" th:field="*{start_date}"
+                                               class="form-control" id="fecha1">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col">
+                                    <label >end date</label>
+                                    <div class="datepicker date input-group">
+                                        <input type="text" placeholder="Choose release Date" th:field="*{end_date}"
+                                               class="form-control">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea11">Description</label>
+                                <textarea class="form-control" th:field="*{description}"
+                                          id="exampleFormControlTextarea11" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea12">Terms and condition</label>
+                                <textarea class="form-control" th:field="*{term_And_Condition}"
+                                          id="exampleFormControlTextarea12" rows="3"></textarea>
+                            </div>
+                            <hr>
+
+                            <hr>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<th:block layout:fragment="script">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+    <!-- Datepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <!--    <script th:src="@{/static/js/multiselect.js}"></script>-->
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            $('#multiple-checkboxes').multiselect({
+                includeSelectAllOption: true,
+            });
+
+
+            $('.datepicker').datepicker({
+                language: "es",
+                autoclose: true,
+                format: "dd/mm/yyyy"
+            });
+        });
+
+    </script>
+</th:block>
+</body>
+</html>

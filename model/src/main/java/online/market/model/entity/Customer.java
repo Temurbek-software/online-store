@@ -1,5 +1,6 @@
 package online.market.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,6 +44,7 @@ public class Customer extends BaseEntity {
     @NotNull(message = "Enter country!")
     @Column(name = "countryName")
     private String countryName;
+
     //Address info
     @NotNull(message = "Enter postal code!")
     @Column(name = "postal_code")
@@ -72,6 +74,14 @@ public class Customer extends BaseEntity {
 
     @OneToMany(mappedBy = "customer")
     private List<Order> orders = new ArrayList<>();
+
+    @ManyToOne(cascade = {
+            CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE
+    }, fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "tariff_id", referencedColumnName = "id")
+    @JsonIgnore
+    private Tariffs tariffs;
 
     public String getFullName() {
         return firstName + " " + lastName;
