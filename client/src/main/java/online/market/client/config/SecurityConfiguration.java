@@ -56,7 +56,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(PUBLIC_MATCHERS)
                 .permitAll()
-                .antMatchers("/my-account").authenticated()
+                .antMatchers("/my-account","/add-to-cart")
+                .authenticated()
                 .anyRequest().authenticated();
         http
                 .csrf().disable().cors().disable()

@@ -56,7 +56,7 @@ public class AdvertisementServiceImpl implements AdvertisementService
         advertisementRepository.save(advertisement);
         if (advertisement.getImage_posted1().getSize() > 0) {
             if (advertisement.getImage_posted1().getSize() > 0) {
-                String image1 = ProductServiceImpl.ImageUpload(advertisement.getId(), advertisement.getImage_posted1(), "advertisement","");
+                String image1 = ProductServiceImpl.ImageUpload(advertisement.getId(), advertisement.getImage_posted1(), "advertisement","image");
                 advertisement.setImageData(image1);
             }
             advertisementRepository.save(advertisement);

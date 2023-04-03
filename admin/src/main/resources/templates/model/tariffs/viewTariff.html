@@ -47,19 +47,20 @@
             sell the company to Amazon or any major U.S. retailer.
         </p>
         <div class="container">
-            <!-- inside the container div -->
+            <h1>List of Tariffs</h1>
+            <hr>
             <div class="row">
-                <div class="col-md-4" th:each="tariff : ${tariffs}">
-                    <div class="card mb-4 box-shadow">
-                        <div class="card-body">
+                <div class="col-md-4 mb-4" th:each="tariff : ${tariffs}">
+                    <div class="card h-100">
+                        <div class="card-header">
                             <h4 class="card-title" th:text="${tariff.getTariffName()}"></h4>
-                            <p class="card-text">
-                                Price: <span th:text="${tariff.getPriceFor()}"></span><br>
-                                Start date: <span th:text="${tariff.getStart_date()}"></span><br>
-                                End date: <span th:text="${tariff.getEnd_date()}"></span><br>
-                                Availability: <span th:text="${tariff.getAvailability()} ? 'Available' : 'Not available'"></span><br>
-                                Renewal: <span th:text="${tariff.getRenewal()} ? 'Renewable' : 'Not renewable'"></span>
-                            </p>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text" th:text="'Price: ' + ${tariff.getPriceFor()}"></p>
+                            <p class="card-text" th:text="'Start Date: ' + ${tariff.getStart_date()}"></p>
+                            <p class="card-text" th:text="'End Date: ' + ${tariff.getEnd_date()}"></p>
+                            <p class="card-text" th:text="'Availability: ' + (${tariff.getAvailability()} ? 'Yes' : 'No')"></p>
+                            <p class="card-text" th:text="'Renewal: ' + (${tariff.getRenewal()} ? 'Yes' : 'No')"></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a th:href="@{/tariff/edit/{id}(id=${tariff.getId()})}" class="btn btn-sm btn-outline-secondary">Edit</a>
@@ -71,9 +72,9 @@
                     </div>
                 </div>
             </div>
-
-            <!--            a group of card here -->
         </div>
+
+
 
     </div>
 </div>

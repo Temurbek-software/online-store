@@ -24,6 +24,7 @@ public class HomeController
     private final CompanyService companyService;
     private final AuthorService authorService;
     private final AdvertisementService advertisementService;
+    private final TariffServices tariffServices;
 
     @RequestMapping("/")
     public String getHomePage(Model model)
@@ -35,6 +36,7 @@ public class HomeController
         model.addAttribute("authors", authorService.authorDtoList(false));
         model.addAttribute("ads",advertisementService.findAllItems());
         model.addAttribute("weekBookList",productService.productWeekList());
+        model.addAttribute("tariffList",tariffServices.getAllTariffs());
         return "home/homePage";
     }
 

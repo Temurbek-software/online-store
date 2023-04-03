@@ -23,7 +23,8 @@ public class Tariffs extends BaseEntity {
     @Column(name = "priceFor")
     private Double priceFor;
 
-    @Column(name = "Duration")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "duration")
     private Duration duration;
 
     @Column(name = "discount")

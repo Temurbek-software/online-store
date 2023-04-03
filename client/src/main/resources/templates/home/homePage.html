@@ -14,6 +14,53 @@
     </th:block>
 
     <style>
+        .price .card {
+            border: none;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .price .card-header {
+            background-color: #f7f7f7;
+            border-bottom: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .price .card-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .price .card-subtitle {
+            font-size: 14px;
+        }
+
+        .price .card-body {
+            padding: 20px;
+        }
+
+        .price .card-text {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .price ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .price li {
+            font-size: 14px;
+            line-height: 2;
+        }
+
+        .price li i {
+            color: #f44336;
+            margin-right: 10px;
+        }
+
         carousel-indicators {
             position: absolute;
             right: 0;
@@ -133,30 +180,20 @@
                                 <div th:each="item,iterStat : ${ads}" class="carousel-item"
                                      th:classappend="${iterStat.index == 0} ? 'active'">
                                     <img th:src="@{'http://localhost:81/admin' + ${item.getFullImage1Url()}}"
-                                         class="d-block w-100" alt="...">
+                                         class="d-block w-100" alt="..." th:height="380" th:width="1300">
                                     <div class="carousel-caption d-none d-md-block">
                                         <h5 th:text="${item.titleForAd}"></h5>
                                         <p th:text="${item.description}"></p>
                                     </div>
                                 </div>
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                               data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                               data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </a>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     <!-- New books in this week -->
     <section class="trending-product section">
         <div class="container">
@@ -255,7 +292,7 @@
                                 <li><span>4.0 Review(s)</span></li>
                             </ul>
                             <div class="price">
-                                <span th:text="${item.e_price}"></span>
+                                <span th:text="${item.e_price}"></span>s
                             </div>
                         </div>
                     </div>
@@ -352,72 +389,20 @@
                     </div>
                 </div>
                 <div class="row pt-4 price">
-                    <div class="col-md-3">
-                        <div class="card mb-4 box-shadow">
+                    <div class="col-md-4" th:each="tariff : ${tariffList}">
+                        <div class="card">
                             <div class="card-header">
-                                <h4 class="my-0 font-weight-normal">Free</h4>
+                                <h5 class="card-title" th:text="${tariff.tariffName}"></h5>
+                                <h6 class="card-subtitle mb-2 text-muted" th:text="${tariff.duration} + ' subscription'"></h6>
                             </div>
                             <div class="card-body">
-                                <h1><b>$0 </b><small class="text-muted">/ mo</small></h1>
-                                <ul class="list-unstyled mt-3 mb-4">
-                                    <li>10 users included</li>
-                                    <li>2 GB of storage</li>
-                                    <li>Email support</li>
-                                    <li>Help center access</li>
+                                <p class="card-text" th:text="${tariff.description}"></p>
+                                <ul class="list-unstyled">
+                                    <li><i class="fa fa-book"></i> Unlimited access to our entire library</li>
+                                    <li><i class="fa fa-credit-card"></i> Only $<span th:text="${tariff.priceFor}"></span>/month</li>
+                                    <li><i class="fa fa-check"></i> No commitment, cancel anytime</li>
                                 </ul>
-                                <button type="button" class="btn btn-lg btn-block btn-outline-info">Sign up for free
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card mb-4 box-shadow">
-                            <div class="card-header">
-                                <h4 class="my-0 font-weight-normal">Pro</h4>
-                            </div>
-                            <div class="card-body">
-                                <h1><b>$15 </b><small class="text-muted">/ mo</small></h1>
-                                <ul class="list-unstyled mt-3 mb-4">
-                                    <li>20 users included</li>
-                                    <li>10 GB of storage</li>
-                                    <li>Priority email support</li>
-                                    <li>Help center access</li>
-                                </ul>
-                                <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card mb-4 box-shadow">
-                            <div class="card-header">
-                                <h4 class="my-0 font-weight-normal">Pro</h4>
-                            </div>
-                            <div class="card-body">
-                                <h1><b>$15 </b><small class="text-muted">/ mo</small></h1>
-                                <ul class="list-unstyled mt-3 mb-4">
-                                    <li>20 users included</li>
-                                    <li>10 GB of storage</li>
-                                    <li>Priority email support</li>
-                                    <li>Help center access</li>
-                                </ul>
-                                <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card mb-4 box-shadow">
-                            <div class="card-header">
-                                <h4 class="my-0 font-weight-normal">Enterprise</h4>
-                            </div>
-                            <div class="card-body">
-                                <h1><b>$29 </b><small class="text-muted">/ mo</small></h1>
-                                <ul class="list-unstyled mt-3 mb-4">
-                                    <li>30 users included</li>
-                                    <li>15 GB of storage</li>
-                                    <li>Phone and email support</li>
-                                    <li>Help center access</li>
-                                </ul>
-                                <button type="button" class="btn btn-lg btn-block btn-primary">Contact us</button>
+                                <a href="#" class="btn btn-primary">Subscribe Now</a>
                             </div>
                         </div>
                     </div>
@@ -425,6 +410,8 @@
             </div>
         </div>
     </section>
+
+
     <!--    Special offer-->
     <!--    <section class="special-offer section">-->
     <!--        <div class="container">-->

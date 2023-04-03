@@ -69,7 +69,8 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    public static String ImageUpload(Long productId, MultipartFile productImage1, String folderName, String type) {
+    public static String ImageUpload(Long productId, MultipartFile productImage1,
+                                     String folderName, String type) {
         String fileName = "";
 
         String productFolder = "admin/src/main/resources/static/upload/" + folderName;
