@@ -15,8 +15,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class HomeController
-{
+public class HomeController {
     private final ProductService productService;
     private final CategoryService categoryService;
     private final SubCategoryService subCategoryService;
@@ -27,36 +26,42 @@ public class HomeController
     private final TariffServices tariffServices;
 
     @RequestMapping("/")
-    public String getHomePage(Model model)
-    {
+    public String getHomePage(Model model) {
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
-        model.addAttribute("listOfSubCategory",subCategoryService.getSubCategoryById(categoryService.categoryList(false).get(0).getId()));
+        model.addAttribute("listOfSubCategory", subCategoryService.getSubCategoryById(categoryService.categoryList(false).get(0).getId()));
         model.addAttribute("subcategory", subCategoryService.getAllSubCategories(false));
         model.addAttribute("bookList", productService.productDtoList(false));
         model.addAttribute("authors", authorService.authorDtoList(false));
-        model.addAttribute("ads",advertisementService.findAllItems());
-        model.addAttribute("weekBookList",productService.productWeekList());
-        model.addAttribute("tariffList",tariffServices.getAllTariffs());
+        model.addAttribute("ads", advertisementService.findAllItems());
+        model.addAttribute("weekBookList", productService.productWeekList());
+        model.addAttribute("tariffList", tariffServices.getAllTariffs());
         return "home/homePage";
     }
 
-    @RequestMapping("/bookList-category")
-    public String getTotalDataByCategory(@RequestParam("id") Long id,Model model)
+    @RequestMapping("/reading")
+    public String getBooksReading(@RequestParam("id") Long id,Model model)
     {
-        Category category= categoryService.categoryById(id);
-        model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
-        model.addAttribute("productListByCategory",productService.productListBySubCategoryId(id,category));
-        return "client/product-grid";
+        Product product = productService.getOneProductDto(id);
+        System.out.println(product.getFullPdf());
+        model.addAttribute("product",product);
+        return "/client/readingPdf";
     }
-    @RequestMapping("/bookList-subcategory")
-    public String getTotalDataBySubCategory(@RequestParam("id") Long id,Model model)
-    {
-        SubCategory subCategory=subCategoryService.getOneItemById(id);
+
+    @RequestMapping("/bookList-category")
+    public String getTotalDataByCategory(@RequestParam("id") Long id, Model model) {
+        Category category = categoryService.categoryById(id);
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
-        model.addAttribute("productListByCategory",productService.productListBySubCategoryId(id,subCategory));
+        model.addAttribute("productListByCategory", productService.productListBySubCategoryId(id, category));
         return "client/product-grid";
     }
 
+    @RequestMapping("/bookList-subcategory")
+    public String getTotalDataBySubCategory(@RequestParam("id") Long id, Model model) {
+        SubCategory subCategory = subCategoryService.getOneItemById(id);
+        model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
+        model.addAttribute("productListByCategory", productService.productListBySubCategoryId(id, subCategory));
+        return "client/product-grid";
+    }
 
 
     @RequestMapping("/authors")

@@ -73,7 +73,6 @@ public class LoginController
         return "redirect:/login?logout";
     }
 
-
     @GetMapping("/forget-password")
     public String forgetPassword(Model model) {
         model.addAttribute("classActiveMyAccount", "home active");

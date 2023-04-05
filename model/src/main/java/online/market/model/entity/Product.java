@@ -137,7 +137,7 @@ public class Product extends BaseEntity {
 
     public String getFullPdf() {
         if (id != null && imageData != null) {
-            return "/upload/product/" + id + "/e_book.pdf";
+            return "/upload/product/" + id + "/forE_Price.pdf";
         } else {
             return "/upload/no_preview.jpg";
         }
