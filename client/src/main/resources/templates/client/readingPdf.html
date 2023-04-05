@@ -30,15 +30,13 @@
 </div>
 <!-- End Breadcrumbs -->
 <div layout:fragment="content">
-  <h1>this is pdf</h1>
-  <!--Shopping cart section-->
-<!--  <img th:src="@{'http://localhost:81/admin'+${product.getFullImage1Url()}}" style="width:100%;height:800px;"></img>-->
-<!--  <object data="forE_Price.pdf" type="application/pdf" style="width:100%;height:800px;"></object>-->
-<!--&lt;!&ndash;  'http://localhost:81/admin/' + ${product.fullPdf}&ndash;&gt;-->
-<!--  <object data="../../static/forE_Price.pdf" type="application/pdf" width="300" height="200">-->
-<!--    alt : <a href="test.pdf">test.pdf</a>-->
-<!--  </object>-->
-  <iframe src="../../static/forE_Price.pdf" style="width:100%;height:700px;"></iframe>
+  <object th:attr="data=${bookContent}, type=${bookType}" width="600" height="700">
+    Error: PDF could not be displayed.
+  </object>
+  <p th:text="${bookContent}"></p>
+
+  <iframe th:src="${bookContent}" width="100%" height="600"></iframe>
+
 </div>
 
 

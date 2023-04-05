@@ -1,9 +1,21 @@
 package online.market.client.controller;
 
+import com.itextpdf.text.pdf.PdfReader;
 import lombok.RequiredArgsConstructor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import online.market.model.entity.*;
 import online.market.service.entity.*;
+import org.apache.commons.io.IOUtils;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +23,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -39,12 +59,79 @@ public class HomeController {
     }
 
     @RequestMapping("/reading")
-    public String getBooksReading(@RequestParam("id") Long id,Model model)
-    {
+    public String getBooksReading(@RequestParam("id") Long id, Model model) {
         Product product = productService.getOneProductDto(id);
         System.out.println(product.getFullPdf());
-        model.addAttribute("product",product);
+        model.addAttribute("product", product);
         return "/client/readingPdf";
+    }
+
+    //    @GetMapping("/reading")
+//    public String showBook(@RequestParam("id") Long id,Model model, @RequestParam(name = "page", defaultValue = "1") int page) throws IOException {
+//        Product product = productService.getOneProductDto(id);
+//
+//        // Read book content from file
+//
+//        Path filePath = Paths.get("http://localhost:81/admin"+product.getFullPdf());
+//
+//        List<String> bookLines = Files.readAllLines(filePath);
+//
+//        // Calculate starting line and ending line of the requested page
+//        int linesPerPage = 20;
+//        int startingLine = (page - 1) * linesPerPage;
+//        int endingLine = Math.min(startingLine + linesPerPage, bookLines.size());
+//
+//        // Create a substring of the book content for the requested page
+//        String bookContent = String.join("\n", bookLines.subList(startingLine, endingLine));
+//
+//        // Add book content and page number to the model
+//        model.addAttribute("bookContent", bookContent);
+//        model.addAttribute("page", page);
+//
+//        // Return the book.html template
+//        return "client/readingPdf";
+//    }
+//    @GetMapping("/reading")
+//    public String showBook(@RequestParam("id") Long id, Model model, @RequestParam(name = "page", defaultValue = "1") int page) throws IOException {
+//        Product product = productService.getOneProductDto(id);
+//        String bookUrl = "http://localhost:81/admin" + product.getFullPdf();
+//
+//        // Make an HTTP request to the bookUrl to get the book content
+//        OkHttpClient client = new OkHttpClient();
+//        Request request = new Request.Builder().url(bookUrl).build();
+//        Response response = client.newCall(request).execute();
+//        String bookContent = response.body().string();
+//
+//        // Calculate starting line and ending line of the requested page
+//        int linesPerPage = 20;
+//        int startingLine = (page - 1) * linesPerPage;
+//        int endingLine = Math.min(startingLine + linesPerPage, bookContent.length());
+//
+//        // Create a substring of the book content for the requested page
+//        String pageContent = bookContent.substring(startingLine, endingLine);
+//
+//        // Add book content, page number and total number of pages to the model
+//        int totalPages = (int) Math.ceil((double) bookContent.length() / linesPerPage);
+//        model.addAttribute("bookContent", pageContent);
+//        model.addAttribute("page", page);
+//        model.addAttribute("totalPages", totalPages);
+//
+//        // Return the book.html template
+//        return "client/readingPdf";
+//    }
+    @GetMapping("/reading")
+    public String showBook(@RequestParam("id") Long id,Model model) throws IOException {
+        Product product = productService.getOneProductDto(id);
+        String bookUrl = "http://localhost:81/admin" + product.getFullPdf();
+        System.out.println(bookUrl);
+        // Read the contents of the PDF file into a byte array
+        byte[] bookContent = IOUtils.toByteArray(new URL(bookUrl));
+        System.out.println(bookContent.toString());
+        // Pass the book content to the view
+        model.addAttribute("bookContent", bookUrl);
+        model.addAttribute("bookType", "application/pdf");
+
+        return "client/readingPdf";
     }
 
     @RequestMapping("/bookList-category")

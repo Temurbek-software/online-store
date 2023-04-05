@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -39,6 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.setPasswordEncoder(passwordEncoder);
         return auth;
     }
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -56,10 +58,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(PUBLIC_MATCHERS)
                 .permitAll()
-                .antMatchers("/my-account","/add-to-cart")
+                .antMatchers("/my-account", "/add-to-cart")
                 .authenticated()
                 .anyRequest().authenticated();
         http
+
                 .csrf().disable().cors().disable()
                 .formLogin().failureUrl("/login?error")
                 .defaultSuccessUrl("/")
@@ -71,6 +74,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .rememberMe();
+//        http
+//                .headers()
+//                .contentSecurityPolicy("frame-ancestors 'self' http://localhost:81");
+//                .contentSecurityPolicy("frame-ancestors 'self' http://localhost:81");
     }
 
     @Override
@@ -86,6 +93,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/mail/**",
             "/ico/**",
             "/",
+            "/pdf/**",
             "/reading",
             "/add-to-cart",
             "/login-second",
