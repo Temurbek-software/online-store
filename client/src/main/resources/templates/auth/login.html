@@ -14,14 +14,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Single Product</h1>
+                        <h1 class="page-title">Tizimga kirish</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-                        <li><a href="index.html">Shop</a></li>
-                        <li>Single Product</li>
+                        <li><a href="index.html"><i class="lni lni-home"></i> Asosiy sahifa</a></li>
+                        <li>Tizimga kirish</li>
                     </ul>
                 </div>
             </div>
@@ -39,50 +38,49 @@
                           enctype="multipart/form-data" method="post">
                         <div class="card-body">
                             <div class="title">
-                                <h3>Login Now</h3>
-                                <p>You can log in using your social media account or email address.</p>
+                                <h3>Tizimga kirish</h3>
+                                <p>Bizning tizimga kirish uchun, google akkount orqali ham kirishingiz mumkin</p>
                             </div>
                             <div class="social-login">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-12"><a class="btn facebook-btn"
                                                                              href="javascript:void(0)"><i
                                             class="lni lni-facebook-filled"></i> Facebook
-                                        login</a></div>
+                                        orqali kirish</a></div>
                                     <div class="col-lg-4 col-md-4 col-12"><a class="btn twitter-btn"
                                                                              href="javascript:void(0)"><i
-                                            class="lni lni-twitter-original"></i> Twitter
-                                        login</a></div>
+                                            class="lni lni-twitter-original"></i> Twitter orqali kirish</a></div>
                                     <div class="col-lg-4 col-md-4 col-12"><a class="btn google-btn"
                                                                              href="javascript:void(0)"><i
-                                            class="lni lni-google"></i> Google login</a>
+                                            class="lni lni-google"></i>Google orqali kirish</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="alt-option">
-                                <span>Or</span>
+                                <span>yoki</span>
                             </div>
                             <div th:if="${error}">
-                                <div class="alert alert-danger">Invalid username or password.</div>
+                                <div class="alert alert-danger">Parol yoki login xato</div>
                             </div>
                             <div class="form-group input-group">
                                 <label for="reg-email">Email</label>
                                 <input class="form-control" th:field="*{username}" type="email" id="reg-email" required="">
                             </div>
                             <div class="form-group input-group">
-                                <label for="reg-pass">Password</label>
+                                <label for="reg-pass">Parol</label>
                                 <input class="form-control" th:field="*{password}" type="password" id="reg-pass" required="">
                             </div>
                             <div class="d-flex flex-wrap justify-content-between bottom-content">
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input width-auto" id="exampleCheck1">
-                                    <label class="form-check-label">Remember me</label>
+                                    <label class="form-check-label">Eslab qolish</label>
                                 </div>
-                                <a class="lost-pass" th:href="@{/forget-password}">Forgot password?</a>
+                                <a class="lost-pass" th:href="@{/forget-password}">Parolni unutdingizmi?</a>
                             </div>
                             <div class="button">
-                                <button class="btn" type="submit">Login</button>
+                                <button class="btn" type="submit">Royhatdan o'tish</button>
                             </div>
-                            <p class="outer-link">Don't have an account? <a href="register.html">Register here </a>
+                            <p class="outer-link">Akkountiz yoqmi? <a href="register.html">Royhatdan o'ting</a>
                             </p>
                         </div>
                     </form>

@@ -36,9 +36,9 @@
                 <div class="col-lg-4 col-md-4 col-12">
                     <div class="top-middle">
                         <ul class="useful-links">
-                            <li><a th:href="@{/}">Home</a></li>
-                            <li><a th:href="@{/aboutUs}">About Us</a></li>
-                            <li><a th:href="@{/contactUs}">Contact Us</a></li>
+                            <li><a th:href="@{/}">Asosiy sahifa</a></li>
+                            <li><a th:href="@{/aboutUs}">Biz haqimizda</a></li>
+                            <li><a th:href="@{/contactUs}">Biz bilan boglaning</a></li>
                         </ul>
                     </div>
                 </div>
@@ -47,10 +47,10 @@
                         <span sec:authorize="!isAuthenticated()">
                             <ul class="user-login">
                             <li>
-                                <a style="color: white" th:href="@{/login}">Sign In</a>
+                                <a style="color: white" th:href="@{/login}">Tizimga kirish</a>
                             </li>
                             <li>
-                                <a th:href="@{/register}">Register</a>
+                                <a th:href="@{/register}">Ro'yhatdan o'tish</a>
                             </li>
                         </ul>
                         </span>
@@ -61,7 +61,7 @@
                             </a>
                             <ul class="user-login">
                                 <li>
-                                    <a th:href="@{/logout}">Logout</a>
+                                    <a th:href="@{/logout}">chiqish</a>
                                 </li>
                             </ul>
                         </div>
@@ -85,17 +85,16 @@
                             <div class="search-select">
                                 <div class="select-position">
                                     <select id="select1">
-                                        <option selected="">All</option>
-                                        <option value="1">option 01</option>
-                                        <option value="2">option 02</option>
-                                        <option value="3">option 03</option>
-                                        <option value="4">option 04</option>
-                                        <option value="5">option 05</option>
+                                        <option selected="">Hammasi</option>
+                                        <option value="1">Kitoblar</option>
+                                        <option value="2">Aftorlar</option>
+                                        <option value="3">Dokonlar</option>
+                                        <option value="4">Nashriyot</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="search-input">
-                                <input type="text" placeholder="Search"/>
+                                <input type="text" placeholder="Izlash"/>
                             </div>
                             <div class="search-btn">
                                 <button><i class="lni lni-search-alt"></i></button>
@@ -108,7 +107,7 @@
                         <div class="nav-hotline">
                             <i class="lni lni-phone"></i>
                             <h3>
-                                Phone:
+                                Tel:
                                 <span>(99) 461 23 09</span>
                             </h3>
                         </div>
@@ -210,7 +209,7 @@
                 <span class="cat-button">
                     <i class="lni lni-menu">
 
-                    </i>All Categories</span>
+                    </i>Barcha kategoriyalar</span>
                         <ul class="sub-category">
                             <span th:each="category:${categoryList}">
                                  <li>
@@ -250,7 +249,7 @@
                                             th:href="@{/}"
                                             class="active"
                                             aria-label="Toggle navigation"
-                                    >Home</a
+                                    >Asosiy sahifa</a
                                     >
                                 </li>
                                 <li class="nav-item">
@@ -262,38 +261,38 @@
                                             aria-controls="navbarSupportedContent"
                                             aria-expanded="false"
                                             aria-label="Toggle navigation"
-                                    >Books</a
+                                    >Kitoblar</a
                                     >
                                     <ul class="sub-menu collapse" id="submenu-1-2">
                                         <li class="nav-item">
-                                            <a href="about-us.html">E-books</a>
+                                            <a href="about-us.html">Elektron kitoblar</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="faq.html">PDF books</a>
+                                            <a href="faq.html">Qogozli kitoblar</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="login.html">Audio books</a>
+                                            <a href="login.html">Audio kitoblar</a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item">
                                     <a th:href="@{/authors}" aria-label="Toggle navigation"
-                                    >Authors</a
+                                    >Mualliflar</a
                                     >
                                 </li>
                                 <li class="nav-item">
                                     <a th:href="@{/companies}" aria-label="Toggle navigation"
-                                    >Companies</a
+                                    >Dokonlar</a
                                     >
                                 </li>
                                 <li class="nav-item">
                                     <a th:href="@{/publishers}" aria-label="Toggle navigation"
-                                    >Publishers</a
+                                    >Nashriyot</a
                                     >
                                 </li>
                                 <li class="nav-item">
                                     <a th:href="@{/contactUs}" aria-label="Toggle navigation"
-                                    >Contact Us</a
+                                    >Biz bilan boglaning</a
                                     >
                                 </li>
                             </ul>
@@ -303,7 +302,7 @@
             </div>
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="nav-social">
-                    <h5 class="title">Follow Us:</h5>
+                    <h5 class="title">Biz bilan birga:</h5>
                     <ul>
                         <li>
                             <a href="javascript:void(0)"

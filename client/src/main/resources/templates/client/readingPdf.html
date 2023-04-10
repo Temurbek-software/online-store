@@ -3,42 +3,41 @@
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-  <meta charset="UTF-8">
-  <title>Cart</title>
+    <meta charset="UTF-8">
+    <title>Cart</title>
 </head>
 <body>
 <!-- Start Breadcrumbs -->
 <div layout:fragment="breadcrumb">
-  <div class="breadcrumbs">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 col-md-6 col-12">
-          <div class="breadcrumbs-content">
-            <h1 class="page-title">Single Product</h1>
-          </div>
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">Single Product</h1>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <ul class="breadcrumb-nav">
+                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
+                        <li><a href="index.html">Shop</a></li>
+                        <li>Single Product</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-12">
-          <ul class="breadcrumb-nav">
-            <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-            <li><a href="index.html">Shop</a></li>
-            <li>Single Product</li>
-          </ul>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 <!-- End Breadcrumbs -->
 <div layout:fragment="content">
-  <object th:attr="data=${bookContent}, type=${bookType}" width="600" height="700">
-    Error: PDF could not be displayed.
-  </object>
-  <p th:text="${bookContent}"></p>
-
-  <iframe th:src="${bookContent}" width="100%" height="600"></iframe>
-
+    <section class="section pdf-section">
+        <div class="container">
+            <object th:attr="data=${#strings.concat('data:', bookType, ';base64,', bookContent)}"
+                    type="application/pdf" width="100%" height="600px">
+                <p>PDF cannot be displayed. Please check if you have a PDF reader installed.</p>
+            </object>
+        </div>
+    </section>
 </div>
-
-
 </body>
 </html>

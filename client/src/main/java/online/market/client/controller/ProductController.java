@@ -38,4 +38,5 @@ public class ProductController {
         return "/client/product-details";
     }
 
+
 }

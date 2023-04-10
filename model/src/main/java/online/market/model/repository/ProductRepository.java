@@ -16,11 +16,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findProductByCategoryItems(Long id);
     @Query(value = "SELECT * "
             + "FROM public.product "
-            + "WHERE created_at BETWEEN now() - interval '7 days' AND now() "
-            + "AND is_deleted = false "
+            + "WHERE is_deleted = false "
             + "ORDER BY created_at DESC "
             + "LIMIT 6", nativeQuery = true)
     List<Product> findNewBooksList();
+
 
 
 }

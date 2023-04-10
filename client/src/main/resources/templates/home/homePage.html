@@ -4,7 +4,7 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Asosiy sahifa</title>
     <th:block layout:fragment="links">
         <script
                 type="text/javascript"
@@ -200,10 +200,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2>Best seller book</h2>
+                        <h2>Eng yaxshi va ko'p o'qilgan kitoblar</h2>
                         <p>
-                            There are many variations of passages of Lorem Ipsum available,
-                            but the majority have suffered alteration in some form.
+                            O'qish uchun tavsiya etiladigan adabiyotlar
                         </p>
                     </div>
                 </div>
@@ -211,7 +210,7 @@
             <div class="row">
                 <div class="col-12 mt-4" style="display: flex; justify-content: end;">
                     <a class="see-all-link float-right mt-xs"
-                       href="#">See All</a></div>
+                       href="#">Barchasi</a></div>
 
             </div>
             <div class="row">
@@ -221,13 +220,15 @@
                             <img th:src="#{adminPath}+${books.getFullImage1Url()}" alt="#"/>
                             <div class="button">
                                 <a th:href="@{/book-details(id=${books.id})}" class="btn">
-                                    <i class="lni lni-cart"></i> Add to Cart</a>
+                                    <i class="lni lni-cart"></i>Korzinkada qo'shish</a>
                             </div>
                         </div>
                         <div class="product-info">
-                            <span th:text="${books.getSubCategory().categoryName}" class="category"></span>
+                            <span th:text="${#strings.length(books.getSubCategory().categoryName) > 10 ? #strings.substring(books.getSubCategory().categoryName, 0, 10) + '...' : books.getSubCategory().categoryName}"
+                                  class="category"></span>
                             <h4 class="title">
-                                <a th:text="${books.bookName}" href="product-grids.html"> </a>
+                                <a th:text="${#strings.length(books.bookName) > 10 ? #strings.substring(books.bookName, 0, 10) + '...' : books.bookName}"
+                                   href="product-grids.html"></a>
                             </h4>
                             <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -238,7 +239,7 @@
                                 <li><span>4.0 Review(s)</span></li>
                             </ul>
                             <div class="price">
-                                <span th:text="${books.e_price}"></span>
+                                <span th:text="${books.e_price}"></span> <span>so'm</span>
                             </div>
                         </div>
                     </div>
@@ -254,10 +255,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2>new books in this week</h2>
+                        <h2>Hafta ichidagi yangi kitoblar</h2>
                         <p>
-                            There are many variations of passages of Lorem Ipsum available,
-                            but the majority have suffered alteration in some form.
+                            O'zbek va jahon adabiyotining eng sara asarlari
                         </p>
                     </div>
                 </div>
@@ -265,23 +265,24 @@
             <div class="row">
                 <div class="col-12 mt-4" style="display: flex; justify-content: end;">
                     <a class="see-all-link float-right mt-xs"
-                       href="https://www.barnesandnoble.com/b/books/_/N-1sZ29Z8q8">See All</a></div>
+                       href="#">Barchasi</a></div>
 
             </div>
             <div class="row">
-                    <div th:each="item:${weekBookList}" class="col-lg-2 col-md-6 col-12">
+                <div th:each="item:${weekBookList}" class="col-lg-2 col-md-6 col-12">
                     <div class="single-product">
                         <div class="product-image">
                             <img th:src="#{adminPath}+${item.getFullImage1Url()}" alt="#"/>
                             <div class="button">
                                 <a th:href="@{/book-details(id=${item.id})}" class="btn">
-                                    <i class="lni lni-cart"></i> Add to Cart</a>
+                                    <i class="lni lni-cart"></i>Korzinkada qo'shish</a>
                             </div>
                         </div>
                         <div class="product-info">
-                            <span th:text="${item.getSubCategory().categoryName}" class="category"></span>
+                            <span th:text="${#strings.length(item.getSubCategory().categoryName) > 10 ? #strings.substring(item.getSubCategory().categoryName, 0, 10) + '...' : books.getSubCategory().categoryName}" class="category"></span>
                             <h4 class="title">
-                                <a th:text="${item.bookName}" href="product-grids.html"> </a>
+                                <a th:text="${#strings.length(item.bookName) > 10 ? #strings.substring(item.bookName, 0, 10) + '...' : item.bookName}"
+                                   href="product-grids.html"></a>
                             </h4>
                             <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -292,11 +293,11 @@
                                 <li><span>4.0 Review(s)</span></li>
                             </ul>
                             <div class="price">
-                                <span th:text="${item.e_price}"></span>s
+                                <span th:text="${item.e_price}"></span> <span>so'm</span>
                             </div>
                         </div>
                     </div>
-                </span>
+                </div>
             </div>
 
         </div>
@@ -307,15 +308,14 @@
             <div class="container">
                 <div class="row justify-content-center mb-4">
                     <div class="col-md-7 text-center">
-                        <h3 class="mb-3">Experienced & Professional Team</h3>
-                        <p>You can relay on our amazing features list and also our customer services
-                            will be great experience for you without doubt and in no-time</p>
+                        <h3 class="mb-3">Bizning eng faol mualliflarimiz</h3>
+                        <p>Faol mualliflar va ular haqida qisqacha malumot</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 mt-4" style="display: flex; justify-content: end;">
                         <a class="see-all-link float-right mt-xs"
-                           href="https://www.barnesandnoble.com/b/books/_/N-1sZ29Z8q8">See All</a></div>
+                           href="https://www.barnesandnoble.com/b/books/_/N-1sZ29Z8q8">Barchasi</a></div>
 
                 </div>
                 <br>
@@ -338,10 +338,10 @@
                                                 <h6 th:text="${author.email}" class="subtitle mb-3"></h6>
                                                 <p th:text="${author.shortDescription}"></p>
                                                 <ul class="list-inline">
-                                                    <li class="list-inline-item"><a href="#"
-                                                                                    class="text-decoration-none d-block px-1">
-                                                        <i class="lni lni-facebook-filled"></i>
-                                                    </a>
+                                                    <li class="list-inline-item">
+                                                        <a href="#" class="text-decoration-none d-block px-1">
+                                                            <i class="lni lni-facebook-filled"></i>
+                                                        </a>
                                                     </li>
                                                     <li class="list-inline-item">
                                                         <a href="#" class="text-decoration-none d-block px-1">
@@ -380,10 +380,10 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="section-title">
-                            <h2>Our book store tariffs</h2>
+                            <h2>Bizning obunalarimiz</h2>
                             <p>
-                                There are many variations of passages of Lorem Ipsum available,
-                                but the majority have suffered alteration in some form.
+                                Yangi va kop foydali bolgan obunalarimizning royhati.
+                                Shu yerdan uzingiz yoqtirgan obunani tanlashigiz mumkin
                             </p>
                         </div>
                     </div>
@@ -393,16 +393,19 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title" th:text="${tariff.tariffName}"></h5>
-                                <h6 class="card-subtitle mb-2 text-muted" th:text="${tariff.duration} + ' subscription'"></h6>
+                                <h6 class="card-subtitle mb-2 text-muted"
+                                    th:text="${tariff.duration} + ' subscription'"></h6>
                             </div>
                             <div class="card-body">
                                 <p class="card-text" th:text="${tariff.description}"></p>
                                 <ul class="list-unstyled">
                                     <li><i class="fa fa-book"></i> Unlimited access to our entire library</li>
-                                    <li><i class="fa fa-credit-card"></i> Only $<span th:text="${tariff.priceFor}"></span>/month</li>
+                                    <li><i class="fa fa-credit-card"></i> Only $<span
+                                            th:text="${tariff.priceFor}"></span>/month
+                                    </li>
                                     <li><i class="fa fa-check"></i> No commitment, cancel anytime</li>
                                 </ul>
-                                <a href="#" class="btn btn-primary">Subscribe Now</a>
+                                <a  th:href="@{/tariff(id=${tariff.id})}" class="btn btn-primary">Subscribe Now</a>
                             </div>
                         </div>
                     </div>
@@ -411,27 +414,6 @@
         </div>
     </section>
 
-
-    <!--    Special offer-->
-    <!--    <section class="special-offer section">-->
-    <!--        <div class="container">-->
-    <!--            <div class="row">-->
-    <!--                <div class="col-12">-->
-    <!--                    <div class="section-title">-->
-    <!--                        <h2>Special Offer</h2>-->
-    <!--                        <p>-->
-    <!--                            There are many variations of passages of Lorem Ipsum available,-->
-    <!--                            but the majority have suffered alteration in some form.-->
-    <!--                        </p>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div class="row">-->
-
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </section>-->
-    <!--    Shipping-->
     <section class="shipping-info">
         <div class="container">
             <ul>
@@ -440,8 +422,10 @@
                         <i class="lni lni-delivery"></i>
                     </div>
                     <div class="media-body">
-                        <h5>Cheap delivery</h5>
-                        <span>On order over $99</span>
+                        <h5>Arzon yetkazish</h5>
+                        <span>buyurtma bering 50000 sum,
+                        O'zbekistonni istalgan joyiga
+                        </span>
                     </div>
                 </li>
 
@@ -450,8 +434,8 @@
                         <i class="lni lni-support"></i>
                     </div>
                     <div class="media-body">
-                        <h5>24/7 Support.</h5>
-                        <span>Live Chat Or Call.</span>
+                        <h5>24/7 operatorlarimiz ishlashadi.</h5>
+                        <span>Tel yoki sms yozishingiz mumkin.</span>
                     </div>
                 </li>
 
@@ -460,8 +444,8 @@
                         <i class="lni lni-credit-cards"></i>
                     </div>
                     <div class="media-body">
-                        <h5>Online Payment.</h5>
-                        <span>Secure Payment Services.</span>
+                        <h5>Online tolov qilish</h5>
+                        <span>Xizmatlarni havfszligini saqlash bizning ham burchimizda.</span>
                     </div>
                 </li>
 
@@ -470,8 +454,8 @@
                         <i class="lni lni-reload"></i>
                     </div>
                     <div class="media-body">
-                        <h5>Exchange</h5>
-                        <span>Hassle Free Shopping.</span>
+                        <h5>Qaytarib ham olish</h5>
+                        <span>Bepul.</span>
                     </div>
                 </li>
             </ul>

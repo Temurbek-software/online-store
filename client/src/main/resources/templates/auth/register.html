@@ -4,7 +4,7 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
+    <title>Royhatdan o'tish</title>
 
 </head>
 <body>
@@ -15,14 +15,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Single Product</h1>
+                        <h1 class="page-title">Royhatdan o'tish</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-                        <li><a href="index.html">Shop</a></li>
-                        <li>Single Product</li>
+                        <li><a href="index.html"><i class="lni lni-home"></i>Asosiy sahifa</a></li>
+                        <li>Royhatdan o'tish</li>
                     </ul>
                 </div>
             </div>
@@ -37,28 +36,28 @@
                 <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
                     <div class="register-form">
                         <div class="title">
-                            <h3>No Account? Register</h3>
-                            <p>Registration takes less than a minute but gives you full control over your orders.</p>
+                            <h3>Akkountingiz yoqmi ? Royhatdan o'ting</h3>
+                            <p>Registratsiyadan otish orqali, ko'proq imkoniyatga ega bo'ling</p>
                         </div>
                         <form class="row" method="post" th:action="@{/register}" th:object="${customerRegistration}" enctype="multipart/form-data">
                             <div th:if="${param.success}">
-                                <div class="alert alert-info">You've successfully registered to our awesome app!
+                                <div class="alert alert-info">Bizning tizimimizga muffaqiyatli a'zo bo'ldingiz
                                 </div>
                             </div>
                             <div th:if="${param.email}">
                                 <div class="alert alert-danger">
-                                    There is already a user registered with the username / email provided.
+                                    Bu email orqali oldin ro'yhatdan o'tilgan
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-fn">First Name</label>
+                                    <label for="reg-fn">Ismingizni kiriting</label>
                                     <input class="form-control" th:field="*{firstName}" type="text" id="reg-fn" required="">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="reg-ln">Last Name</label>
+                                    <label for="reg-ln">Familiyangizni kiriting</label>
                                     <input class="form-control" th:field="*{lastName}" type="text" id="reg-ln" required="">
                                 </div>
                             </div>
@@ -70,20 +69,20 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="phoneNumber">Phone Number</label>
+                                    <label for="phoneNumber">Telefon raqam</label>
                                     <input class="form-control" th:field="*{phoneNumber}" type="text" id="phoneNumber" required="">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="countryName">Enter country </label>
+                                    <label for="countryName">Davlatni kiriting </label>
                                     <input class="form-control" type="text" th:field="*{countryName}" id="countryName" required="">
                                     <p th:if="${#fields.hasErrors('countryName')}" th:errorclass="error" th:errors="*{countryName}" />
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="cityName">Enter state</label>
+                                    <label for="cityName">Saharni kiritinge</label>
                                     <input class="form-control" type="text" th:field="*{cityName}" id="cityName" required="">
                                     <p th:if="${#fields.hasErrors('cityName')}" th:errorclass="error" th:errors="*{cityName}" />
                                 </div>
@@ -91,32 +90,32 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="address">Enter your address</label>
+                                    <label for="address">Uy addressni kiriting</label>
                                     <input class="form-control" type="text" th:field="*{address}" id="address" required="">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="postalCode">Postal code</label>
+                                    <label for="postalCode">Postal kode</label>
                                     <input class="form-control" type="text" th:field="*{postalCode}" id="postalCode" required="">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="password">Password</label>
+                                    <label for="password">Parol</label>
                                     <input class="form-control" type="password" th:field="*{password}" id="password" required="">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="confirmPassword">Confirm Password</label>
+                                    <label for="confirmPassword">Parolni tasdiqlash</label>
                                     <input class="form-control" type="password" th:field="*{confirmPassword}" id="confirmPassword" required="">
                                 </div>
                             </div>
                             <div class="button">
-                                <button class="btn" type="submit">Register</button>
+                                <button class="btn" type="submit">Tasdiqlash</button>
                             </div>
-                            <p class="outer-link">Already have an account? <a href="login.html">Login Now</a>
+                            <p class="outer-link">Allaqachon akkountingz bormi? <a href="login.html">Hozir kirishingz mumkin</a>
                             </p>
                         </form>
                     </div>
