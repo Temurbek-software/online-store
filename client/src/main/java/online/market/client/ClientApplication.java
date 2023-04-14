@@ -13,8 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EntityScan(basePackages = {"online.market"})
 @EnableJpaRepositories(basePackages = {"online.market"})
 @SpringBootApplication
-public class ClientApplication {
-
+public class ClientApplication
+{
     public static void main(String[] args) {
         SpringApplication.run(ClientApplication.class, args);
     }

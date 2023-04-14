@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${#strings.capitalize(OneCompany.nameOfCompany)}"></title>
+
+</head>
+<body>
+<!-- Start Breadcrumbs -->
+<div layout:fragment="breadcrumb">
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">Single Product</h1>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <ul class="breadcrumb-nav">
+                        <li><a href="index.html"><i class="lni lni-home"></i>Asosiy sahifa</a></li>
+                        <li><a href="index.html">Do'konlar</a></li>
+                        <li th:text="${#strings.capitalize(OneCompany.nameOfCompany)}"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Breadcrumbs -->
+<div layout:fragment="content">
+    <!--Shopping cart section-->
+    <div class="section blog-single">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12 col-12">
+                    <div class="single-inner">
+                        <div class="post-details">
+                            <div class="main-content-head">
+                                <div class="meta-information">
+                                    <h2 class="post-title">
+                                        <a th:text="${#strings.capitalize(OneCompany.nameOfCompany)}">Smartphones in
+                                            Every Day Life.</a>
+                                    </h2>
+                                    <ul class="meta-info">
+                                        <li>
+                                            <a href="javascript:void(0)"> <i class="lni lni-user"></i>
+                                                <a th:text="${OneCompany.authorForCompany != null ? #strings.capitalize(OneCompany.authorForCompany) : 'no author'}"></a>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)"><i class="lni lni-calendar"></i><a
+                                                    th:text="${#dates.format(OneCompany.createdAt, 'MM/dd/yyyy hh:mm:ss a')}"></a>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)"><i class="lni lni-tag"></i> Marketing</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)"><i class="lni lni-timer"></i> 5 min read</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="detail-inner">
+                                    <p th:text="${#strings.capitalize(OneCompany.description)}"></p>
+                                    <div class="post-bottom-area">
+
+                                        <div class="post-tag">
+                                            <ul>
+                                                <li><a href="javascript:void(0)">#badiiy,</a></li>
+                                                <li><a href="javascript:void(0)">#Hikoyalar</a></li>
+                                            </ul>
+                                        </div>
+
+
+                                        <div class="post-social-media">
+                                            <h5 class="share-title">Kutubxona bilan bog'lanish :</h5>
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="lni lni-facebook-filled"></i>
+                                                        <span>facebook</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="lni lni-twitter-original"></i>
+                                                        <span>twitter</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="lni lni-google"></i>
+                                                        <span>google+</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="lni lni-linkedin-original"></i>
+                                                        <span>linkedin</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="lni lni-pinterest"></i>
+                                                        <span>pinterest</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <aside class="col-lg-4 col-md-12 col-12">
+                    <div class="sidebar blog-grid-page">
+
+                        <div class="widget search-widget">
+                            <h5 class="widget-title">Do'konlarni saytdan izlash</h5>
+                            <form action="#">
+                                <input type="text" placeholder="Izlash...">
+                                <button type="submit"><i class="lni lni-search-alt"></i></button>
+                            </form>
+                        </div>
+
+
+                        <div class="widget popular-feeds">
+                            <h5 class="widget-title">Tavsiya etiladigan do'konlar</h5>
+                            <div class="popular-feed-loop">
+                                <div class="single-popular-feed" th:each="items:${companyList}">
+                                    <div class="feed-desc">
+                                        <a class="feed-img" href="blog-single-sidebar.html">
+                                            <img th:src="@{'http://localhost:81/admin' + ${items.getFullImage1Url()}}"
+                                                 alt="#">
+                                        </a>
+                                        <h6 class="post-title">
+                                            <a th:href="@{/company(id=${items.id})}"
+                                               th:text="${#strings.length(items.description) > 10 ? #strings.substring(items.description, 0, 10) + '...' : items.description}"></a>
+                                        </h6>
+                                        <span class="time"><i class="lni lni-calendar"></i> <span
+                                                th:text="${#dates.format(items.createdAt, 'yyyy-MM-dd')}"></span> </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="widget categories-widget">
+                            <h5 class="widget-title">Turli xil kategoriyadagi kitoblar</h5>
+                            <ul class="custom">
+                                <li th:each="">
+                                    <a href="#"></a><span>(24)</span>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                        <div class="widget popular-tag-widget">
+                            <h5 class="widget-title">Popular Tags</h5>
+                            <div class="tags">
+                                <a href="javascript:void(0)">#electronics</a>
+                                <a href="javascript:void(0)">#cpu</a>
+                                <a href="javascript:void(0)">#gadgets</a>
+                                <a href="javascript:void(0)">#wearables</a>
+                                <a href="javascript:void(0)">#smartphones</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

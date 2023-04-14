@@ -3225,7 +3225,7 @@ ol {
 }
 
 .shipping-info ul {
-    display: inline-block;
+    display: flex;
     width: 100%;
     margin-bottom: 0px;
 }
@@ -4204,7 +4204,7 @@ ol {
     overflow: hidden !important;
     -webkit-box-shadow: 0px 0px 20px #00000012;
     box-shadow: 0px 0px 20px #00000012;
-    padding: 30px;
+    padding: 10px;
     background: #fff;
     border-radius: 4px;
 }
@@ -8210,4 +8210,9 @@ blockquote span {
     aspect-ratio: 3/4 !important;
     height: fit-content;
     object-fit: contain;
+}
+
+.autors-image img{
+    height: 250px;
+
 }

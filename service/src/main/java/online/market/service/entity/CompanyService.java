@@ -18,4 +18,5 @@ public interface CompanyService {
     void updateCompanyWithNewOne(long id,Company company);
     Page<Company> findPaginatedCompany(int pageNo, int pageSize);
     boolean deleteCompanyById(long id);
+    List<Company> displayCompanyWithDate(int year);
 }

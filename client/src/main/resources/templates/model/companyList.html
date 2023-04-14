@@ -4,7 +4,7 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Company</title>
+    <title>Mahalliy dokonlar</title>
 </head>
 <body>
 <!-- Start Breadcrumbs -->
@@ -14,13 +14,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Here is our company staff</h1>
+                        <h1 class="page-title">Mahalliy do'konlar</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-                        <li>company</li>
+                        <li><a href="index.html"><i class="lni lni-home"></i>Asosiy sahifa</a></li>
+                        <li>Do'konlar</li>
                     </ul>
                 </div>
             </div>
@@ -34,21 +34,23 @@
             <div class="row">
                 <div class="col-lg-8 col-md-12 col-12">
                     <div class="row">
-                        <div th:each="company:${companyList}" class="col-lg-6 col-md-6 col-12">
+                        <div th:each="company:${companyList}" class="col-lg-4 col-md-6 col-12">
                             <div class="single-blog">
                                 <div class="blog-img">
                                     <a href="blog-single-sidebar.html">
-                                        <img th:src="@{https://www.whistles.com/on/demandware.static/-/Library-Sites-WHSharedLibrary/default/dwcfd848de/images/inspiration/rizolli-bookstore.jpg}" alt="#">
+                                        <img th:src="@{'http://localhost:81/admin' + ${company.getFullImage1Url()}}"
+                                             alt="#">
                                     </a>
                                 </div>
                                 <div class="blog-content">
-                                    <a class="category" href="javascript:void(0)">eCommerce</a>
+                                    <span class="category"
+                                          th:text="${#dates.format(company.createdAt, 'yyyy-MM-dd')}"></span>
                                     <h4>
-                                        <a th:text="${company.nameOfCompany}" href="blog-single-sidebar.html"></a>
+                                        <span th:text="${company.nameOfCompany}"></span>
                                     </h4>
                                     <p th:text="${company.description}"></p>
                                     <div class="button">
-                                        <a href="#" class="btn">Read More</a>
+                                        <a th:href="@{/company(id=${company.id})}" class="btn">Ba'tafsil</a>
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +72,7 @@
                             </span>
                             <span th:if="${currentPage<totalPages}">
                                 <li>
-                                <a  th:href="@{'/page/'+${currentPage+1}}">Next</a>
+                                <a th:href="@{'/page/'+${currentPage+1}}">Next</a>
                             </li>
                             </span>
                             <span th:unless="${currentPage<=totalPages}">

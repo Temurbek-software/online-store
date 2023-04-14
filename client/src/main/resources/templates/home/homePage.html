@@ -5,14 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Asosiy sahifa</title>
-    <th:block layout:fragment="links">
-        <script
-                type="text/javascript"
-                src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
-        ></script>
-
-    </th:block>
-
     <style>
         .price .card {
             border: none;
@@ -128,7 +120,7 @@
 
 
         .product-image img {
-            aspect-ratio: 3/4 !important;
+            aspect-ratio: 3/3 !important;
             height: fit-content;
             object-fit: contain;
         }
@@ -322,7 +314,7 @@
                 <br>
                 <div class="container">
                     <div class="row">
-                        <div class="col-10 offset-1">
+                        <div class="col-10 offset-1 autors-image">
                             <div class="row">
                                 <div th:each="author:${authors}" class="col-lg-3 col-md-3 px-6 mb-4 footer-card">
                                     <!-- Row -->

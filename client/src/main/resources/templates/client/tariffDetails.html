@@ -43,8 +43,8 @@
                                 <li><i class="fas fa-dollar-sign"></i> <strong>Price:</strong> <span th:text="${myTariff.priceFor}"></span></li>
                                 <li><i class="fas fa-clock"></i> <strong>Duration:</strong> <span th:text="${myTariff.duration}"></span></li>
                                 <li><i class="fas fa-tags"></i> <strong>Discount:</strong> <span th:text="${myTariff.discount}"></span>%</li>
-                                <li><i class="fas fa-calendar-alt"></i> <strong>Start Date:</strong> <span th:text="${#dates.format(myTariff.start_date, 'MM/dd/yyyy')}"></span></li>
-                                <li><i class="fas fa-calendar-alt"></i> <strong>End Date:</strong> <span th:text="${#dates.format(myTariff.end_date, 'MM/dd/yyyy')}"></span></li>
+                                <li><i class="fas fa-calendar-alt"></i> <strong>Start Date:</strong> <span th:text="${#dates.format(myTariff.start_date, 'MM/dd/yyyy hh:mm:ss a')}"></span></li>
+                                <li><i class="fas fa-calendar-alt"></i> <strong>End Date:</strong> <span th:text="${#dates.format(myTariff.end_date, 'MM/dd/yyyy hh:mm:ss a')}"></span></li>
                             </ul>
                         </div>
 

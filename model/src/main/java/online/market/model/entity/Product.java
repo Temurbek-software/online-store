@@ -84,6 +84,10 @@ public class Product extends BaseEntity {
     private Company productCompany;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contact_Id", referencedColumnName = "id")
+    private Contacts contacts;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publisher_Id", referencedColumnName = "id")
     private Publisher productPublisherList;
 
@@ -98,7 +102,6 @@ public class Product extends BaseEntity {
     @ManyToMany(mappedBy = "products")
     @JsonIgnore
     private Set<Tariffs> tariffsSet = new HashSet<>();
-
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private Advertisement advertisement;

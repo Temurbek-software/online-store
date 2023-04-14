@@ -4,7 +4,7 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Product details</title>
+    <title th:text="${#strings.capitalize(oneProduct.bookName)}"></title>
     <th:block layout:fragment="links">
         <!-- CSS Implementing Plugins -->
         <link rel="stylesheet" th:href="@{/css/css/css-fontawesome-all.min.css}"/>

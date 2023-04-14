@@ -53,7 +53,6 @@ public class LoginController
             SecurityContextHolder.getContext().setAuthentication(authentication);
             Customer customer=customerService.findByUsername(username);
             request.getSession().setAttribute("customer", customer);
-            System.out.println(customer);
             return "redirect:/";
         }
         catch (AuthenticationException e)

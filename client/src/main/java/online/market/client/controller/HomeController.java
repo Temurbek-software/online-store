@@ -9,6 +9,7 @@ import online.market.model.entity.*;
 import online.market.service.entity.*;
 import org.apache.commons.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +36,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -50,8 +54,7 @@ public class HomeController {
     private final CustomerService customerService;
 
     @RequestMapping("/")
-    public String getHomePage(Model model)
-    {
+    public String getHomePage(Model model) {
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         model.addAttribute("listOfSubCategory", subCategoryService.getSubCategoryById(categoryService.categoryList(false).get(0).getId()));
         model.addAttribute("subcategory", subCategoryService.getAllSubCategories(false));
@@ -66,16 +69,17 @@ public class HomeController {
     @GetMapping("/tariff")
     public String showTariff(@RequestParam("id") Long id, Model model) {
         Tariffs tariffs = tariffServices.getOneTariff(id);
-        model.addAttribute("myTariff",tariffs);
+        model.addAttribute("myTariff", tariffs);
         return "/client/tariffDetails";
     }
+
     @GetMapping("/payment")
-    public String displayPayment(@RequestParam("id") Long id, Model model, Principal principal)
-    {
+    public String displayPayment(@RequestParam("id") Long id, Model model, Principal principal) {
         Customer customer = customerService.findByUsername(principal.getName());//get logged in user
-        model.addAttribute("customer",customer);
+        model.addAttribute("customer", customer);
         return "/client/payment";
     }
+
     @GetMapping("/reading")
     public String showBook(@RequestParam("id") Long id, Model model) throws IOException {
         Product product = productService.getOneProductDto(id);
@@ -91,12 +95,23 @@ public class HomeController {
         URLConnection connection = new URL(bookUrl).openConnection();
         String bookType = connection.getContentType();
 
+        // Set the title of the PDF file
+        PDDocument document = PDDocument.load(bookContent);
+        PDDocumentInformation info = document.getDocumentInformation();
+        info.setTitle(product.getBookName());
+        document.setDocumentInformation(info);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        document.save(out);
+        document.close();
+
+        model.addAttribute("currentBook", product);
         // Pass the Base64-encoded book content and MIME type to the view
         model.addAttribute("bookContent", base64Content);
         model.addAttribute("bookType", bookType);
 
         return "client/readingPdf";
     }
+
 
     @RequestMapping("/bookList-category")
     public String getTotalDataByCategory(@RequestParam("id") Long id, Model model) {
@@ -170,7 +185,24 @@ public class HomeController {
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         return "model/companyList";
     }
+   @RequestMapping("/company")
+   public String getOneCompany(@RequestParam("id") Long id,Model model)
+   {
+       Company company=companyService.getCompanyDTOById(id);
+       Date date = new Date();
+       Calendar calendar = Calendar.getInstance();
+       calendar.setTime(date);
+       int year = calendar.get(Calendar.YEAR);
+       System.out.println(year);
+       List<Company> companyList=companyService.displayCompanyWithDate(year);
 
+
+
+       model.addAttribute("categoryList",categoryService.categoryList(false));
+       model.addAttribute("companyList",companyList);
+       model.addAttribute("OneCompany",company);
+       return "/model/currentCompany";
+   }
 
     @RequestMapping("/contactUs")
     public String getContactPage(Model model) {

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -18,5 +19,9 @@ public class CompanyWrapper {
     private String email;
     private Date yearOfPublished;
     private String description;
+    private String authorForCompany;
+    private String image1;
+    private MultipartFile image_posted1;
+
     private String[] companyProduct ;
 }

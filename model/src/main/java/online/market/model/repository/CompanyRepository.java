@@ -13,4 +13,14 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     List<Company> getAllCompanyIfNotDeleted(boolean deleted);
 
     Company findCompanyById(long id);
+
+    @Query(value = "SELECT * FROM company s WHERE extract (YEAR from s.created_at)=:year limit 3", nativeQuery = true)
+    List<Company> getCompanyByCreatedAt(int year);
+
+    @Query(value = "SELECT category.id, category.name, COUNT(product.id) as product_count " +
+            "FROM category " +
+            "LEFT JOIN product ON category.id = product.category_id " +
+            "GROUP BY category.id, category.name " +
+            "ORDER BY category.name", nativeQuery = true)
+    List<Object[]> getCategoryProductCount();
 }

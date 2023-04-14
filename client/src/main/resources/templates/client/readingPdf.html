@@ -4,7 +4,7 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Cart</title>
+    <title th:text="${#strings.capitalize(currentBook.bookName)}"></title>
 </head>
 <body>
 <!-- Start Breadcrumbs -->
@@ -14,14 +14,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Single Product</h1>
+                        <h1 class="page-title" th:text="${#strings.capitalize(currentBook.bookName)}"></h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-                        <li><a href="index.html">Shop</a></li>
-                        <li>Single Product</li>
+                        <li><a href="index.html"><i class="lni lni-home"></i> Asosiy sahifa</a></li>
+                        <li th:text="${#strings.capitalize(currentBook.bookName)}"></li>
                     </ul>
                 </div>
             </div>
@@ -32,12 +31,16 @@
 <div layout:fragment="content">
     <section class="section pdf-section">
         <div class="container">
-            <object th:attr="data=${#strings.concat('data:', bookType, ';base64,', bookContent)}"
-                    type="application/pdf" width="100%" height="600px">
-                <p>PDF cannot be displayed. Please check if you have a PDF reader installed.</p>
-            </object>
+            <embed th:attr="src=${#strings.concat('data:', bookType, ';base64,', bookContent)}"
+                   type="application/pdf" width="100%" height="600px"
+                   th:style="'-webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; pointer-events:none;'" />
         </div>
     </section>
+    <th:block th:with="bookName=${currentBook.bookName}">
+        <title th:text="'Reading ' + ${bookName}"></title>
+    </th:block>
+
+
 </div>
 </body>
 </html>

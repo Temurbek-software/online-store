@@ -52,7 +52,7 @@ public class CompanyController {
         model.addAttribute("companyDTO", companyDTO);
         model.addAttribute("companyList", companyService.getAllCompanyDTO(false));
         if (result.hasErrors()) {
-            return "model/subcategory/addSubcategory";
+            return "model/company/addCompany";
         }
         if (companyDTO.id == null) {
             companyService.insertNewCompany(companyDTO);
