@@ -25,6 +25,11 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
+    public List<Publisher> findPublisherList(int year) {
+        return publisherRepository.getPublisherByCreatedAt(year);
+    }
+
+    @Override
     public Publisher getOnePublisher(long id) {
         Publisher publisherDTO = (publisherRepository.getOne(id));
         return publisherDTO;

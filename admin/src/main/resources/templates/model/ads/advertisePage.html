@@ -28,23 +28,27 @@
         <div th:if="${param.success}">
             <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-check"></i> Success!</h4>
-                Information saved successfully.
+                <h4><i class="icon fa fa-check"></i>muvaffaqiyat!</h4>
+                Ma'lumot muvaffaqiyatli saqlandi.
             </div>
         </div>
         <div th:if="${param.deleted}">
             <div class="alert alert-info alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 <h4><i class="icon fa fa-check"></i> Deleted!</h4>
-                Information deleted successfully.
+                Malumot muvaffaqiyatly o'chirildi.
             </div>
         </div>
         <!-- Page Heading -->
-        <h1 style="text-align: center" class="h3 mb-2 text-gray-800">Advertisement for books</h1>
-        <p class="mb-4">Our mission is simple: To help local,
-            independent bookstores thrive in the age of ecommerce
-            It is written in our governance documents that we will never
-            sell the company to Amazon or any major U.S. retailer.
+        <h1 style="text-align: center" class="h3 mb-2 text-gray-800">Kitoblar uchun Reklama</h1>
+        <p class="mb-4">Kitob do'konlari o'z ichiga bir qator kitoblar olib keladi.
+            Bu kitoblar o'qishga va o'rganishga qiziqish duygan har bir kishi uchun boy bog'liq mavjud bo'lib,
+            kitob do'konlari bu kitoblar sotish orqali pul ishlab keladi.
+            Kitob do'konlari, bir nechta odamlar orasida
+            kitob almashishni taqdim etadi. Bu usul o'qish va o'rganishga qiziqish
+            duygan odamlar uchun qulaydir, chunki ular o'zlariga qiziqish duygan
+            kitoblarni boshqa odamlar bilan almashish orqali boshqa
+            qiziqishlarni tanlash imkoniyatiga ega bo'ladi.
         </p>
         <div class="container">
             <div th:each="ads:${adsList}" class="card mb-3 p-3 col-lg-6 col-md-6 col-6">
@@ -59,8 +63,8 @@
                         </p>
                     </small>
                     <br>
-                    <a th:href="@{'/ads/update/'+${ads.id}}" class="btn btn-success">update</a>
-                    <a th:href="@{'/ads/delete/'+${ads.id}}" class="btn btn-danger">delete</a>
+                    <a th:href="@{'/ads/update/'+${ads.id}}" class="btn btn-success">yangilash</a>
+                    <a th:href="@{'/ads/delete/'+${ads.id}}" class="btn btn-danger">o'chirish</a>
                 </div>
             </div>
         </div>

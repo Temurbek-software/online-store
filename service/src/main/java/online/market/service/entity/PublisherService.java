@@ -18,4 +18,5 @@ public interface PublisherService {
     void updatePublisherByIdWithNewOne(long id,Publisher publisher);
     boolean deletePubById(long id);
     Page<Publisher> findPaginatedPublisher(int pageNo, int pageSize);
+    List<Publisher> findPublisherList(int year);
 }

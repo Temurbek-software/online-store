@@ -19,4 +19,5 @@ public interface AuthorService {
     boolean deleteAuthorById(long id);
     void updateAuthorById(long id,Author authorDTO);
     Page<Author> findPaginated(int pageNo,int pageSize);
+    List<Author> listOfAuthorsCreatedAt(int year);
 }

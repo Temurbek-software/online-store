@@ -56,7 +56,7 @@ public class Order extends BaseEntity
     @Column(name = "payment_method")
     private String paymentMethod;
 
-    @Column(name = "description")
+    @Column(name = "description",columnDefinition = "text")
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")

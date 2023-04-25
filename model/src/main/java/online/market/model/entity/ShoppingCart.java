@@ -39,7 +39,7 @@ public class ShoppingCart extends BaseEntity {
     @Column(name = "status")
     private boolean status;
 
-    @Column(name = "description")
+    @Column(name = "description",columnDefinition = "text")
     private String description;
 
     //---Mapped column----//

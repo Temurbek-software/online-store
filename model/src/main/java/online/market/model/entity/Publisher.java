@@ -31,7 +31,7 @@ public class Publisher extends BaseEntity {
 
     @Column(name = "phoneNumber")
     @NotNull
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     @Column(name = "email")
     @NotNull
@@ -41,7 +41,7 @@ public class Publisher extends BaseEntity {
     @NotNull
     private Date established_year;
 
-    @Column(name = "description")
+    @Column(name = "description",columnDefinition = "text")
     @NotNull
     private String description;
 

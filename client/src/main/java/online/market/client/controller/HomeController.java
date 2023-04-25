@@ -10,6 +10,8 @@ import online.market.service.entity.*;
 import org.apache.commons.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -24,10 +26,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -35,10 +35,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
-import java.util.Base64;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -81,41 +78,102 @@ public class HomeController {
     }
 
     @GetMapping("/reading")
-    public String showBook(@RequestParam("id") Long id, Model model) throws IOException {
+    public String showBook(@RequestParam("id") Long id, Model model, Principal principal) throws IOException {
         Product product = productService.getOneProductDto(id);
-        String bookUrl = "http://localhost:81/admin" + product.getFullPdf();
+        String bookUrl = "http://localhost:81/admin" + product.getFullPdf()+"#toolbar=0";
 
         // Read the contents of the PDF file into a byte array
         byte[] bookContent = IOUtils.toByteArray(new URL(bookUrl));
 
-        // Encode the book content as a Base64 string
-        String base64Content = Base64.getEncoder().encodeToString(bookContent);
+        boolean isAuthenticated = false;
+        if(principal != null) {
+            isAuthenticated = (customerService.findByUsername(principal.getName()) != null);
+        }
 
-        // Get the MIME type of the PDF file
-        URLConnection connection = new URL(bookUrl).openConnection();
-        String bookType = connection.getContentType();
-
-        // Set the title of the PDF file
+        // Load the PDF document
         PDDocument document = PDDocument.load(bookContent);
-        PDDocumentInformation info = document.getDocumentInformation();
-        info.setTitle(product.getBookName());
-        document.setDocumentInformation(info);
+        // Get the number of pages in the document
+        int numPages = document.getNumberOfPages();
+
+        if(isAuthenticated) {
+            // If authenticated, show all pages
+            // do nothing
+        } else {
+            // If not authenticated, extract the first 5 pages and save them to a new document
+            if (numPages > 5) {
+                PDDocument newDocument = new PDDocument();
+                for (int i = 0; i < 5; i++) {
+                    PDPage page = document.getPage(i);
+                    newDocument.addPage(page);
+                }
+                document = newDocument;
+                numPages = 5; // update the number of pages to 5
+            }
+        }
+
+        // Convert the document to a byte array
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         document.save(out);
+        byte[] bookContentModified = out.toByteArray();
         document.close();
 
+        // Encode the modified book content as a Base64 string
+        String base64Content = Base64.getEncoder().encodeToString(bookContentModified);
+
+        // Get the MIME type of the modified PDF file
+        String bookType = "application/pdf";
+
+        boolean isAuthenticated2 = (principal != null);
+        model.addAttribute("isAuthenticated", isAuthenticated2);
         model.addAttribute("currentBook", product);
         // Pass the Base64-encoded book content and MIME type to the view
         model.addAttribute("bookContent", base64Content);
         model.addAttribute("bookType", bookType);
+        model.addAttribute("pageNumber", numPages);
+
+        // Add audio format to the view
+        model.addAttribute("audioFile", "http://localhost:81/admin" + product.getFullAudioUrl());
 
         return "client/readingPdf";
+    }
+
+
+    @RequestMapping("/bookType")
+    public String getProductType(@RequestParam("id") Long id, Model model) {
+        List<Product> productList = new ArrayList<>();
+        model.addAttribute("categoryOfList",categoryService.categoryList(false));
+        if (id == 1) {
+            productList = productService.getE_version();
+            model.addAttribute("productListByCategory", productList);
+
+            model.addAttribute("num","Elektron kitoblar");
+        }
+        if (id == 2) {
+            productList = productService.getPrintedList();
+            model.addAttribute("productListByCategory", productList);
+            model.addAttribute("num","Qogozli kitoblar");
+        }
+        if (id == 3) {
+            productList = productService.getAudioList();
+            model.addAttribute("productListByCategory", productList);
+            model.addAttribute("num","Audio kitoblar");
+        }
+        if (productList.isEmpty())
+        {
+            model.addAttribute("param",true);
+        }
+        return "/client/product-grid-type";
     }
 
 
     @RequestMapping("/bookList-category")
     public String getTotalDataByCategory(@RequestParam("id") Long id, Model model) {
         Category category = categoryService.categoryById(id);
+        SubCategory subCategory = new SubCategory();
+        model.addAttribute("category", category);
+        model.addAttribute("subcategory", subCategory);
+        model.addAttribute("categoryOfList", categoryService.categoryList(false));
+        model.addAttribute("subcategoryList", subCategoryService.getAllSubCategories(false));
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         model.addAttribute("productListByCategory", productService.productListBySubCategoryId(id, category));
         return "client/product-grid";
@@ -124,6 +182,11 @@ public class HomeController {
     @RequestMapping("/bookList-subcategory")
     public String getTotalDataBySubCategory(@RequestParam("id") Long id, Model model) {
         SubCategory subCategory = subCategoryService.getOneItemById(id);
+        Category category = new Category();
+        model.addAttribute("subcategory", subCategory);
+        model.addAttribute("category", category);
+        model.addAttribute("subcategoryList", subCategoryService.getAllSubCategories(false));
+        model.addAttribute("categoryOfList", categoryService.categoryList(false));
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         model.addAttribute("productListByCategory", productService.productListBySubCategoryId(id, subCategory));
         return "client/product-grid";
@@ -139,12 +202,15 @@ public class HomeController {
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
         int pageSize = 8;
 
+        List<Author> authorList2 = authorService.listOfAuthorsCreatedAt(getYear());
         Page<Author> page = authorService.findPaginated(pageNo, pageSize);
         List<Author> authorList = page.getContent();
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("authorList2", authorList2);
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("listOfAuthors", authorList);
+
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         return "model/authorsList";
     }
@@ -164,6 +230,7 @@ public class HomeController {
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("publisherList", publisherList);
+        model.addAttribute("activePublishers",publisherService.findPublisherList(getYear()));
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         return "model/publishersList";
     }
@@ -185,24 +252,48 @@ public class HomeController {
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         return "model/companyList";
     }
-   @RequestMapping("/company")
-   public String getOneCompany(@RequestParam("id") Long id,Model model)
-   {
-       Company company=companyService.getCompanyDTOById(id);
-       Date date = new Date();
-       Calendar calendar = Calendar.getInstance();
-       calendar.setTime(date);
-       int year = calendar.get(Calendar.YEAR);
-       System.out.println(year);
-       List<Company> companyList=companyService.displayCompanyWithDate(year);
+
+    @RequestMapping("/company")
+    public String getOneCompany(@RequestParam("id") Long id, Model model) {
+        Company company = companyService.getCompanyDTOById(id);
+        List<Company> companyList = companyService.displayCompanyWithDate(getYear());
+        model.addAttribute("categoryList", categoryService.categoryList(false));
+        model.addAttribute("companyList", companyList);
+        model.addAttribute("OneCompany", company);
+        model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
+        return "/model/currentCompany";
+    }
+    @RequestMapping("/publish")
+    public String getOnePublisher(@RequestParam("id") Long id, Model model) {
+        Publisher publisher = publisherService.getOnePublisher(id);
+        model.addAttribute("publisherList", publisherService.findPublisherList(getYear()));
+        model.addAttribute("publisher", publisher);
+        model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
+        return "/model/currentPublisher";
+    }
 
 
+    @RequestMapping("/autho")
+    public String getOneAuthors(@RequestParam("id") Long id, Model model) {
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int year = calendar.get(Calendar.YEAR);
+        Author author = authorService.getOneAuthorDto(id);
+        List<Author> authorList2 = authorService.listOfAuthorsCreatedAt(year);
+        model.addAttribute("authorList2", authorList2);
+        model.addAttribute("authors", author);
+        model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
+        return "/model/currentAuthorsList";
+    }
 
-       model.addAttribute("categoryList",categoryService.categoryList(false));
-       model.addAttribute("companyList",companyList);
-       model.addAttribute("OneCompany",company);
-       return "/model/currentCompany";
-   }
+    public int getYear() {
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int year = calendar.get(Calendar.YEAR);
+        return year;
+    }
 
     @RequestMapping("/contactUs")
     public String getContactPage(Model model) {
@@ -213,6 +304,7 @@ public class HomeController {
     @RequestMapping("/aboutUs")
     public String getAboutPage(Model model) {
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
+        model.addAttribute("authors", authorService.authorDtoList(false));
         return "pages/aboutUS";
     }
 }

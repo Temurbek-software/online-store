@@ -31,6 +31,8 @@ public class ProductController {
             //Get product
             model.addAttribute("oneProduct", product);
             model.addAttribute("productCart",productCart);
+            model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
+
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
             return "/client/product-details";

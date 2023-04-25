@@ -21,6 +21,15 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             + "LIMIT 6", nativeQuery = true)
     List<Product> findNewBooksList();
 
+    @Query(value = "SELECT * FROM public.product s WHERE s.printed_price IS NULL AND s.electronic_price IS NULL;",nativeQuery = true)
+    List<Product> getProductByAudio_price();
+    @Query(value = "SELECT * FROM public.product s WHERE s.audio_price IS NULL AND s.electronic_price IS NULL;", nativeQuery = true)
+    List<Product> getProductByPrinted_Price();
+
+    @Query(value = "SELECT * FROM public.product s WHERE s.audio_price IS NULL AND s.printed_price IS NULL;",nativeQuery = true)
+    List<Product> getProductByEAndForE_Price();
+
+
 
 
 }

@@ -19,7 +19,7 @@ public class Advertisement extends BaseEntity
     @Column(name = "titleForAdv")
     private String titleForAd;
 
-    @Column(name = "desctiotion")
+    @Column(name = "desctiotion",columnDefinition = "text")
     private String description;
 
     @Column(name = "discount")

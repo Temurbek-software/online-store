@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Contract</title>
+    <style>
+        label {
+            margin: 0 0 0 2px;
+        }
+
+        .form-row, .form-group {
+            margin-top: 16px !important;
+        }
+
+        select {
+            width: 20em;
+        }
+    </style>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <div th:if="${param.success}">
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> Success!</h4>
+                Information saved successfully.
+            </div>
+        </div>
+        <div th:if="${param.deleted}">
+            <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> Deleted!</h4>
+                Information deleted successfully.
+            </div>
+        </div>
+        <!-- Page Heading -->
+        <h1 style="text-align: center" class="h3 mb-2 text-gray-800">Contract with authors</h1>
+        <p class="mb-4">Our mission is simple: To help local,
+            independent bookstores thrive in the age of ecommerce
+            It is written in our governance documents that we will never
+            sell the company to Amazon or any major U.S. retailer.
+        </p>
+        <div class="container">
+            <h1>List of Tariffs</h1>
+            <hr>
+            <div class="row">
+                <div class="col-md-4 mb-4" th:each="contract : ${contractList}">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h4 class="card-title">Contract</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text" th:text="'ID: ' + ${contract.getId()}"></p>
+                            <p class="card-text" th:text="'Start Date: ' + ${contract.getDate_contact()}"></p>
+                            <p class="card-text" th:text="'Notes: ' + ${contract.getNotes()}"></p>
+                            <p class="card-text" th:text="'Percent: ' + ${contract.getOutcome()}"></p>
+<!--                            <p class="card-text" th:text="'Availability: ' + (${contract.getAvailability()} ? 'Yes' : 'No')"></p>-->
+<!--                            <p class="card-text" th:text="'Renewal: ' + (${contract.getRenewal()} ? 'Yes' : 'No')"></p>-->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a th:href="@{/contract/edit/{id}(id=${contract.getId()})}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    <a th:href="@{/contract/delete/{id}(id=${contract.getId()})}" class="btn btn-sm btn-outline-secondary">Delete</a>
+                                </div>
+                                <small class="text-muted" th:text="${contract.getCreatedAt()}"></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+<th:block layout:fragment="script">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+    <!-- Datepicker -->
+    <!--    <script th:src="@{/static/js/multiselect.js}"></script>-->
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            $('#multiple-checkboxes').multiselect({
+                includeSelectAllOption: true,
+            });
+        });
+    </script>
+</th:block>
+</body>
+</html>

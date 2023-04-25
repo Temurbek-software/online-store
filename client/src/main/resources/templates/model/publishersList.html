@@ -4,7 +4,7 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>publishers</title>
+    <title>Nashriyot</title>
 </head>
 <body>
 <!-- Start Breadcrumbs -->
@@ -14,13 +14,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Here is our publisher list</h1>
+                        <h1 class="page-title">Biz bilan hamkor Nashriyotlar</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-                        <li>publisher</li>
+                        <li><a th:href="@{/}"><i class="lni lni-home"></i>Asosiy sahifa</a></li>
+                        <li>Nashriyotlar</li>
                     </ul>
                 </div>
             </div>
@@ -34,22 +34,24 @@
             <div class="row">
                 <div class="col-lg-8 col-md-12 col-12">
                     <div class="row">
-                        <div th:each="publisher:${publisherList}" class="col-lg-6 col-md-6 col-12">
+                        <div th:each="publisher:${publisherList}" class="col-lg-4 col-md-6 col-12">
                             <div class="single-blog">
                                 <div class="blog-img">
-                                    <a href="blog-single-sidebar.html">
                                         <img th:src="@{https://c8.alamy.com/comp/2CBDA1K/modern-creative-simple-square-line-art-building-logo-design-vector-illustration-2CBDA1K.jpg}" alt="#">
-<!--                                        <img th:src="@{/images/publishers/img.png}" alt="#">-->
-                                    </a>
                                 </div>
                                 <div class="blog-content">
-                                    <a th:text="${publisher.address}" class="category" href="javascript:void(0)"></a>
-                                    <h4>
-                                        <a th:text="${publisher.name}" href="blog-single-sidebar.html"></a>
-                                    </h4>
-                                    <p th:text="${publisher.description}"></p>
+                                    <h6>
+                                        <span th:text="${publisher.name}"></span>
+                                    </h6>
+                                    <br>
+                                    <span class="category"
+                                          th:text="${#dates.format(publisher.createdAt, 'yyyy-MM-dd')}"></span>
+
+                                    <p
+                                            th:text="${#strings.length(publisher.description) > 25 ? #strings.substring(publisher.description, 0, 25) + '...' : publisher.description}"
+                                    ></p>
                                     <div class="button">
-                                        <a href="#" class="btn">Read More</a>
+                                        <a th:href="@{/publish(id=${publisher.id})}" class="btn">Ba'tafsil</a>
                                     </div>
                                 </div>
                             </div>
@@ -85,47 +87,31 @@
                     <div class="sidebar blog-grid-page">
 
                         <div class="widget search-widget">
-                            <h5 class="widget-title">Search This Site</h5>
+                            <h5 class="widget-title">Nashriyotlarni izlash</h5>
                             <form action="#">
-                                <input type="text" placeholder="Search Here...">
+                                <input type="text" placeholder="Izlash...">
                                 <button type="submit"><i class="lni lni-search-alt"></i></button>
                             </form>
                         </div>
 
 
                         <div class="widget popular-feeds">
-                            <h5 class="widget-title">Featured Posts</h5>
+                            <h5 class="widget-title">Eng ko'p kitob yetkazgan nashriyot</h5>
                             <div class="popular-feed-loop">
-                                <div class="single-popular-feed">
+                                <div class="single-popular-feed" th:each="items:${activePublishers}">
                                     <div class="feed-desc">
                                         <a class="feed-img" href="#">
-                                            <img th:src="@{/images/blog/blog-single.jpg}" alt="#">
+                                            <img th:src="@{https://c8.alamy.com/comp/2CBDA1K/modern-creative-simple-square-line-art-building-logo-design-vector-illustration-2CBDA1K.jpg}" alt="#">
+
                                         </a>
-                                        <h6 class="post-title"><a href="blog-single-sidebar.html">What information is
-                                            needed for shipping?</a></h6>
-                                        <span class="time"><i class="lni lni-calendar"></i> 05th Nov 2023</span>
+                                        <h6 class="post-title"><a th:href="@{/publish(id=${items.id})}"
+                                                                  th:text="${#strings.length(items.description) > 25 ? #strings.substring(items.description, 0, 25) + '...' : items.description}"></a>
+                                        </h6>
+                                        <span class="time"><i class="lni lni-calendar"></i>
+                                            <span th:text="${#dates.format(items.createdAt, 'yyyy-MM-dd')}"></span></span>
                                     </div>
                                 </div>
-                                <div class="single-popular-feed">
-                                    <div class="feed-desc">
-                                        <a class="feed-img" href="blog-single-sidebar.html">
-                                            <img th:src="@{/images/blog/blog-single.jpg}" alt="#">
-                                        </a>
-                                        <h6 class="post-title"><a href="blog-single-sidebar.html">Interesting fact about
-                                            gaming consoles</a></h6>
-                                        <span class="time"><i class="lni lni-calendar"></i> 24th March 2023</span>
-                                    </div>
-                                </div>
-                                <div class="single-popular-feed">
-                                    <div class="feed-desc">
-                                        <a class="feed-img" href="blog-single-sidebar.html">
-                                            <img th:src="@{/images/blog/blog-single.jpg}" alt="#">
-                                        </a>
-                                        <h6 class="post-title"><a href="blog-single-sidebar.html">Electronics,
-                                            instrumentation &amp; control engineering </a></h6>
-                                        <span class="time"><i class="lni lni-calendar"></i> 30th Jan 2023</span>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
 

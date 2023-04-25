@@ -174,8 +174,8 @@
                                     <img th:src="@{'http://localhost:81/admin' + ${item.getFullImage1Url()}}"
                                          class="d-block w-100" alt="..." th:height="380" th:width="1300">
                                     <div class="carousel-caption d-none d-md-block">
-                                        <h5 th:text="${item.titleForAd}"></h5>
-                                        <p th:text="${item.description}"></p>
+<!--                                        <h5 th:text="${item.titleForAd}"></h5>-->
+<!--                                        <p th:text="${item.description}"></p>-->
                                     </div>
                                 </div>
                             </div>
@@ -271,7 +271,8 @@
                             </div>
                         </div>
                         <div class="product-info">
-                            <span th:text="${#strings.length(item.getSubCategory().categoryName) > 10 ? #strings.substring(item.getSubCategory().categoryName, 0, 10) + '...' : books.getSubCategory().categoryName}" class="category"></span>
+                            <span th:text="${#strings.length(item.getSubCategory().categoryName) > 10 ? #strings.substring(item.getSubCategory().categoryName, 0, 10) + '...' : item.getSubCategory().categoryName}"
+                                  class="category"></span>
                             <h4 class="title">
                                 <a th:text="${#strings.length(item.bookName) > 10 ? #strings.substring(item.bookName, 0, 10) + '...' : item.bookName}"
                                    href="product-grids.html"></a>
@@ -385,19 +386,21 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title" th:text="${tariff.tariffName}"></h5>
+                                <br>
                                 <h6 class="card-subtitle mb-2 text-muted"
                                     th:text="${tariff.duration} + ' subscription'"></h6>
                             </div>
                             <div class="card-body">
-                                <p class="card-text" th:text="${tariff.description}"></p>
+                                <p class="card-text"
+                                   th:text="${#strings.length(tariff.description) > 50 ? #strings.substring(tariff.description, 0, 50) + '...' : tariff.description}"></p>
                                 <ul class="list-unstyled">
-                                    <li><i class="fa fa-book"></i> Unlimited access to our entire library</li>
-                                    <li><i class="fa fa-credit-card"></i> Only $<span
-                                            th:text="${tariff.priceFor}"></span>/month
+                                    <li><i class="fa fa-book"></i>Butun kutubxonamizga cheksiz kirish</li>
+                                    <li><i class="fa fa-credit-card"></i><span
+                                            th:text="${tariff.priceFor}"></span>  so'm
                                     </li>
-                                    <li><i class="fa fa-check"></i> No commitment, cancel anytime</li>
+                                    <li><i class="fa fa-check"></i> Hech qanday majburiyat yo'q, istalgan vaqtda bekor qiling</li>
                                 </ul>
-                                <a  th:href="@{/tariff(id=${tariff.id})}" class="btn btn-primary">Subscribe Now</a>
+                                <a  th:href="@{/tariff(id=${tariff.id})}" class="btn btn-sm btn-outline-secondary">A'zo bo'lish</a>
                             </div>
                         </div>
                     </div>

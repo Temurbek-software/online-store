@@ -42,10 +42,10 @@ public class Tariffs extends BaseEntity {
     @Column(name = "renewal")
     private Boolean renewal;
 
-    @Column(name = "term_and_condition")
+    @Column(name = "term_and_condition",columnDefinition = "text")
     private String term_And_Condition;
 
-    @Column(name = "description")
+    @Column(name = "description",columnDefinition = "text")
     private String description;
 
     @OneToMany(mappedBy = "tariffs", cascade = CascadeType.ALL)

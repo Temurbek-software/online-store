@@ -46,7 +46,25 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getOneProductDto(long id) {
+    public List<Product> getAudioList()
+    {
+        return productRepository.getProductByAudio_price();
+    }
+
+    @Override
+    public List<Product> getPrintedList() {
+        return productRepository.getProductByPrinted_Price();
+    }
+
+    @Override
+    public List<Product> getE_version() {
+        return productRepository.getProductByEAndForE_Price();
+    }
+
+
+    @Override
+    public Product getOneProductDto(long id)
+    {
         return productRepository.findById(id).get();
     }
 

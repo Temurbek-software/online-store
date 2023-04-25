@@ -23,4 +23,11 @@ public interface ProductService
     List<Product> getProductsBySubcategoryId(Long id);
 //  New book from week
     List<Product> productWeekList();
+//  for audio
+    List<Product> getAudioList();
+//  for printed
+    List<Product> getPrintedList();
+//  for e_version
+    List<Product> getE_version();
+
 }

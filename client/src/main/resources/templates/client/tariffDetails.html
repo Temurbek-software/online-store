@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html"><i class="lni lni-home"></i>Home</a></li>
+                        <li><a href="index.html"><i class="lni lni-home"></i>Asosiy sahifa</a></li>
                         <li><a href="index.html" th:text="${#strings.capitalize(myTariff.tariffName)}"></a></li>
                     </ul>
                 </div>
@@ -36,34 +36,66 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title text-center" th:text="${myTariff.tariffName}"></h5>
-                    <p class="card-text text-center" th:text="${myTariff.description}"></p>
                     <div class="row">
                         <div class="col-md-6">
                             <ul class="list-unstyled">
-                                <li><i class="fas fa-dollar-sign"></i> <strong>Price:</strong> <span th:text="${myTariff.priceFor}"></span></li>
-                                <li><i class="fas fa-clock"></i> <strong>Duration:</strong> <span th:text="${myTariff.duration}"></span></li>
-                                <li><i class="fas fa-tags"></i> <strong>Discount:</strong> <span th:text="${myTariff.discount}"></span>%</li>
-                                <li><i class="fas fa-calendar-alt"></i> <strong>Start Date:</strong> <span th:text="${#dates.format(myTariff.start_date, 'MM/dd/yyyy hh:mm:ss a')}"></span></li>
-                                <li><i class="fas fa-calendar-alt"></i> <strong>End Date:</strong> <span th:text="${#dates.format(myTariff.end_date, 'MM/dd/yyyy hh:mm:ss a')}"></span></li>
+                                <li><i class="fas fa-dollar-sign"></i> <strong>Narxi:</strong> <span
+                                        th:text="${myTariff.priceFor}"></span></li>
+                                <li><i class="fas fa-clock"></i> <strong>Davomligi:</strong> <span
+                                        th:text="${myTariff.duration}"></span></li>
+                                <li><i class="fas fa-tags"></i> <strong>Chegirma:</strong> <span
+                                        th:text="${myTariff.discount}"></span>%
+                                </li>
+                                <li><i class="fas fa-calendar-alt"></i> <strong>Bo'shlanish sanasi:</strong> <span
+                                        th:text="${#dates.format(myTariff.start_date, 'MM/dd/yyyy hh:mm:ss a')}"></span>
+                                </li>
+                                <li><i class="fas fa-calendar-alt"></i> <strong>Tugash sanasi:</strong> <span
+                                        th:text="${#dates.format(myTariff.end_date, 'MM/dd/yyyy hh:mm:ss a')}"></span>
+                                </li>
                             </ul>
                         </div>
 
                         <div class="col-md-6">
                             <ul class="list-unstyled">
-                                <li><i class="fas fa-check-circle"></i> <strong>Availability:</strong> <span th:text="${myTariff.availability}"></span></li>
-                                <li><i class="fas fa-sync"></i> <strong>Renewal:</strong> <span th:text="${myTariff.renewal}"></span></li>
-                                <li><i class="fas fa-file-alt"></i> <strong>Terms and Conditions:</strong> <span th:text="${myTariff.term_And_Condition}"></span></li>
+                                <li><i class="fas fa-check-circle"></i> <strong>Mavjudligi:</strong> <span
+                                        th:text="${myTariff.availability} ? 'Ha' : 'Yo\'q'"></span></li>
+                                <li><i class="fas fa-sync"></i> <strong>Yangilash:</strong> <span
+                                        th:text="${myTariff.renewal} ? 'Ha' : 'Yo\'q'"></span></li>
+
                             </ul>
                         </div>
-
-                    </div>
-                    <div class="text-center">
-                        <a th:href="@{/payment(id=2)}" class="btn btn-primary">Apply Now</a>
                     </div>
                 </div>
                 <div class="card-footer text-muted text-center">
                     <small><span th:text="${#dates.format(myTariff.createdAt, 'MM/dd/yyyy hh:mm:ss a')}"></span></small>
                 </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card text-center" >
+                    <div class="card-header">
+                        Tarif haqida
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" th:text="${myTariff.description}"></p>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card mt-3">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Foydalanish shartlari
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" th:text="${myTariff.term_And_Condition}"></p>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <div class="text-center">
+                <a th:href="@{/payment(id=${myTariff.id})}" class="btn btn-sm btn-outline-secondary">Obuna bo'lish</a>
             </div>
         </div>
     </section>

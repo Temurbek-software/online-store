@@ -34,6 +34,12 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    public List<Author> listOfAuthorsCreatedAt(int year) {
+        List<Author> authorList=authorRepository.getAuthorByCreatedAt(year);
+        return authorList;
+    }
+
+    @Override
     public List<Author> authorDtoList(boolean data) {
         List<Author> allByAuthorByDeletedOrNotDeleted = authorRepository.getAllByAuthorByDeletedOrNotDeleted(data);
         return allByAuthorByDeletedOrNotDeleted;

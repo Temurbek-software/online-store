@@ -45,7 +45,7 @@ public class Company extends BaseEntity {
     @NotNull
     private Date yearOfPublished;
 
-    @Column(name = "description")
+    @Column(name = "description",columnDefinition = "text")
     @NotNull
     private String description;
 
@@ -61,10 +61,14 @@ public class Company extends BaseEntity {
     private Set<Product> companyProduct = new HashSet<>();
 
     public String getFullImage1Url() {
-        if (id != null && image1 != null) {
-            return "/upload/company/" + id + "/" + image1;
-        } else {
+//        if (id != null && image1 != null) {
+//            return "/upload/company/" + id + "/" + image1;
+//        } else {
             return "/upload/company/company.jpg";
-        }
+//        }
+    }
+    public String getDefaultUrl()
+    {
+        return "/upload/company/company2.jpg";
     }
 }

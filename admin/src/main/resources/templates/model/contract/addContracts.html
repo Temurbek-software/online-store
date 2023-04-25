@@ -4,7 +4,7 @@
       layout:decorate="layout">
 <head>
     <meta charset="UTF-8">
-    <title>Reklama qo'shis</title>
+    <title>Add new contract</title>
     <style>
         label {
             margin: 0 0 0 2px;
@@ -31,46 +31,36 @@
         <div class="row">
             <div class="col-12 px-5">
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Reklama qo'shish</h1>
-                <p class="mb-4">Kitob do'konlari o'z ichiga bir qator kitoblar olib keladi.
-                    Bu kitoblar o'qishga va o'rganishga qiziqish duygan har bir kishi uchun boy bog'liq mavjud bo'lib,
-                    kitob do'konlari bu kitoblar sotish orqali pul ishlab keladi.
-                    Kitob do'konlari, bir nechta odamlar orasida
-                    kitob almashishni taqdim etadi. Bu usul o'qish va o'rganishga qiziqish
-                    duygan odamlar uchun qulaydir, chunki ular o'zlariga qiziqish duygan
-                    kitoblarni boshqa odamlar bilan almashish orqali boshqa
-                    qiziqishlarni tanlash imkoniyatiga ega bo'ladi.
+                <h1 class="h3 mb-2 text-gray-800">Contract</h1>
+                <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                    For more information about DataTables, please visit the
+
+
                     <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Book list here</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Contract List</h6>
                     </div>
                     <div class="card-body">
-                        <form accept-charset="UTF-8" th:action="@{/ads/save}" th:object="${advertisement}"
+                        <form accept-charset="UTF-8" th:action="@{/contract/save}" th:object="${contract}"
                               method="POST"
                               enctype="multipart/form-data">
                             <div class="form-group">
-                                <label for="id">Book ID</label>
+                                <label for="id">Tariff ID</label>
                                 <input type="text" name="id" class="form-control" id="id"
-                                       placeholder="Book id" readonly="readonly"
+                                       placeholder="Tariff id" readonly="readonly"
                                        th:field="*{id}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputName">Title</label>
-                                <input type="text" name="fullname" class="form-control" id="exampleInputName"
-                                       placeholder="Enter title" required="required"
-                                       th:field="*{titleForAd}">
                             </div>
                             <div class="form-row">
                                 <div class="col">
-                                    <label for="exampleInputName">Book discount</label>
-                                    <input type="text" class="form-control" placeholder="discount only"
-                                           th:field="*{discount}">
+                                    <label>Contract outcome</label>
+                                    <input type="number" class="form-control" placeholder="enter with %"
+                                           th:field="*{outcome}">
                                 </div>
                                 <div class="col">
-                                    <label for="exampleInputName">date</label>
+                                    <label>start date</label>
                                     <div class="datepicker date input-group">
-                                        <input type="text" placeholder="Choose release Date" th:field="*{date_released}"
+                                        <input type="text" placeholder="Choose release Date" th:field="*{date_contact}"
                                                class="form-control" id="fecha1">
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
@@ -81,28 +71,26 @@
 
                             </div>
 
-                            <div class="form-row">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea11">Notes</label>
+                                <textarea class="form-control" th:field="*{notes}"
+                                          id="exampleFormControlTextarea11" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
                                 <div class="col">
-                                    <label for="exampleFormControlSelect2">Book to attach</label>
-                                    <select class="form-control" th:field="*{product.id}"
-                                            id="exampleFormControlSelect2"
-                                            required="required">
-                                        <option value="">Select...</option>
-                                        <option th:each="items : ${products}" th:utext="${items.bookName}"
-                                                th:value="${items.id}"></option>
+                                    <label for="multiple-checkboxes">Choose book</label>
+                                    <select class="form-control" th:field="*{productDTOSet}"
+                                            id="multiple-checkboxes"  multiple="multiple">
+                                        <option th:each="pro : ${productList}"
+                                                th:utext="${pro.getBookName()}"
+                                                th:value="${pro.id}"></option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea11">Description</label>
-                                <textarea class="form-control" th:field="*{description}"
-                                          id="exampleFormControlTextarea11" rows="3"></textarea>
-                            </div>
                             <hr>
-                            <!-- upload image -->
                             <div class="form-group">
                                 <div class="col-md-2">
-                                    <label for="image_posted1">Upload image 1</label>
+                                    <label for="image_posted1">Upload document</label>
                                 </div>
                                 <div class="col-md-4">
                                     <input id="image_posted1" type="file" name="image_posted1"
@@ -110,11 +98,10 @@
                                 </div>
                                 <div class="col-md-4">
                                     <input type="hidden" th:field="*{imageData}"/>
-                                    <img th:src="@{${advertisement.getFullImage1Url()}}"
+                                    <img th:src="@{${contract.getFullImage1Url()}}"
                                          style="width:150px;height:150px;"/>
                                 </div>
                             </div>
-
                             <hr>
                             <button type="submit" class="btn btn-primary">Save</button>
                         </form>
@@ -129,7 +116,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
     <!-- Datepicker -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<!--    <script th:src="@{/static/js/multiselect.js}"></script>-->
+    <!--    <script th:src="@{/static/js/multiselect.js}"></script>-->
     <script th:inline="javascript">
         $(document).ready(function () {
             $('#multiple-checkboxes').multiselect({

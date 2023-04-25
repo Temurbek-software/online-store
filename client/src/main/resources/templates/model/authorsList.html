@@ -22,14 +22,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Our Authors</h1>
+                        <h1 class="page-title">Bizning mualliflarimiz</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-                        <!--                        <li><a href="index.html">Shop</a></li>-->
-                        <li>Authors</li>
+                        <li><a href="index.html"><i class="lni lni-home"></i>Asosiy sahifa</a></li>
+                        <li>Muallifar</li>
                     </ul>
                 </div>
             </div>
@@ -49,11 +48,14 @@
                                 <!-- Team item -->
                                 <div th:each="author:${listOfAuthors}" class="col-xl-3 col-sm-6 mb-5">
                                     <div class="bg-white rounded shadow-sm py-5 px-4">
-                                        <img style="width: 148px;height: 170px" th:src="#{adminPath}+${author.getFullImage1Url()}" alt=""
-                                             class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"/>
-                                        <h5 th:text="${author.firstName}"
+
+                                        <a th:href="@{/autho(id=${author.id})}" >
+                                            <img style="width: 148px;height: 170px" th:src="#{adminPath}+${author.getFullImage1Url()}" alt=""
+                                                 class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"/>
+                                        </a>
+                                        <h5 th:text="${author.firstName+' '+author.lastName}"
                                             class="mb-0"></h5>
-                                        <span class="small text-uppercase text-muted">CEO - Founder</span>
+                                        <span class="small text-uppercase text-muted" th:text="${author.phoneNumber}"></span>
                                         <ul class="social mb-0 list-inline mt-3">
                                             <li class="list-inline-item">
                                                 <a href="#" class="social-links">
@@ -103,45 +105,29 @@
                     <div class="sidebar blog-grid-page">
 
                         <div class="widget search-widget">
-                            <h5 class="widget-title">Search This Site</h5>
+                            <h5 class="widget-title">Mualliflarni izlash</h5>
                             <form action="#">
-                                <input type="text" placeholder="Search Here...">
+                                <input type="text" placeholder="Izlash...">
                                 <button type="submit"><i class="lni lni-search-alt"></i></button>
                             </form>
                         </div>
 
 
                         <div class="widget popular-feeds">
-                            <h5 class="widget-title">Featured Posts</h5>
+                            <h5 class="widget-title">Mashur mualliflar</h5>
                             <div class="popular-feed-loop">
-                                <div class="single-popular-feed">
+                                <div class="single-popular-feed" th:each="items:${authorList2}">
                                     <div class="feed-desc">
                                         <a class="feed-img" href="blog-single-sidebar.html">
-                                            <img th:src="@{/images/blog/blog-single.jpg}" alt="#">
+                                            <img th:src="@{'http://localhost:81/admin' + ${items.getFullImage1Url()}}"
+                                                 alt="#">
                                         </a>
-                                        <h6 class="post-title"><a href="blog-single-sidebar.html">What information is
-                                            needed for shipping?</a></h6>
-                                        <span class="time"><i class="lni lni-calendar"></i> 05th Nov 2023</span>
-                                    </div>
-                                </div>
-                                <div class="single-popular-feed">
-                                    <div class="feed-desc">
-                                        <a class="feed-img" href="blog-single-sidebar.html">
-                                            <img th:src="@{/images/blog/blog-single.jpg}" alt="#">
-                                        </a>
-                                        <h6 class="post-title"><a href="blog-single-sidebar.html">Interesting fact about
-                                            gaming consoles</a></h6>
-                                        <span class="time"><i class="lni lni-calendar"></i> 24th March 2023</span>
-                                    </div>
-                                </div>
-                                <div class="single-popular-feed">
-                                    <div class="feed-desc">
-                                        <a class="feed-img" href="blog-single-sidebar.html">
-                                            <img th:src="@{/images/blog/blog-single.jpg}" alt="#">
-                                        </a>
-                                        <h6 class="post-title"><a href="blog-single-sidebar.html">Electronics,
-                                            instrumentation &amp; control engineering </a></h6>
-                                        <span class="time"><i class="lni lni-calendar"></i> 30th Jan 2023</span>
+                                        <h6 class="post-title">
+                                            <a th:href="@{/company(id=${items.id})}"
+                                               th:text="${#strings.length(items.description) > 10 ? #strings.substring(items.description, 0, 10) + '...' : items.description}"></a>
+                                        </h6>
+                                        <span class="time"><i class="lni lni-calendar"></i> <span
+                                                th:text="${#dates.format(items.createdAt, 'yyyy-MM-dd')}"></span> </span>
                                     </div>
                                 </div>
                             </div>
@@ -149,35 +135,22 @@
 
 
                         <div class="widget categories-widget">
-                            <h5 class="widget-title">Top Categories</h5>
+                            <h5 class="widget-title">Ko'p kitoblari mashur mualliflar</h5>
                             <ul class="custom">
-                                <li>
-                                    <a href="javascript:void(0)">Editor's Choice</a><span>(24)</span>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Electronics</a><span>(12)</span>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Industrial Design</a><span>(5)</span>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Secure Payments Online</a><span>(15)</span>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Online Shopping</a><span>(7)</span>
-                                </li>
+                                <a href="#">Hikoyalar</a><span>(24)</span>
+                                <a href="#">Ertaklar</a><span>(24)</span>
+                                <a href="#">Tarixiy</a><span>(24)</span>
                             </ul>
                         </div>
 
 
                         <div class="widget popular-tag-widget">
-                            <h5 class="widget-title">Popular Tags</h5>
+                            <h5 class="widget-title">Mashurlar</h5>
                             <div class="tags">
-                                <a href="javascript:void(0)">#electronics</a>
-                                <a href="javascript:void(0)">#cpu</a>
-                                <a href="javascript:void(0)">#gadgets</a>
-                                <a href="javascript:void(0)">#wearables</a>
-                                <a href="javascript:void(0)">#smartphones</a>
+                                <a href="javascript:void(0)">#Hikoyalar</a>
+                                <a href="javascript:void(0)">#Ertaklar</a>
+                                <a href="javascript:void(0)">#Tarixiy</a>
+                                <a href="javascript:void(0)">#Fantastik</a>
                             </div>
                         </div>
 

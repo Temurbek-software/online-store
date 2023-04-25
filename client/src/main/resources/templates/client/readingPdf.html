@@ -5,7 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${#strings.capitalize(currentBook.bookName)}"></title>
+
 </head>
+
 <body>
 <!-- Start Breadcrumbs -->
 <div layout:fragment="breadcrumb">
@@ -31,16 +33,79 @@
 <div layout:fragment="content">
     <section class="section pdf-section">
         <div class="container">
-            <embed th:attr="src=${#strings.concat('data:', bookType, ';base64,', bookContent)}"
-                   type="application/pdf" width="100%" height="600px"
-                   th:style="'-webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; pointer-events:none;'" />
+            <div class="row">
+                <div class="col-lg-8">
+                    <iframe class="viewer" th:attr="src=${#strings.concat('data:', 'application/pdf', ';base64,', bookContent)}"
+                            type="application/pdf" width="100%" height="600px"></iframe>
+                    <p>Your browser doesn't support PDF viewing. Please download the PDF to view it</p>
+                </div>
+
+
+
+
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Kitob haqida malumot</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted" th:text="${currentBook.bookName}"></h6>
+                            <p class="card-text">Mualliflari :</p>
+                            <ul>
+                                <li th:each="author : ${currentBook.productAuthorList}">
+                                    <span th:text="${author.firstName+' '+author.lastName}"></span>
+                                </li>
+                            </ul>
+                            <p class="card-text">Nashriyot: <span th:text="${currentBook.getProductPublisherList().getName()}"></span></p>
+                            <p class="card-text">ISBN raqami : <span th:text="${currentBook.getIsbnNumber()}"></span></p>
+                            <p class="card-text">Narxi : $<span th:text="${currentBook.getPrinted_Price()}"></span></p>
+                            <p class="card-text">Sahifalari : $<span th:text="${pageNumber}"></span></p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Audio format</h5>
+                        </div>
+                        <div class="body">
+                            <audio id="audioPlayer" controls preload="none" th:preload="none" th:if="${isAuthenticated}">
+                                <source th:attr="src=${audioFile}" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <audio id="audioPlayer" controls preload="none" th:preload="none" controlsList="nodownload" th:if="${!isAuthenticated}">
+                                <source th:attr="src=${audioFile}" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
-    <th:block th:with="bookName=${currentBook.bookName}">
-        <title th:text="'Reading ' + ${bookName}"></title>
-    </th:block>
+
+
 
 
 </div>
+<th:block layout:fragment="script1">
+    <script>
+        const audioPlayer = document.getElementById("audioPlayer");
+        const allowedPlayTime = 20; // Allowed play time in seconds
+        let startTime = 0;
+        const isAuthenticated = [[${isAuthenticated}]];
+        audioPlayer.addEventListener("timeupdate", function() {
+            if (audioPlayer.currentTime > startTime + allowedPlayTime) {
+                if (!isAuthenticated) {
+                    audioPlayer.pause();
+                    alert("Siz yetarlicha kitobni audiosini eshitdingz,oxirigacha eshitmoqchi bolsangiz yuklab oling");
+                }
+            }
+        });
+    </script>
+
+
+</th:block>
+
 </body>
 </html>

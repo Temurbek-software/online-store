@@ -39,6 +39,8 @@ public class ShoppingCartController {
         if (customerService.findByUsername(principal.getName()) == null) {
             return "/auth/login";
         }
+        model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
+
         Customer customer = customerService.findByUsername(principal.getName());//getting logged in user
         shoppingCartService.addItemToCart(product, customer, quantity, format);
         return "redirect:/book-details?id=" + product.getId() + "&addtocart";
@@ -49,7 +51,7 @@ public class ShoppingCartController {
         model.addAttribute("classActiveViewCart", "home active");
         Customer customer = customerService.findByUsername(principal.getName());//get logged in user
         ShoppingCart shoppingCart = customer.getShoppingCart();
-
+        model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         model.addAttribute("shoppingCart", shoppingCart);
         return "client/cart";
     }

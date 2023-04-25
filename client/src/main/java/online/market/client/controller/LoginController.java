@@ -6,6 +6,7 @@ import online.market.model.payload.CustomerDto;
 import online.market.service.common.CityService;
 import online.market.service.common.CountryService;
 import online.market.service.common.EmailService;
+import online.market.service.entity.CategoryService;
 import online.market.service.entity.CustomerService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,12 +33,14 @@ public class LoginController
     private final EmailService emailService;
     private final AuthenticationManager authenticationManager;
     private final CityService cityService;
+    private final CategoryService categoryService;
 
     @GetMapping("/login")
     public String getLoginPage(Model model) {
         model.addAttribute("classActiveMyAccount", "home active");
         CustomerDto customerDto = new CustomerDto();
         model.addAttribute("customerRegistration", customerDto);
+        model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         return "/auth/login";
     }
 
@@ -53,6 +56,7 @@ public class LoginController
             SecurityContextHolder.getContext().setAuthentication(authentication);
             Customer customer=customerService.findByUsername(username);
             request.getSession().setAttribute("customer", customer);
+            model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
             return "redirect:/";
         }
         catch (AuthenticationException e)
@@ -77,6 +81,7 @@ public class LoginController
         model.addAttribute("classActiveMyAccount", "home active");
         CustomerDto customerDto = new CustomerDto();
         model.addAttribute("customerRegistration", customerDto);
+        model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         return "";
     }
 
@@ -85,6 +90,8 @@ public class LoginController
         model.addAttribute("classActiveMyAccount", "home active");
         CustomerDto customerDto = new CustomerDto();
         model.addAttribute("customerRegistration", customerDto);
+        model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
+
         return "/auth/register";
     }
     @PostMapping("/register")

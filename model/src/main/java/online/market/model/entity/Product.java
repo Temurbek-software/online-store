@@ -32,7 +32,6 @@ public class Product extends BaseEntity {
     @Transient
     private MultipartFile forE_Price;
 
-
     @Column(name = "printed_price")
     private Double printed_Price;
 
@@ -51,7 +50,7 @@ public class Product extends BaseEntity {
     @NotNull
     private Integer pageNumb;
 
-    @Column(name = "description")
+    @Column(name = "description",columnDefinition = "text")
     @NotNull
     private String description;
 
@@ -85,7 +84,7 @@ public class Product extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contact_Id", referencedColumnName = "id")
-    private Contacts contacts;
+    private Contracts contractsProduct;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publisher_Id", referencedColumnName = "id")
@@ -132,7 +131,7 @@ public class Product extends BaseEntity {
 
     public String getFullAudioUrl() {
         if (id != null) {
-            return "/upload/product/" + id + "/audio.mp3";
+            return "/upload/product/" + id + "/for_Audio_Price.mp3";
         } else {
             return "/upload/no_preview.jpg";
         }

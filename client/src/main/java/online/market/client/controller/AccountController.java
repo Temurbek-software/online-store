@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import online.market.model.entity.Customer;
 import online.market.model.payload.CustomerDto;
 import online.market.service.common.OrderService;
+import online.market.service.entity.CategoryService;
 import online.market.service.entity.CustomerService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +21,7 @@ public class AccountController {
     private final CustomerService customerService;
     private final OrderService orderService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final CategoryService categoryService;
 
     @RequestMapping("/my-account")
     public String myAccount(Model model)
@@ -41,6 +43,8 @@ public class AccountController {
         customerDto.setCountryName(customer.getCountryName());
         customerDto.setUsername(customer.getUsername());
         model.addAttribute("customer", customerDto);
+        model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
+
         return "/userAccount/UserAccount";
     }
 }

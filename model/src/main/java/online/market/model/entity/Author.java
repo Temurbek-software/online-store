@@ -37,14 +37,13 @@ public class Author extends BaseEntity {
     @NotNull
     private String phoneNumber;
 
-    @Column(name = "description")
+    @Column(name = "description",columnDefinition = "text")
     @NotNull
     private String description;
 
-    @Column(name = "shortDescription")
+    @Column(name = "shortDescription",columnDefinition = "text")
     @NotNull
     private String shortDescription;
-
    //    image param
 
     @Transient
@@ -58,6 +57,9 @@ public class Author extends BaseEntity {
     @JsonIgnore
     private Set<Product> productDTOSet = new HashSet<>();
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "contact_Id", referencedColumnName = "id")
+    private Contracts contractsAuthors;
 
     public void removeProduct(Product product) {
         this.getProductDTOSet().remove(product);

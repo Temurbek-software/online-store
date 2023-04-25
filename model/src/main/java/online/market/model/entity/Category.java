@@ -23,7 +23,8 @@ public class Category extends BaseEntity {
     @Column(name = "name")
     @NotNull
     private String name;
-    @Column(name = "description")
+
+    @Column(name = "description",columnDefinition = "text")
     @NotNull
     private String description;
 

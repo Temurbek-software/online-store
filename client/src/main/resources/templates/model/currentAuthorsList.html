@@ -4,7 +4,8 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Mahalliy dokonlar</title>
+    <title th:text="${#strings.capitalize(authors.lastName+' '+authors.firstName)}"></title>
+
 </head>
 <body>
 <!-- Start Breadcrumbs -->
@@ -14,13 +15,14 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Mahalliy do'konlar</h1>
+                        <h1 class="page-title"  th:text="${#strings.capitalize(authors.lastName+' '+authors.firstName)}"></h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
                         <li><a href="index.html"><i class="lni lni-home"></i>Asosiy sahifa</a></li>
-                        <li>Do'konlar</li>
+                        <li><a href="index.html">Mualliflar</a></li>
+                        <li th:text="${#strings.capitalize(authors.lastName+' '+authors.firstName)}"></li>
                     </ul>
                 </div>
             </div>
@@ -29,68 +31,33 @@
 </div>
 <!-- End Breadcrumbs -->
 <div layout:fragment="content">
-    <section class="section blog-section blog-list">
+    <!--Shopping cart section-->
+    <div class="section blog-single">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-12 col-12">
-                    <div class="row">
-                        <div th:each="company:${companyList}" class="col-lg-4 col-md-6 col-12">
-                            <div class="single-blog">
-                                <div class="blog-img">
-                                    <a th:href="@{/company(id=${company.id})}">
-                                        <img th:src="@{'http://localhost:81/admin' + ${company.getFullImage1Url()}}"
-                                             alt="#">
-                                    </a>
-                                </div>
-                                <div class="blog-content">
-                                    <h6>
-                                        <span th:text="${company.nameOfCompany}"></span>
-                                    </h6>
-                                    <br>
-                                    <span class="category"
-                                          th:text="${#dates.format(company.createdAt, 'yyyy-MM-dd')}"></span>
+                    <div class="card mb-3">
+                        <div class="row no-gutters">
+                            <div class="col-12">
 
-                                    <p
-                                            th:text="${#strings.length(company.description) > 25 ? #strings.substring(company.description, 0, 25) + '...' : company.description}"
-                                          ></p>
-                                    <div class="button">
-                                        <a th:href="@{/company(id=${company.id})}" class="btn">Ba'tafsil</a>
+                                <div class="card-body">
+                                    <div style="float: left; padding: 5px 10px 10px 0">
+                                    <img style=" width: 200px" th:src="@{'http://localhost:81/admin' + ${authors.getFullImage1Url()}}" class="card-img float-left" alt="Image description">
                                     </div>
+                                     <h5 class="card-title" th:text="${authors.firstName+' '+ authors.lastName}"></h5>
+                                    <p class="card-text"></p>
+                                    <p class="card-text"><small class="text-muted">Oxirgi marta 3 mins oldin</small></p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="pagination left blog-grid-page">
-                        <ul class="pagination-list">
-                             <span th:if="${currentPage<=1}">
-                           </span>
-                            <span th:unless="${currentPage<=1}">
-                                <li><a th:if="${currentPage<=totalPages}"
-                                       th:href="@{'/page/'+${currentPage-1}}">Prev</a>
-                            </li>
-                            </span>
-                            <span th:each="i:${#numbers.sequence(1,totalPages)}">
-
-                                <li><a th:if="${currentPage!=i}" th:href="@{'/page/'+${i}}">[[${i}]]</a></li>
-                            <li class="active"><a th:unless="${currentPage!=i}">[[${i}]]</a></li>
-                            </span>
-                            <span th:if="${currentPage<totalPages}">
-                                <li>
-                                <a th:href="@{'/page/'+${currentPage+1}}">Next</a>
-                            </li>
-                            </span>
-                            <span th:unless="${currentPage<=totalPages}">
-
-                            </span>
-
-                        </ul>
-                    </div>
                 </div>
+
                 <aside class="col-lg-4 col-md-12 col-12">
                     <div class="sidebar blog-grid-page">
 
                         <div class="widget search-widget">
-                            <h5 class="widget-title">Do'konlarni saytdan izlash</h5>
+                            <h5 class="widget-title">Mualliflarni izlash</h5>
                             <form action="#">
                                 <input type="text" placeholder="Izlash...">
                                 <button type="submit"><i class="lni lni-search-alt"></i></button>
@@ -99,9 +66,9 @@
 
 
                         <div class="widget popular-feeds">
-                            <h5 class="widget-title">Tavsiya etiladigan do'konlar</h5>
+                            <h5 class="widget-title">Mashur mualliflar</h5>
                             <div class="popular-feed-loop">
-                                <div class="single-popular-feed" th:each="items:${companyList}">
+                                <div class="single-popular-feed" th:each="items:${authorList2}">
                                     <div class="feed-desc">
                                         <a class="feed-img" href="blog-single-sidebar.html">
                                             <img th:src="@{'http://localhost:81/admin' + ${items.getFullImage1Url()}}"
@@ -109,7 +76,7 @@
                                         </a>
                                         <h6 class="post-title">
                                             <a th:href="@{/company(id=${items.id})}"
-                                               th:text="${#strings.length(items.description) > 15 ? #strings.substring(items.description, 0, 15) + '...' : items.description}"></a>
+                                               th:text="${#strings.length(items.description) > 10 ? #strings.substring(items.description, 0, 10) + '...' : items.description}"></a>
                                         </h6>
                                         <span class="time"><i class="lni lni-calendar"></i> <span
                                                 th:text="${#dates.format(items.createdAt, 'yyyy-MM-dd')}"></span> </span>
@@ -120,7 +87,7 @@
 
 
                         <div class="widget categories-widget">
-                            <h5 class="widget-title">Turli xil kategoriyadagi kitoblar</h5>
+                            <h5 class="widget-title">Ko'p kitoblari mashur mualliflar</h5>
                             <ul class="custom">
                                 <a href="#">Hikoyalar</a><span>(24)</span>
                                 <a href="#">Ertaklar</a><span>(24)</span>
@@ -130,7 +97,7 @@
 
 
                         <div class="widget popular-tag-widget">
-                            <h5 class="widget-title">Mashur kitoblar</h5>
+                            <h5 class="widget-title">Mashurlar</h5>
                             <div class="tags">
                                 <a href="javascript:void(0)">#Hikoyalar</a>
                                 <a href="javascript:void(0)">#Ertaklar</a>
@@ -143,8 +110,9 @@
                 </aside>
             </div>
         </div>
-    </section>
+    </div>
 </div>
+
 
 </body>
 </html>

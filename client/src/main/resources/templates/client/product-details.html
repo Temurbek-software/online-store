@@ -53,14 +53,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Single Product</h1>
+                        <h1 class="page-title" th:text="${#strings.capitalize(oneProduct.bookName)}"></h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-                        <li><a href="index.html">Shop</a></li>
-                        <li>Single Product</li>
+                        <li><a href="index.html"><i class="lni lni-home"></i>Asosiy sahifa</a></li>
+                        <li th:text="${#strings.capitalize(oneProduct.bookName)}"></li>
                     </ul>
                 </div>
             </div>
@@ -125,15 +124,11 @@
                                                     <span class="ml-2 text-gray-600"
                                                           th:each="items:${oneProduct.getProductAuthorList()}"
                                                           th:text="${items.lastName+' '+items.firstName}">
-
                                                     </span>
                                                 </div>
 
                                                 <div class="woocommerce-product-details__short-description font-size-2 mb-4">
-                                                    <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                                        sed do eiusmod tempor aliqua. Ut enim ad minim veniam, quis
-                                                        nostrud exercitation ullamco laboris nisi ut Excepteur sint
-                                                        occaecat.</p>
+                                                    <p th:text="${#strings.length(oneProduct.description) > 50 ? #strings.substring(oneProduct.description, 0, 50) + '...' : oneProduct.description}"></p>
                                                 </div>
 
                                                 <p class="price font-size-22 font-weight-medium mb-4">
@@ -147,9 +142,7 @@
                                                 <form method="post" th:action="@{/add-to-cart}"
                                                       enctype="multipart/form-data">
                                                     <div class="mb-4">
-                                                        <label class="form-label font-size-2 font-weight-medium mb-3">Book
-                                                            Format
-
+                                                        <label class="form-label font-size-2 font-weight-medium mb-3">Kitob formati
                                                         </label>
                                                         <a href="#">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -167,7 +160,7 @@
                                                                 data-show-subtext="true"
                                                                 data-dropdown-align-right="true"
                                                                 data-style=" border px-4 py-2 rounded-0 height-5 outline-none shadow-none form-control font-size-2">
-                                                            <option value="Printed"
+                                                            <option value="Qog'ozli"
                                                                     th:data-subtext="${oneProduct.printed_Price}">
                                                                 Printed
                                                             </option>
@@ -175,7 +168,7 @@
                                                                     th:data-subtext="${oneProduct.audio_price}">Audio
                                                             </option>
                                                             <option value="Pdf" th:data-subtext="${oneProduct.e_price}">
-                                                                PDF
+                                                                Elektron
                                                             </option>
                                                         </select>
                                                         <!-- End Select -->
@@ -188,7 +181,7 @@
                                                             <div class="border px-3 width-120">
                                                                 <div class="js-quantity">
                                                                     <div class="d-flex align-items-center">
-                                                                        <label class="screen-reader-text sr-only">Quantity</label>
+                                                                        <label class="screen-reader-text sr-only">Miqdori</label>
                                                                         <a class="js-minus text-dark" href="#">
                                                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -219,7 +212,7 @@
                                                         </div>
                                                         <button type="submit" name="add-to-cart"
                                                                 class="btn btn-dark border-0 rounded-0 p-3 btn-block ml-md-4 single_add_to_cart_button button alt">
-                                                            Add to cart
+                                                            Savatchaga qo'shish
                                                         </button>
                                                     </div>
                                                 </form>
@@ -228,11 +221,11 @@
                                                 <ul class="list-unstyled nav">
                                                     <li class="mr-6 mb-4 mb-md-0">
                                                         <a href="#" class="h-primary"><i
-                                                                class="flaticon-heart mr-2"></i> Add to Wishlist</a>
+                                                                class="flaticon-heart mr-2"></i> Ro'yhatga qo'shish</a>
                                                     </li>
                                                     <li class="mr-6">
                                                         <a href="#" class="h-primary"><i
-                                                                class="flaticon-share mr-2"></i> Share</a>
+                                                                class="flaticon-share mr-2"></i> Ulashing</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -250,30 +243,22 @@
                                                id="pills-one-example1-tab" data-toggle="pill"
                                                href="#pills-one-example1" role="tab"
                                                aria-controls="pills-one-example1" aria-selected="true">
-                                                Description
+                                                Kitob haqida ta'rif
                                             </a>
                                         </li>
                                         <li class="flex-shrink-0 flex-lg-shrink-1 nav-item mb-3">
                                             <a class="py-1 d-inline-block nav-link font-weight-medium"
                                                id="pills-two-example1-tab" data-toggle="pill" href="#pills-two-example1"
                                                role="tab" aria-controls="pills-two-example1" aria-selected="false">
-                                                Product Details
+                                                Kitob Haqida qisqacha malumot
                                             </a>
                                         </li>
-                                        <li class="flex-shrink-0 flex-lg-shrink-1 nav-item mb-3">
-                                            <a class="py-1 d-inline-block nav-link font-weight-medium"
-                                               id="pills-three-example1-tab" data-toggle="pill"
-                                               href="#pills-three-example1" role="tab"
-                                               aria-controls="pills-three-example1" aria-selected="false">
-                                                Videos
-                                            </a>
-                                        </li>
-                                        <li class="flex-shrink-0 flex-lg-shrink-1 nav-item mb-3">
+                                   <li class="flex-shrink-0 flex-lg-shrink-1 nav-item mb-3">
                                             <a class="py-1 d-inline-block nav-link font-weight-medium"
                                                id="pills-four-example1-tab" data-toggle="pill"
                                                href="#pills-four-example1" role="tab"
                                                aria-controls="pills-four-example1" aria-selected="false">
-                                                Reviews (0)
+                                                Komentariyalar (4)
                                             </a>
                                         </li>
                                     </ul>
@@ -287,15 +272,7 @@
                                             <!-- Mockup Block -->
                                             <p class="mb-0" th:text="${oneProduct.description}">
                                             </p>
-                                            <!--                                            <p class="mb-0">#1 New York Times Bestseller</p>-->
-                                            <!--                                            <p class="mb-0">A Reese Witherspoon x Hello Sunshine Book Club Pick</p>-->
-                                            <!--                                            <p class="mb-4">"I can't even express how much I love this book! I didn't want this story to end!"&#45;&#45;Reese Witherspoon</p>-->
-                                            <!--                                            <p class="mb-4">"Painfully beautiful."&#45;&#45;The New York Times Book Review</p>-->
-                                            <!--                                            <p>"Perfect for fans of Barbara Kingsolver."&#45;&#45;Bustle</p>-->
-                                            <!--                                            <p class="mb-4">For years, rumors of the "Marsh Girl" have haunted Barkley Cove, a quiet town on the North Carolina coast. So in late 1969, when handsome Chase Andrews is found dead, the locals immediately suspect Kya Clark, the so-called Marsh Girl. But Kya is not what they say. Sensitive and intelligent, she has survived for years alone in the marsh that she calls home, finding friends in the gulls and lessons in the sand. Then the time comes when she yearns to be touched and loved. When two young men from town become intrigued by her wild beauty, Kya opens herself to a new life&#45;&#45;until the unthinkable happens.</p>-->
-                                            <!--                                            <p class="mb-4">Perfect for fans of Barbara Kingsolver and Karen Russell, Where the Crawdads Sing is at once an exquisite ode to the natural world, a heartbreaking coming-of-age story, and a surprising tale of possible murder. Owens reminds us that we are forever shaped by the children we once were, and that we are all subject to the beautiful and violent secrets that nature keeps</p>-->
-                                            <!--                                            <p>WHERE THE CRAWDADS LP</p>-->
-                                            <!-- End Mockup Block -->
+
                                         </div>
                                         <div class="woocommerce-Tabs-panel panel entry-content wc-tab tab-pane fade border-left pl-4 pt-4 pl-lg-6 pt-lg-6 pl-xl-9 pt-xl-9"
                                              id="pills-two-example1" role="tabpanel"
@@ -306,30 +283,26 @@
                                                     <tbody>
                                                     <tr>
                                                         <th class="px-4 px-xl-5">Format:</th>
-                                                        <td class="">Paperback | 384 pages</td>
+                                                        <td class="px-4 px-xl-5" th:text="${oneProduct.pageNumb}">384
+                                                            pages
+                                                        </td>
                                                     </tr>
+
                                                     <tr>
-                                                        <th class="px-4 px-xl-5">Dimensions</th>
-                                                        <td>9126 x 194 x 28mm | 301g</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="px-4 px-xl-5">Publication date:</th>
+                                                        <th class="px-4 px-xl-5">Nashriyotdan chiqqan sanasi:</th>
                                                         <td th:text="${#dates.format(oneProduct.getYearOfPublished(), 'd MMMM yyyy, hh:mm')}"></td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="px-4 px-xl-5">Publisher:</th>
+                                                        <th class="px-4 px-xl-5">Muallif:</th>
                                                         <td th:text="${oneProduct.getProductPublisherList().name}"></td>
                                                     </tr>
+
                                                     <tr>
-                                                        <th class="px-4 px-xl-5">Imprint:</th>
-                                                        <td>Corsair</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="px-4 px-xl-5">Publication City/Country:</th>
+                                                        <th class="px-4 px-xl-5">Nashriyotdan chiqqan joyi:</th>
                                                         <td th:text="${oneProduct.getProductPublisherList().address}"></td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="px-4 px-xl-5">Language:</th>
+                                                        <th class="px-4 px-xl-5">Till:</th>
                                                         <td th:text="${oneProduct.getLanguage()}"></td>
                                                     </tr>
                                                     </tbody>
@@ -381,7 +354,7 @@
                                              id="pills-four-example1"
                                              role="tabpanel" aria-labelledby="pills-four-example1-tab">
                                             <!-- Mockup Block -->
-                                            <h4 class="font-size-3">Customer Reviews </h4>
+                                            <h4 class="font-size-3">Foydalanuvchilar komentariylari</h4>
                                             <div class="mb-8">
                                                 <div class="mb-6">
                                                     <div class="d-flex  align-items-center mb-4">
@@ -401,128 +374,23 @@
                                                     <div class="d-xl-flex">
                                                         <button type="button"
                                                                 class="d-block btn btn-outline-dark rounded-0 px-5 mb-3 mb-xl-0">
-                                                            See all reviews
+                                                            Hammasini ko'rish
                                                         </button>
                                                         <button type="button"
                                                                 class="d-block btn btn-dark ml-xl-3 rounded-0 px-5">
-                                                            Write a review
+                                                            Komentariya yozish
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div class="">
-                                                    <!-- Ratings -->
-                                                    <ul class="list-unstyled">
-                                                        <li class="py-2">
-                                                            <a class="row align-items-center mx-gutters-2 font-size-2"
-                                                               href="#">
-                                                                <div class="col-auto">
-                                                                    <span class="text-dark">5 stars</span>
-                                                                </div>
-                                                                <div class="col px-0">
-                                                                    <div class="progress bg-white-100"
-                                                                         style="height: 7px;">
-                                                                        <div class="progress-bar bg-yellow-darker"
-                                                                             role="progressbar" style="width: 100%;"
-                                                                             aria-valuenow="100" aria-valuemin="0"
-                                                                             aria-valuemax="100"></div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-2">
-                                                                    <span class="text-secondary">205</span>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                        <li class="py-2">
-                                                            <a class="row align-items-center mx-gutters-2 font-size-2"
-                                                               href="#">
-                                                                <div class="col-auto">
-                                                                    <span class="text-dark">4 stars</span>
-                                                                </div>
-                                                                <div class="col px-0">
-                                                                    <div class="progress bg-white-100"
-                                                                         style="height: 7px;">
-                                                                        <div class="progress-bar bg-yellow-darker"
-                                                                             role="progressbar" style="width: 53%;"
-                                                                             aria-valuenow="53" aria-valuemin="0"
-                                                                             aria-valuemax="100"></div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-2">
-                                                                    <span class="text-secondary">55</span>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                        <li class="py-2">
-                                                            <a class="row align-items-center mx-gutters-2 font-size-2"
-                                                               href="#">
-                                                                <div class="col-auto">
-                                                                    <span class="text-dark">3 stars</span>
-                                                                </div>
-                                                                <div class="col px-0">
-                                                                    <div class="progress bg-white-100"
-                                                                         style="height: 7px;">
-                                                                        <div class="progress-bar bg-yellow-darker"
-                                                                             role="progressbar" style="width: 20%;"
-                                                                             aria-valuenow="20" aria-valuemin="0"
-                                                                             aria-valuemax="100"></div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-2">
-                                                                    <span class="text-secondary">23</span>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                        <li class="py-2">
-                                                            <a class="row align-items-center mx-gutters-2 font-size-2"
-                                                               href="#">
-                                                                <div class="col-auto">
-                                                                    <span class="text-dark">2 stars</span>
-                                                                </div>
-                                                                <div class="col px-0">
-                                                                    <div class="progress bg-white-100"
-                                                                         style="height: 7px;">
-                                                                        <div class="progress-bar bg-yellow-darker"
-                                                                             role="progressbar" style="width: 0%;"
-                                                                             aria-valuenow="0" aria-valuemin="0"
-                                                                             aria-valuemax="100"></div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-2">
-                                                                    <span class="text-secondary">0</span>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                        <li class="py-2">
-                                                            <a class="row align-items-center mx-gutters-2 font-size-2"
-                                                               href="#">
-                                                                <div class="col-auto">
-                                                                    <span class="text-dark">1 stars</span>
-                                                                </div>
-                                                                <div class="col px-0">
-                                                                    <div class="progress bg-white-100"
-                                                                         style="height: 7px;">
-                                                                        <div class="progress-bar bg-yellow-darker"
-                                                                             role="progressbar" style="width: 1%;"
-                                                                             aria-valuenow="1" aria-valuemin="0"
-                                                                             aria-valuemax="100"></div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-2">
-                                                                    <span class="text-secondary">4</span>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                    <!-- End Ratings -->
-                                                </div>
+
                                             </div>
 
-                                            <h4 class="font-size-3 mb-8">1-5 of 44 reviews</h4>
+                                            <h4 class="font-size-3 mb-8">1-5 of 10 komentariya</h4>
 
                                             <ul class="list-unstyled mb-8">
                                                 <li class="mb-4 pb-5 border-bottom">
                                                     <div class="d-flex align-items-center mb-3">
-                                                        <h6 class="mb-0">Amazing Story! You will LOVE it</h6>
+                                                        <h6 class="mb-0">Juda yaxshi kitob ekan!</h6>
                                                         <div class="text-yellow-darker ml-3">
                                                             <small class="fas fa-star"></small>
                                                             <small class="fas fa-star"></small>
@@ -531,21 +399,20 @@
                                                             <small class="far fa-star"></small>
                                                         </div>
                                                     </div>
-                                                    <p class="mb-4 text-lh-md">Such an incredibly complex story! I had
-                                                        to buy it because there was a waiting list of 30+ at the local
-                                                        library for this book. Thrilled that I made the purchase</p>
-                                                    <div class="text-gray-600 mb-4">Staci, February 22, 2020</div>
+                                                    <p class="mb-4 text-lh-md">Juda yaxshi chop qilingan kitob, o'qishni
+                                                        tavsiya qilaman</p>
+                                                    <div class="text-gray-600 mb-4">23-mart, 2023</div>
                                                     <ul class="nav">
                                                         <li class="mr-7">
                                                             <a href="#" class="text-gray-600 d-flex align-items-center">
                                                                 <i class="text-dark font-size-5 flaticon-like-1"></i>
-                                                                <span class="ml-2">90</span>
+                                                                <span class="ml-2">15</span>
                                                             </a>
                                                         </li>
                                                         <li class="mr-7">
                                                             <a href="#" class="text-gray-600 d-flex align-items-center">
                                                                 <i class="text-dark font-size-5 flaticon-dislike"></i>
-                                                                <span class="ml-2">10</span>
+                                                                <span class="ml-2">5</span>
                                                             </a>
                                                         </li>
                                                         <li class="mr-7">
@@ -558,7 +425,7 @@
                                                 </li>
                                                 <li class="mb-4 pb-5 border-bottom">
                                                     <div class="d-flex align-items-center mb-3">
-                                                        <h6 class="mb-0">Get the best seller at a great price.</h6>
+                                                        <h6 class="mb-0">Arzon narxdagi kitob ekan, qiziqarli</h6>
                                                         <div class="text-yellow-darker ml-3">
                                                             <small class="fas fa-star"></small>
                                                             <small class="fas fa-star"></small>
@@ -567,20 +434,21 @@
                                                             <small class="far fa-star"></small>
                                                         </div>
                                                     </div>
-                                                    <p class="mb-4 text-lh-md">Awesome book, great price, fast delivery.
-                                                        Thanks so much.</p>
-                                                    <div class="text-gray-600 mb-4">Staci, February 22, 2020</div>
+                                                    <p class="mb-4 text-lh-md">juda ajoyib kitob book, ajoyib narx, tez
+                                                        yetkazib berishdi.
+                                                        Katta rahmat.</p>
+                                                    <div class="text-gray-600 mb-4">12-yanvar,2023</div>
                                                     <ul class="nav">
                                                         <li class="mr-7">
                                                             <a href="#" class="text-gray-600 d-flex align-items-center">
                                                                 <i class="text-dark font-size-5 flaticon-like-1"></i>
-                                                                <span class="ml-2">90</span>
+                                                                <span class="ml-2">23</span>
                                                             </a>
                                                         </li>
                                                         <li class="mr-7">
                                                             <a href="#" class="text-gray-600 d-flex align-items-center">
                                                                 <i class="text-dark font-size-5 flaticon-dislike"></i>
-                                                                <span class="ml-2">10</span>
+                                                                <span class="ml-2">3</span>
                                                             </a>
                                                         </li>
                                                         <li class="mr-7">
@@ -593,7 +461,8 @@
                                                 </li>
                                                 <li class="mb-4 pb-5 border-bottom">
                                                     <div class="d-flex align-items-center mb-3">
-                                                        <h6 class="mb-0">I read this book short...</h6>
+                                                        <h6 class="mb-0">Bu kitobni tez oq'ib chiqdim, ajoyib kitob
+                                                            ekan.</h6>
                                                         <div class="text-yellow-darker ml-3">
                                                             <small class="fas fa-star"></small>
                                                             <small class="fas fa-star"></small>
@@ -602,23 +471,21 @@
                                                             <small class="far fa-star"></small>
                                                         </div>
                                                     </div>
-                                                    <p class="mb-4 text-lh-md">I read this book shortly after I got it
-                                                        and didn't just put it on my TBR shelf mainly because I saw it
-                                                        on Reese Witherspoon's bookclub September read. It was one of
-                                                        the best books I've read this year, and reminded me some of
-                                                        Kristen Hannah's The Great Alone. </p>
-                                                    <div class="text-gray-600 mb-4">Staci, February 22, 2020</div>
+                                                    <p class="mb-4 text-lh-md">Bu kitob olganimdan keyin tez orada o'qib
+                                                        tugatdim,
+                                                        juda ajoyib, tavsiya qilaman o'qishni</p>
+                                                    <div class="text-gray-600 mb-4">1-mar, 2023</div>
                                                     <ul class="nav">
                                                         <li class="mr-7">
                                                             <a href="#" class="text-gray-600 d-flex align-items-center">
                                                                 <i class="text-dark font-size-5 flaticon-like-1"></i>
-                                                                <span class="ml-2">90</span>
+                                                                <span class="ml-2">12</span>
                                                             </a>
                                                         </li>
                                                         <li class="mr-7">
                                                             <a href="#" class="text-gray-600 d-flex align-items-center">
                                                                 <i class="text-dark font-size-5 flaticon-dislike"></i>
-                                                                <span class="ml-2">10</span>
+                                                                <span class="ml-2">2</span>
                                                             </a>
                                                         </li>
                                                         <li class="mr-7">
@@ -630,39 +497,30 @@
                                                 </li>
                                             </ul>
 
-                                            <h4 class="font-size-3 mb-4">Write a Review</h4>
-                                            <div class="d-flex align-items-center mb-6">
-                                                <h6 class="mb-0">Select a rating(required)</h6>
-                                                <div class="text-yellow-darker ml-3 font-size-4">
-                                                    <small class="far fa-star"></small>
-                                                    <small class="far fa-star"></small>
-                                                    <small class="far fa-star"></small>
-                                                    <small class="far fa-star"></small>
-                                                    <small class="far fa-star"></small>
-                                                </div>
-                                            </div>
+                                            <h4 class="font-size-3 mb-4">Komentariya yozing</h4>
+
                                             <div class="js-form-message form-group mb-4">
-                                                <label for="descriptionTextarea" class="form-label text-dark h6 mb-3">Details
-                                                    please! Your review helps other shoppers.</label>
+                                                <label for="descriptionTextarea" class="form-label text-dark h6 mb-3">Iltimos
+                                                    toliq malumot yozing,Sizning yordamingz biz uchun muhimdir</label>
                                                 <textarea class="form-control rounded-0 p-4" rows="7"
                                                           id="descriptionTextarea"
-                                                          placeholder="What did you like or dislike? What should other shoppers know before buying?"
-                                                          required data-msg="Please enter your message."
+                                                          placeholder="Sizga yoqdimi? Boshqalarga nimani maslahat berasz?"
+                                                          required data-msg="Iltimos, matn kiriting."
                                                           data-error-class="u-has-error"
                                                           data-success-class="u-has-success"></textarea>
                                             </div>
                                             <div class="form-group mb-5">
-                                                <label for="inputCompanyName" class="form-label text-dark h6 mb-3">Add a
-                                                    title</label>
+                                                <label for="inputCompanyName" class="form-label text-dark h6 mb-3">Sarlavha
+                                                    qoshing</label>
                                                 <input type="text" class="form-control rounded-0 px-4"
                                                        name="companyName" id="inputCompanyName"
-                                                       placeholder="3000 characters remaining"
+                                                       placeholder="3000 dan ortiq belgi kirita olmaysz"
                                                        aria-label="3000 characters remaining">
                                             </div>
                                             <div class="d-flex">
                                                 <button type="submit"
                                                         class="btn btn-dark btn-wide rounded-0 transition-3d-hover">
-                                                    Submit Review
+                                                    jonatish
                                                 </button>
                                             </div>
                                             <!-- End Mockup Block -->
@@ -690,38 +548,14 @@
                                         </a>
                                         <div class="media-body ml-3 pl-1">
                                             <h6 class="font-size-2 text-lh-md font-weight-normal">
-                                                <a href="#" th:text="${items.description}"></a>
+                                                <a th:href="@{/book-details(id=${items.id})}"
+                                                   th:text="${#strings.substring(items.description, 0, 50)}"></a>
                                             </h6>
                                             <span class="font-weight-medium" th:text="${items.printed_Price}"></span>
                                         </div>
                                     </div>
                                 </div>
-                                <!--                                <div class="mb-5">-->
-                                <!--                                    <div class="media d-md-flex">-->
-                                <!--                                        <a class="d-block" href="#">-->
-                                <!--                                            <img class="img-fluid" th:src="@{/images/image_posted1.png}" alt="Image-Description">-->
-                                <!--                                        </a>-->
-                                <!--                                        <div class="media-body ml-3 pl-1">-->
-                                <!--                                            <h6 class="font-size-2 text-lh-md font-weight-normal">-->
-                                <!--                                                <a href="#">Love, Livestock, and Big Life Lessons...</a>-->
-                                <!--                                            </h6>-->
-                                <!--                                            <span class="font-weight-medium">$21</span>-->
-                                <!--                                        </div>-->
-                                <!--                                    </div>-->
-                                <!--                                </div>-->
-                                <!--                                <div>-->
-                                <!--                                    <div class="media d-md-flex">-->
-                                <!--                                        <a class="d-block" href="#">-->
-                                <!--                                            <img class="img-fluid" th:src="@{/images/image_posted1.png}"alt="Image-Description">-->
-                                <!--                                        </a>-->
-                                <!--                                        <div class="media-body ml-3 pl-1">-->
-                                <!--                                            <h6 class="font-size-2 text-lh-md font-weight-normal">-->
-                                <!--                                                <a href="#">Sleeper Cells, Ghost Stories, and Hunt...</a>-->
-                                <!--                                            </h6>-->
-                                <!--                                            <span class="font-weight-medium">$182</span>-->
-                                <!--                                        </div>-->
-                                <!--                                    </div>-->
-                                <!--                                </div>-->
+
                             </div>
 
                             <div class="widget border mb-5">
@@ -734,8 +568,9 @@
                                                     <i class="glyph-icon flaticon-delivery"></i>
                                                 </div>
                                                 <div class="media-body ml-xl-4">
-                                                    <h4 class="feature__title h6 mb-1 text-dark">Free Delivery</h4>
-                                                    <p class="feature__subtitle m-0 text-dark">Orders over $100</p>
+                                                    <h4 class="feature__title h6 mb-1 text-dark">Bepul yetkazib
+                                                        berish</h4>
+                                                    <p class="feature__subtitle m-0 text-dark">Arzon narxda</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -745,8 +580,9 @@
                                                     <i class="glyph-icon flaticon-credit"></i>
                                                 </div>
                                                 <div class="media-body ml-xl-4">
-                                                    <h4 class="feature__title h6 mb-1 text-dark">Secure Payment</h4>
-                                                    <p class="feature__subtitle m-0 text-dark">100% Secure Payment</p>
+                                                    <h4 class="feature__title h6 mb-1 text-dark">Xafsizligi
+                                                        ta'minlangan</h4>
+                                                    <p class="feature__subtitle m-0 text-dark">100% ishonchi tolov</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -756,9 +592,9 @@
                                                     <i class="glyph-icon flaticon-warranty"></i>
                                                 </div>
                                                 <div class="media-body ml-xl-4">
-                                                    <h4 class="feature__title h6 mb-1 text-dark">Money Back
-                                                        Guarantee</h4>
-                                                    <p class="feature__subtitle m-0 text-dark">Within 30 Days</p>
+                                                    <h4 class="feature__title h6 mb-1 text-dark">Pulingiz
+                                                        qaytariladi</h4>
+                                                    <p class="feature__subtitle m-0 text-dark">30 kun ichida</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -768,8 +604,8 @@
                                                     <i class="glyph-icon flaticon-help"></i>
                                                 </div>
                                                 <div class="media-body ml-xl-4">
-                                                    <h4 class="feature__title h6 mb-1 text-dark">24/7 Support</h4>
-                                                    <p class="feature__subtitle m-0 text-dark">Within 1 Business Day</p>
+                                                    <h4 class="feature__title h6 mb-1 text-dark">24/7 operator</h4>
+                                                    <p class="feature__subtitle m-0 text-dark">istalgan vaqt</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -780,408 +616,9 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-            <section class="space-bottom-3">
-                <div class="container">
-                    <header class="mb-5 d-md-flex justify-content-between align-items-center">
-                        <h2 class="font-size-7 mb-3 mb-md-0">Customers Also Considered</h2>
-                    </header>
-
-                    <div class="js-slick-carousel products no-gutters border-top border-left border-right"
-                         data-arrows-classes="u-slick__arrow u-slick__arrow-centered--y"
-                         data-arrow-left-classes="fas fa-chevron-left u-slick__arrow-inner u-slick__arrow-inner--left ml-lg-n10"
-                         data-arrow-right-classes="fas fa-chevron-right u-slick__arrow-inner u-slick__arrow-inner--right mr-lg-n10"
-                         data-slides-show="5" data-responsive='[{
-                           "breakpoint": 1500,
-                           "settings": {
-                             "slidesToShow": 4
-                           }
-                        },{
-                           "breakpoint": 1199,
-                           "settings": {
-                             "slidesToShow": 3
-                           }
-                        }, {
-                           "breakpoint": 992,
-                           "settings": {
-                             "slidesToShow": 2
-                           }
-                        }, {
-                           "breakpoint": 554,
-                           "settings": {
-                             "slidesToShow": 2
-                           }
-                        }]'>
-                        <div class="product">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="single-product-v7.html" class="d-block"><img
-                                                th:src="@{/images/image_posted1.png}"
-                                                class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
-                                                alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                                href="single-product-v7.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark">
-                                            <a href="single-product-v7.html">Think Like a Monk: Train Your Mind for
-                                                Peace and Purpose Everyday</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="authors-single.html"
-                                                                                        class="text-gray-700">Jay
-                                            Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="single-product-v7.html"
-                                           class="text-uppercase text-dark h-dark font-weight-medium mr-auto">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i
-                                                    class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="single-product-v7.html" class="d-block"><img
-                                                th:src="@{/images/image_posted1.png}"
-                                                class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
-                                                alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                                href="single-product-v7.html">Kindle Edition</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark">
-                                            <a href="single-product-v7.html">The Overdue Life of Amy Byler</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="authors-single.html"
-                                                                                        class="text-gray-700">Kelly
-                                            Harms</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="single-product-v7.html"
-                                           class="text-uppercase text-dark h-dark font-weight-medium mr-auto">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i
-                                                    class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="single-product-v7.html" class="d-block"><img
-                                                th:src="@{/images/image_posted1.png}"
-                                                class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
-                                                alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                                href="single-product-v7.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark">
-                                            <a href="single-product-v7.html">All You Can Ever Know: A Memoir</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="authors-single.html"
-                                                                                        class="text-gray-700">Jay
-                                            Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="single-product-v7.html"
-                                           class="text-uppercase text-dark h-dark font-weight-medium mr-auto">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i
-                                                    class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="single-product-v7.html" class="d-block"><img
-                                                th:src="@{/images/image_posted1.png}"
-                                                class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
-                                                alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                                href="single-product-v7.html">Kindle Edition</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark">
-                                            <a href="single-product-v7.html">The Last Sister (Columbia River Book 1)</a>
-                                        </h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="authors-single.html"
-                                                                                        class="text-gray-700">Kelly
-                                            Harms</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="single-product-v7.html"
-                                           class="text-uppercase text-dark h-dark font-weight-medium mr-auto">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i
-                                                    class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="single-product-v7.html" class="d-block"><img
-                                                th:src="@{/images/image_posted1.png}"
-                                                class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
-                                                alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                                href="single-product-v7.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark">
-                                            <a href="single-product-v7.html">Think Like a Monk: Train Your Mind for
-                                                Peace and Purpose Everyday</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="authors-single.html"
-                                                                                        class="text-gray-700">Jay
-                                            Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="single-product-v7.html"
-                                           class="text-uppercase text-dark h-dark font-weight-medium mr-auto">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i
-                                                    class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="single-product-v7.html" class="d-block"><img
-                                                th:src="@{/images/image_posted1.png}"
-                                                class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
-                                                alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                                href="single-product-v7.html">Kindle Edition</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark">
-                                            <a href="single-product-v7.html">The Overdue Life of Amy Byler</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="authors-single.html"
-                                                                                        class="text-gray-700">Kelly
-                                            Harms</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="single-product-v7.html"
-                                           class="text-uppercase text-dark h-dark font-weight-medium mr-auto">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i
-                                                    class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="single-product-v7.html" class="d-block"><img
-                                                th:src="@{/images/image_posted1.png}"
-                                                class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
-                                                alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                                href="single-product-v7.html">Paperback</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark">
-                                            <a href="single-product-v7.html">All You Can Ever Know: A Memoir</a></h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="authors-single.html"
-                                                                                        class="text-gray-700">Jay
-                                            Shetty</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="single-product-v7.html"
-                                           class="text-uppercase text-dark h-dark font-weight-medium mr-auto">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i
-                                                    class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product">
-                            <div class="product__inner overflow-hidden p-3 p-md-4d875">
-                                <div class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
-                                    <div class="woocommerce-loop-product__thumbnail">
-                                        <a href="single-product-v7.html" class="d-block"><img
-                                                th:src="@{/images/image_posted1.png}"
-                                                class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
-                                                alt="image-description"></a>
-                                    </div>
-                                    <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
-                                        <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                                href="single-product-v7.html">Kindle Edition</a></div>
-                                        <h2 class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark">
-                                            <a href="single-product-v7.html">The Last Sister (Columbia River Book 1)</a>
-                                        </h2>
-                                        <div class="font-size-2  mb-1 text-truncate"><a href="authors-single.html"
-                                                                                        class="text-gray-700">Kelly
-                                            Harms</a></div>
-                                        <div class="price d-flex align-items-center font-weight-medium font-size-3">
-                                            <span class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">$</span>29</span>
-                                        </div>
-                                    </div>
-                                    <div class="product__hover d-flex align-items-center">
-                                        <a href="single-product-v7.html"
-                                           class="text-uppercase text-dark h-dark font-weight-medium mr-auto">
-                                            <span class="product__add-to-cart">ADD TO CART</span>
-                                            <span class="product__add-to-cart-icon font-size-4"><i
-                                                    class="flaticon-icon-126515"></i></span>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="mr-1 h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-switch"></i>
-                                        </a>
-                                        <a href="single-product-v7.html"
-                                           class="h-p-bg btn btn-outline-primary border-0">
-                                            <i class="flaticon-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     </div>
-    <!-- ====== END MAIN CONTENT ====== -->
-
-    <!-- Start Item Details -->
-    <!-- Account Sidebar Navigation - Mobile -->
-    <!--     <section class="item-details section">-->
-    <!--        <div class="container">-->
-    <!--            <div class="top-area">-->
-    <!--                <div class="row align-items-center">-->
-    <!--                    <div class="col-lg-4 col-md-12 col-12">-->
-    <!--                        <div class="product-images">-->
-    <!--                            <main id="gallery">-->
-    <!--                                <div class="main-img">-->
-    <!--                                    <img th:src="#{adminPath}+${oneProduct.getFullImage1Url()}" id="current" alt="#">-->
-    <!--                                </div>-->
-    <!--                                <div class="images">-->
-    <!--                                    <img th:src="assets/images/product-details/01.jpg" class="img" alt="#">-->
-    <!--                                    <img th:src="assets/images/product-details/02.jpg" class="img" alt="#">-->
-    <!--                                    <img th:src="assets/images/product-details/03.jpg" class="img" alt="#">-->
-    <!--                                    <img th:src="assets/images/product-details/04.jpg" class="img" alt="#">-->
-    <!--                                    <img th:src="assets/images/product-details/05.jpg" class="img" alt="#">-->
-    <!--                                </div>-->
-    <!--                            </main>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-
 </div>
 
 <th:block layout:fragment="script1">

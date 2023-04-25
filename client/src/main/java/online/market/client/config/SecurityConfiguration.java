@@ -74,10 +74,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .rememberMe();
-//        http
-//                .headers()
-//                .contentSecurityPolicy("frame-ancestors 'self' http://localhost:81");
-//                .contentSecurityPolicy("frame-ancestors 'self' http://localhost:81");
     }
 
     @Override
@@ -93,9 +89,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/mail/**",
             "/ico/**",
             "/",
+            "/bookType",
+            "/cart",
+            "/publishers",
             "/tariff",
+            "/publish",
+            "/payment",
             "/pdf/**",
             "/reading",
+            "/autho",
             "/add-to-cart",
             "/login-second",
             "/category",

@@ -134,6 +134,7 @@ video {
 
 img {
     max-width: 100%;
+
 }
 
 h1,
@@ -8207,7 +8208,6 @@ blockquote span {
 
 }
 .product-image img {
-    aspect-ratio: 3/4 !important;
     height: fit-content;
     object-fit: contain;
 }
