@@ -37,7 +37,8 @@
                         <div th:each="publisher:${publisherList}" class="col-lg-4 col-md-6 col-12">
                             <div class="single-blog">
                                 <div class="blog-img">
-                                        <img th:src="@{https://c8.alamy.com/comp/2CBDA1K/modern-creative-simple-square-line-art-building-logo-design-vector-illustration-2CBDA1K.jpg}" alt="#">
+                                    <img th:src="@{https://c8.alamy.com/comp/2CBDA1K/modern-creative-simple-square-line-art-building-logo-design-vector-illustration-2CBDA1K.jpg}"
+                                         alt="#">
                                 </div>
                                 <div class="blog-content">
                                     <h6>
@@ -73,7 +74,7 @@
                             </span>
                             <span th:if="${currentPage<totalPages}">
                                 <li>
-                                <a  th:href="@{'/page/'+${currentPage+1}}">Next</a>
+                                <a th:href="@{'/page/'+${currentPage+1}}">Next</a>
                             </li>
                             </span>
                             <span th:unless="${currentPage<=totalPages}">
@@ -101,7 +102,8 @@
                                 <div class="single-popular-feed" th:each="items:${activePublishers}">
                                     <div class="feed-desc">
                                         <a class="feed-img" href="#">
-                                            <img th:src="@{https://c8.alamy.com/comp/2CBDA1K/modern-creative-simple-square-line-art-building-logo-design-vector-illustration-2CBDA1K.jpg}" alt="#">
+                                            <img th:src="@{https://c8.alamy.com/comp/2CBDA1K/modern-creative-simple-square-line-art-building-logo-design-vector-illustration-2CBDA1K.jpg}"
+                                                 alt="#">
 
                                         </a>
                                         <h6 class="post-title"><a th:href="@{/publish(id=${items.id})}"
@@ -117,35 +119,33 @@
 
 
                         <div class="widget categories-widget">
-                            <h5 class="widget-title">Top Categories</h5>
+                            <h5 class="widget-title">Mashur nashriyotlar</h5>
                             <ul class="custom">
                                 <li>
-                                    <a href="javascript:void(0)">Editor's Choice</a><span>(24)</span>
+                                    <a href="javascript:void(0)">DINARA&CO.</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">Electronics</a><span>(12)</span>
+                                    <a href="javascript:void(0)">"AVTOMSAN" MChJ</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">Industrial Design</a><span>(5)</span>
+                                    <a href="javascript:void(0)">"DARAKCHI" GAZETA TAXRIRIYATI</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">Secure Payments Online</a><span>(15)</span>
+                                    <a href="javascript:void(0)">"ADOLAT" HUQUQIY AXBOROT MARKAZI MARKAZI</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">Online Shopping</a><span>(7)</span>
+                                    <a href="javascript:void(0)">"AMUDARYO" OYNOMA</a>
                                 </li>
                             </ul>
                         </div>
 
 
                         <div class="widget popular-tag-widget">
-                            <h5 class="widget-title">Popular Tags</h5>
+                            <h5 class="widget-title">Saytdan ko'p izlangan nashriyotlar</h5>
                             <div class="tags">
-                                <a href="javascript:void(0)">#electronics</a>
-                                <a href="javascript:void(0)">#cpu</a>
-                                <a href="javascript:void(0)">#gadgets</a>
-                                <a href="javascript:void(0)">#wearables</a>
-                                <a href="javascript:void(0)">#smartphones</a>
+                                <a href="javascript:void(0)">#DINARA&CO</a>
+                                <a href="javascript:void(0)">#AVTOMSAN MChJ</a>
+                                <a href="javascript:void(0)">#AMUDARYO OYNOMA</a>
                             </div>
                         </div>
 

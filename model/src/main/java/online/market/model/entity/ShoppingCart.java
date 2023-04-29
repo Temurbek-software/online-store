@@ -24,6 +24,9 @@ public class ShoppingCart extends BaseEntity {
     @Column(name = "tax_total")
     private Float totalAmount;
 
+    @Column(name = "discount_percent")
+    private Integer discount_percent;
+
     @Column(name = "discount_Code")
     private String discount_code;
 
