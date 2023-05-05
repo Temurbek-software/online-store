@@ -1,10 +1,12 @@
 package online.market.client.config;
 
+import online.market.service.common.EmailService;
 import online.market.service.entity.CustomerService;
 import online.market.service.entity.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,6 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.core.env.Environment;
+import org.springframework.mail.javamail.JavaMailSender;
 
 @Configuration
 @EnableWebSecurity
@@ -50,6 +54,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
+    }
+    @Bean
+    public EmailService emailService(JavaMailSender javaMailSender, Environment environment) {
+        return new EmailService(javaMailSender, environment);
     }
 
     @Override
@@ -89,6 +97,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/mail/**",
             "/ico/**",
             "/",
+            "/addTariff",
             "/bookType",
             "/cart",
             "/publishers",

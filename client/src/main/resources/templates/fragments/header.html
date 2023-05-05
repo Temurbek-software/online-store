@@ -119,74 +119,50 @@
                                     <span class="total-items">0</span>
                                 </a>
                             </div>
-<!--                            -->
+                            <!--                            -->
                             <div sec:authorize="isAuthenticated()" class="cart-items">
                                 <a href="javascript:void(0)" class="main-btn">
                                     <i class="lni lni-cart"></i>
-                                    <span class="total-items">2</span>
+                                    <span class="total-items" th:text="${counter}"></span>
                                 </a>
 
                                 <div class="shopping-item">
-                                    <div class="dropdown-cart-header">
-                                        <span>3 ta kitob xarid qildingiz</span>
-                                        <a th:href="@{/cart}">Cartni ko'rish</a>
+                                    <div class="dropdown-cart-header" th:if="${counter!=null}">
+                                        <span th:text="(${counter}+' ta kitob tanladingiz')"></span>
+                                        <a th:href="@{/cart-view}">Cartni ko'rish</a>
                                     </div>
-                                    <ul class="shopping-list">
-                                        <li>
-                                            <a
-                                                    href="javascript:void(0)"
-                                                    class="remove"
-                                                    title="Remove this item"
-                                            ><i class="lni lni-close"></i
-                                            ></a>
-                                            <div class="cart-img-head">
-                                                <a class="cart-img" href="product-details.html"
-                                                ><img
-                                                        th:src="@{/images/header/cart-items/item1.jpg}"
-                                                        alt="#"
-                                                /></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4>
-                                                    <a href="product-details.html">
-                                                        Hikoyalar</a
-                                                    >
-                                                </h4>
-                                                <p class="quantity">
-                                                    1x - <span class="amount">100,000 so'm</span>
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <a
-                                                    href="javascript:void(0)"
-                                                    class="remove"
-                                                    title="Remove this item"
-                                            ><i class="lni lni-close"></i
-                                            ></a>
-                                            <div class="cart-img-head">
-                                                <a class="cart-img" href="product-details.html"
-                                                ><img
-                                                        th:src="@{/images/header/cart-items/item2.jpg}"
-                                                        alt="#"
-                                                /></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4>
-                                                    <a href="product-details.html"
-                                                    >Badiiy kitoblar</a
-                                                    >
-                                                </h4>
-                                                <p class="quantity">
-                                                    1x - <span class="amount">200,000 so'm</span>
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    <div class="shopping-cart-container">
+                                        <ul class="shopping-list" th:if="${cartList != null}">
+                                            <li th:each="item:${cartList}">
+                                                <a
+                                                        href="javascript:void(0)"
+                                                        class="remove"
+                                                        title="Remove this item">
+                                                    <i class="lni lni-close"></i>
+                                                </a>
+                                                <div class="cart-img-head">
+                                                    <a class="cart-img" th:href="@{/book-details(id=${item.id})}">
+                                                        <img
+                                                                th:src="#{adminPath}+${item.product.getFullImage1Url()}"
+                                                                alt="#"/>
+                                                    </a>
+                                                </div>
+                                                <div class="content">
+                                                    <h4>
+                                                        <a th:text="${item.product.bookName}"
+                                                           th:href="@{/book-details(id=${item.id})}"></a>
+                                                    </h4>
+                                                    <p class="quantity amount " th:text="(${item.quantity}+'x' + ' - ' + ${item.totalPrice} + ' so\'m')" ></p>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
                                     <div class="bottom">
                                         <div class="total">
                                             <span>Umumiy</span>
-                                            <span class="total-amount">300,000 so'm</span>
+                                            <span class="total-amount" th:text="(${subtotal} + ' so\'m')">so'm</span>
                                         </div>
                                         <div class="button">
                                             <a th:href="@{/cart-view}" class="btn animate"

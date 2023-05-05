@@ -19,7 +19,6 @@ import java.util.*;
 @Table(name = "contacts")
 public class Contracts extends BaseEntity
 {
-
     @Column(name = "outcome")
     private Double outcome;
 

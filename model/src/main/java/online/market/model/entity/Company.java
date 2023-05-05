@@ -61,11 +61,8 @@ public class Company extends BaseEntity {
     private Set<Product> companyProduct = new HashSet<>();
 
     public String getFullImage1Url() {
-//        if (id != null && image1 != null) {
-//            return "/upload/company/" + id + "/" + image1;
-//        } else {
+
             return "/upload/company/company.jpg";
-//        }
     }
     public String getDefaultUrl()
     {

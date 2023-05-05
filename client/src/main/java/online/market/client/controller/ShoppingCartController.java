@@ -1,9 +1,11 @@
 package online.market.client.controller;
 
 import lombok.RequiredArgsConstructor;
+import online.market.model.entity.CartItem;
 import online.market.model.entity.Customer;
 import online.market.model.entity.Product;
 import online.market.model.entity.ShoppingCart;
+import online.market.service.common.CartItemService;
 import online.market.service.common.ShoppingCartService;
 import online.market.service.entity.*;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,12 +30,14 @@ public class ShoppingCartController {
     private final CustomerService customerService;
     private final AdvertisementService advertisementService;
     private final ShoppingCartService shoppingCartService;
+    private final CartItemService cartItemService;
 
     @RequestMapping("/add-to-cart")
     public String addToCart(@RequestParam("id") Long id,
                             @RequestParam("quantity") Long quantity,
                             @RequestParam("format") String format,
                             Model model, Principal principal) {
+        addCartAttributes(model, principal);
         model.addAttribute("classActiveViewCart", "home active");
 //        Finding product
         Product product = productService.getOneProductDto(id);
@@ -48,11 +54,26 @@ public class ShoppingCartController {
 
     @RequestMapping("/cart-view")
     public String viewCart(Model model, Principal principal) {
+        addCartAttributes(model, principal);
         model.addAttribute("classActiveViewCart", "home active");
         Customer customer = customerService.findByUsername(principal.getName());//get logged in user
         ShoppingCart shoppingCart = customer.getShoppingCart();
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         model.addAttribute("shoppingCart", shoppingCart);
         return "client/cart";
+    }
+    public void addCartAttributes(Model model, Principal principal) {
+        List<CartItem> cartItemList = new ArrayList<>();
+        long number = 0;
+        float subtotal = 0;
+        if (principal != null) {
+            Customer customer = customerService.findByUsername(principal.getName());
+            cartItemList = cartItemService.getCartItemsByCustomerId(customer.id);
+            number = customer.id;
+            subtotal = shoppingCartService.getSubTotal(customer.getShoppingCart());
+        }
+        model.addAttribute("cartList", cartItemList);
+        model.addAttribute("counter", cartItemService.counter(number));
+        model.addAttribute("subtotal", subtotal);
     }
 }

@@ -21,6 +21,7 @@ public class ShoppingCartService {
     private final ShoppingCartRepository shoppingCartRepository;
     private final CartItemRepository cartItemRepository;
 
+
     private Float SHIPPING_PRICE = 20000F; //5% Percent
 
     public ShoppingCart findShoppingCart(Customer customer) {
@@ -42,7 +43,7 @@ public class ShoppingCartService {
         return shoppingCartRepository.findById(shoppingCartId).get();
     }
 
-    private Float getSubTotal(ShoppingCart shoppingCart) {
+    public Float getSubTotal(ShoppingCart shoppingCart) {
         Float subTotal = 0.0F;
         for (CartItem cartItem : shoppingCart.getCartItemList()) {
             subTotal += cartItem.getTotalPrice();
@@ -134,7 +135,7 @@ public class ShoppingCartService {
         }
         shoppingCart.setDiscount_code("AN4234");
         shoppingCart.setDiscount_percent(5);
-        shoppingCart.setDiscount_amount((double) (subTotal*5/100));
+        shoppingCart.setDiscount_amount((double) (subTotal * 5 / 100));
         shoppingCartRepository.save(shoppingCart);
         return shoppingCart;
     }

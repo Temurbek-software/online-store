@@ -2,9 +2,11 @@ package online.market.client.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import online.market.model.entity.CartItem;
 import online.market.model.entity.Customer;
 import online.market.model.payload.CustomerDto;
-import online.market.service.common.OrderService;
+import online.market.service.common.CartItemService;
+import online.market.service.common.ShoppingCartService;
 import online.market.service.entity.CategoryService;
 import online.market.service.entity.CustomerService;
 import org.springframework.security.core.Authentication;
@@ -13,19 +15,39 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class AccountController {
     private final CustomerService customerService;
-    private final OrderService orderService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final CategoryService categoryService;
+    private final CartItemService cartItemService;
+    private final ShoppingCartService shoppingCartService;
+
+
+    public void addCartAttributes(Model model, Principal principal) {
+        List<CartItem> cartItemList = new ArrayList<>();
+        long number = 0;
+        float subtotal = 0;
+        if (principal != null) {
+            Customer customer = customerService.findByUsername(principal.getName());
+            cartItemList = cartItemService.getCartItemsByCustomerId(customer.id);
+            number = customer.id;
+            subtotal = shoppingCartService.getSubTotal(customer.getShoppingCart());
+        }
+        model.addAttribute("cartList", cartItemList);
+        model.addAttribute("counter", cartItemService.counter(number));
+        model.addAttribute("subtotal", subtotal);
+    }
 
     @RequestMapping("/my-account")
-    public String myAccount(Model model)
-    {
+    public String myAccount(Model model, Principal principal) {
+        addCartAttributes(model, principal);
         model.addAttribute("classActiveMyAccount", "home active");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();

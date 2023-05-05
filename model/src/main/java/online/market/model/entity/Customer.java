@@ -11,7 +11,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -72,18 +74,15 @@ public class Customer extends BaseEntity {
     @OneToOne(mappedBy = "customer",cascade = CascadeType.ALL)
     private ShoppingCart shoppingCart;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Order> orders = new ArrayList<>();
 
-    @ManyToOne(cascade = {
-            CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE
-    }, fetch = FetchType.LAZY)
-    @JoinColumn(
-            name = "tariff_id", referencedColumnName = "id")
-    @JsonIgnore
-    private Tariffs tariffs;
 
-    public String getFullName() {
-        return firstName + " " + lastName;
+
+//    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+//    @JsonIgnore
+//    private Set<Payment> paymentHashSet = new HashSet<>();
+
+    public String getFullName()
+    {
+     return firstName + " " + lastName;
     }
 }

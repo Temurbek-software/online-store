@@ -3,9 +3,7 @@ package online.market.client.controller;
 import lombok.RequiredArgsConstructor;
 import online.market.model.entity.Customer;
 import online.market.model.payload.CustomerDto;
-import online.market.service.common.CityService;
-import online.market.service.common.CountryService;
-import online.market.service.common.EmailService;
+import online.market.service.common.*;
 import online.market.service.entity.CategoryService;
 import online.market.service.entity.CustomerService;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,9 +32,12 @@ public class LoginController
     private final AuthenticationManager authenticationManager;
     private final CityService cityService;
     private final CategoryService categoryService;
+    private final CartItemService cartItemService;
+    private final ShoppingCartService shoppingCartService;
 
     @GetMapping("/login")
     public String getLoginPage(Model model) {
+
         model.addAttribute("classActiveMyAccount", "home active");
         CustomerDto customerDto = new CustomerDto();
         model.addAttribute("customerRegistration", customerDto);

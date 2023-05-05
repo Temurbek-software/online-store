@@ -6,6 +6,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import online.market.model.entity.*;
+import online.market.service.common.CartItemService;
+import online.market.service.common.OrderService;
+import online.market.service.common.ShoppingCartService;
 import online.market.service.entity.*;
 import org.apache.commons.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -49,9 +52,28 @@ public class HomeController {
     private final AdvertisementService advertisementService;
     private final TariffServices tariffServices;
     private final CustomerService customerService;
+    private final CartItemService cartItemService;
+    private final ShoppingCartService shoppingCartService;
+    private final OrderService orderService;
+
+
+    public void addCartAttributes(Model model, Principal principal) {
+        List<CartItem> cartItemList = new ArrayList<>();
+        long number = 0;
+        float subtotal = 0;
+        if (principal != null) {
+            Customer customer = customerService.findByUsername(principal.getName());
+            cartItemList = cartItemService.getCartItemsByCustomerId(customer.id);
+            number = customer.id;
+            subtotal = shoppingCartService.getSubTotal(customer.getShoppingCart());
+        }
+        model.addAttribute("cartList", cartItemList);
+        model.addAttribute("counter", cartItemService.counter(number));
+        model.addAttribute("subtotal", subtotal);
+    }
 
     @RequestMapping("/")
-    public String getHomePage(Model model) {
+    public String getHomePage(Model model, Principal principal) {
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         model.addAttribute("listOfSubCategory", subCategoryService.getSubCategoryById(categoryService.categoryList(false).get(0).getId()));
         model.addAttribute("subcategory", subCategoryService.getAllSubCategories(false));
@@ -60,18 +82,31 @@ public class HomeController {
         model.addAttribute("ads", advertisementService.findAllItems());
         model.addAttribute("weekBookList", productService.productWeekList());
         model.addAttribute("tariffList", tariffServices.getAllTariffs());
+        addCartAttributes(model, principal);
         return "home/homePage";
     }
 
     @GetMapping("/tariff")
-    public String showTariff(@RequestParam("id") Long id, Model model) {
+    public String showTariff(@RequestParam("id") Long id, Model model, Principal principal) {
+        addCartAttributes(model, principal);
         Tariffs tariffs = tariffServices.getOneTariff(id);
         model.addAttribute("myTariff", tariffs);
         return "/client/tariffDetails";
     }
 
+    @GetMapping("/addTariff")
+    public String addTariff(@RequestParam("id") Long id, Model model, Principal principal) {
+        addCartAttributes(model, principal);
+        Tariffs tariffs = tariffServices.getOneTariff(id);
+        Customer customer = customerService.findByUsername(principal.getName());//get logged in user
+
+        orderService.saveOrderTariff(tariffs, customer);
+        return "redirect:/tariff?id=" + id + "&addtotariff";
+    }
+
     @GetMapping("/payment")
     public String displayPayment(@RequestParam("id") Long id, Model model, Principal principal) {
+        addCartAttributes(model, principal);
         Customer customer = customerService.findByUsername(principal.getName());//get logged in user
         model.addAttribute("customer", customer);
         return "/client/payment";
@@ -80,13 +115,14 @@ public class HomeController {
     @GetMapping("/reading")
     public String showBook(@RequestParam("id") Long id, Model model, Principal principal) throws IOException {
         Product product = productService.getOneProductDto(id);
-        String bookUrl = "http://localhost:81/admin" + product.getFullPdf()+"#toolbar=0";
+        addCartAttributes(model, principal);
+        String bookUrl = "http://localhost:81/admin" + product.getFullPdf() + "#toolbar=0";
 
         // Read the contents of the PDF file into a byte array
         byte[] bookContent = IOUtils.toByteArray(new URL(bookUrl));
 
         boolean isAuthenticated = false;
-        if(principal != null) {
+        if (principal != null) {
             isAuthenticated = (customerService.findByUsername(principal.getName()) != null);
         }
 
@@ -95,7 +131,7 @@ public class HomeController {
         // Get the number of pages in the document
         int numPages = document.getNumberOfPages();
 
-        if(isAuthenticated) {
+        if (isAuthenticated) {
             // If authenticated, show all pages
             // do nothing
         } else {
@@ -139,35 +175,36 @@ public class HomeController {
 
 
     @RequestMapping("/bookType")
-    public String getProductType(@RequestParam("id") Long id, Model model) {
+    public String getProductType(@RequestParam("id") Long id, Model model, Principal principal) {
+        addCartAttributes(model, principal);
         List<Product> productList = new ArrayList<>();
-        model.addAttribute("categoryOfList",categoryService.categoryList(false));
+        model.addAttribute("categoryOfList", categoryService.categoryList(false));
         if (id == 1) {
             productList = productService.getE_version();
             model.addAttribute("productListByCategory", productList);
 
-            model.addAttribute("num","Elektron kitoblar");
+            model.addAttribute("num", "Elektron kitoblar");
         }
         if (id == 2) {
             productList = productService.getPrintedList();
             model.addAttribute("productListByCategory", productList);
-            model.addAttribute("num","Qogozli kitoblar");
+            model.addAttribute("num", "Qogozli kitoblar");
         }
         if (id == 3) {
             productList = productService.getAudioList();
             model.addAttribute("productListByCategory", productList);
-            model.addAttribute("num","Audio kitoblar");
+            model.addAttribute("num", "Audio kitoblar");
         }
-        if (productList.isEmpty())
-        {
-            model.addAttribute("param",true);
+        if (productList.isEmpty()) {
+            model.addAttribute("param", true);
         }
         return "/client/product-grid-type";
     }
 
 
     @RequestMapping("/bookList-category")
-    public String getTotalDataByCategory(@RequestParam("id") Long id, Model model) {
+    public String getTotalDataByCategory(@RequestParam("id") Long id, Model model, Principal principal) {
+        addCartAttributes(model, principal);
         Category category = categoryService.categoryById(id);
         SubCategory subCategory = new SubCategory();
         model.addAttribute("category", category);
@@ -180,7 +217,8 @@ public class HomeController {
     }
 
     @RequestMapping("/bookList-subcategory")
-    public String getTotalDataBySubCategory(@RequestParam("id") Long id, Model model) {
+    public String getTotalDataBySubCategory(@RequestParam("id") Long id, Model model, Principal principal) {
+        addCartAttributes(model, principal);
         SubCategory subCategory = subCategoryService.getOneItemById(id);
         Category category = new Category();
         model.addAttribute("subcategory", subCategory);
@@ -194,7 +232,8 @@ public class HomeController {
 
 
     @RequestMapping("/authors")
-    public String getAuthorPage(Model model) {
+    public String getAuthorPage(Model model, Principal principal) {
+        addCartAttributes(model, principal);
         return findPaginated(1, model);
     }
 
@@ -216,7 +255,8 @@ public class HomeController {
     }
 
     @RequestMapping("/publishers")
-    public String getPublisherPage(Model model) {
+    public String getPublisherPage(Model model, Principal principal) {
+        addCartAttributes(model, principal);
         return findPaginatedPublisher(1, model);
 
     }
@@ -230,13 +270,14 @@ public class HomeController {
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("publisherList", publisherList);
-        model.addAttribute("activePublishers",publisherService.findPublisherList(getYear()));
+        model.addAttribute("activePublishers", publisherService.findPublisherList(getYear()));
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         return "model/publishersList";
     }
 
     @RequestMapping("/companies")
-    public String getCompanyPage(Model model) {
+    public String getCompanyPage(Model model, Principal principal) {
+        addCartAttributes(model, principal);
         return findPaginatedCompany(1, model);
     }
 
@@ -254,7 +295,8 @@ public class HomeController {
     }
 
     @RequestMapping("/company")
-    public String getOneCompany(@RequestParam("id") Long id, Model model) {
+    public String getOneCompany(@RequestParam("id") Long id, Model model, Principal principal) {
+        addCartAttributes(model, principal);
         Company company = companyService.getCompanyDTOById(id);
         List<Company> companyList = companyService.displayCompanyWithDate(getYear());
         model.addAttribute("categoryList", categoryService.categoryList(false));
@@ -263,8 +305,10 @@ public class HomeController {
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         return "/model/currentCompany";
     }
+
     @RequestMapping("/publish")
-    public String getOnePublisher(@RequestParam("id") Long id, Model model) {
+    public String getOnePublisher(@RequestParam("id") Long id, Model model, Principal principal) {
+        addCartAttributes(model, principal);
         Publisher publisher = publisherService.getOnePublisher(id);
         model.addAttribute("publisherList", publisherService.findPublisherList(getYear()));
         model.addAttribute("publisher", publisher);
@@ -274,7 +318,8 @@ public class HomeController {
 
 
     @RequestMapping("/autho")
-    public String getOneAuthors(@RequestParam("id") Long id, Model model) {
+    public String getOneAuthors(@RequestParam("id") Long id, Model model, Principal principal) {
+        addCartAttributes(model, principal);
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -296,13 +341,15 @@ public class HomeController {
     }
 
     @RequestMapping("/contactUs")
-    public String getContactPage(Model model) {
+    public String getContactPage(Model model, Principal principal) {
+        addCartAttributes(model, principal);
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         return "pages/contactUS";
     }
 
     @RequestMapping("/aboutUs")
-    public String getAboutPage(Model model) {
+    public String getAboutPage(Model model, Principal principal) {
+        addCartAttributes(model, principal);
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
         model.addAttribute("authors", authorService.authorDtoList(false));
         return "pages/aboutUS";

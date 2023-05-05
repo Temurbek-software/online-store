@@ -4,7 +4,7 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>User account only</title>
+    <title>Faqat foydalanuvchilar uchun</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
           integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous"/>
     <style>
@@ -81,14 +81,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Single Product</h1>
+                        <h1 class="page-title">Foydalanuvchilar sahifasi</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-                        <li><a href="index.html">Shop</a></li>
-                        <li>Single Product</li>
+                        <li><a href="index.html"><i class="lni lni-home"></i>Asosiy sahifa</a></li>
+                        <li>Foydalanuvchi sahifasi</li>
                     </ul>
                 </div>
             </div>
@@ -102,7 +101,7 @@
             <div class="col-12">
                 <!-- Page title -->
                 <div class="my-5">
-                    <h3>My Profile</h3>
+                    <h3>Mening sahifam</h3>
                     <!--                    <p class="lead">Hello, <strong th:text="${customer.firstName}+' '+${customer.lastName}"></strong> - To update your account information.</p>-->
                     <hr>
                 </div>
@@ -111,35 +110,35 @@
                       enctype="multipart/form-data" method="post">
                     <div class="row mb-5 gx-5">
                         <div th:if="${param.success}">
-                            <div class="alert alert-info">You've successfully changed your personal details!</div>
+                            <div class="alert alert-info">Siz muvaffaqiyatli malumotlaringizni yangiladingiz!</div>
                         </div>
                         <div class="col-xxl-8 mb-5 mb-xxl-0">
                             <div class="bg-secondary-soft px-4 py-5 rounded">
                                 <div class="row g-3">
-                                    <h4 class="mb-4 mt-0">Contact detail</h4>
+                                    <h4 class="mb-4 mt-0">Kontak maulumotlari</h4>
                                     <!-- First Name -->
                                     <div class="col-md-6">
-                                        <label for="firstName" class="form-label">First Name *</label>
-                                        <input type="text" class="form-control" th:field="*{firstName}" id="firstName"
-                                               placeholder="" aria-label="First name">
+                                        <label for="Ism" class="form-label">Ism *</label>
+                                        <input type="text" class="form-control" th:field="*{firstName}" id="Ism"
+                                               placeholder="" aria-label="ism">
                                     </div>
                                     <!-- Last name -->
                                     <div class="col-md-6">
-                                        <label class="form-label">Last Name *</label>
+                                        <label class="form-label">Familiya *</label>
                                         <input type="text" class="form-control" th:field="*{lastName}"
-                                               placeholder="" aria-label="Last name">
+                                               placeholder="" aria-label="Familiya">
                                     </div>
                                     <!-- Phone number -->
                                     <div class="col-md-6">
-                                        <label class="form-label">Phone number *</label>
+                                        <label class="form-label">Telefon raqam *</label>
                                         <input type="text" class="form-control" th:field="*{phoneNumber}"
-                                               placeholder="" aria-label="Phone number">
+                                               placeholder="" aria-label="telefon raqam">
                                     </div>
                                     <!-- Mobile number -->
                                     <div class="col-md-6">
-                                        <label class="form-label">Country *</label>
+                                        <label class="form-label">Davlat *</label>
                                         <input type="text" class="form-control" th:field="*{countryName}"
-                                               placeholder="" aria-label="Phone number">
+                                               placeholder="" aria-label="Davlat">
                                     </div>
                                     <!-- Email -->
                                     <div class="col-md-6">
@@ -149,9 +148,9 @@
                                     </div>
                                     <!-- Skype -->
                                     <div class="col-md-6">
-                                        <label class="form-label">City *</label>
+                                        <label class="form-label">Shahar *</label>
                                         <input type="text" class="form-control" th:field="*{cityName}"
-                                               placeholder="" aria-label="Phone number">
+                                               placeholder="" aria-label="Shahar">
                                     </div>
                                 </div> <!-- Row END -->
                             </div>
@@ -160,7 +159,7 @@
                         <div class="col-xxl-4">
                             <div class="bg-secondary-soft px-4 py-5 rounded">
                                 <div class="row g-3">
-                                    <h4 class="mb-4 mt-0">Upload your profile photo</h4>
+                                    <h4 class="mb-4 mt-0">Rasm yuklang</h4>
                                     <div class="text-center">
                                         <!-- Image upload -->
                                         <div class="square position-relative display-2 mb-3">
@@ -168,10 +167,10 @@
                                         </div>
                                         <!-- Button -->
                                         <input type="file" id="customFile" name="file" hidden="">
-                                        <label class="btn btn-success-soft btn-block" for="customFile">Upload</label>
-                                        <button type="button" class="btn btn-danger-soft">Remove</button>
+                                        <label class="btn btn-success-soft btn-block" for="customFile">yuklash</label>
+                                        <button type="button" class="btn btn-danger-soft">ochirish</button>
                                         <!-- Content -->
-                                        <p class="text-muted mt-3 mb-0"><span class="me-1">Note:</span>Minimum size
+                                        <p class="text-muted mt-3 mb-0"><span class="me-1">Note:</span>Minimum hajmi
                                             300px x 300px</p>
                                     </div>
                                 </div>
@@ -184,16 +183,16 @@
                         <div class="col-xxl-6 mb-5 mb-xxl-0">
                             <div class="bg-secondary-soft px-4 py-5 rounded">
                                 <div class="row g-3">
-                                    <h4 class="mb-4 mt-0">Change password</h4>
+                                    <h4 class="mb-4 mt-0">Parolni uzgartish</h4>
                                     <!-- Facebook -->
                                     <div class="col-md-6">
-                                        <label class="form-label">New Password</label>
+                                        <label class="form-label">Yangi parol</label>
                                         <input type="password" class="form-control" placeholder=""
                                                aria-label="Facebook" th:field="*{password}">
                                     </div>
                                     <!-- Twitter -->
                                     <div class="col-md-6">
-                                        <label class="form-label">Confirm passowrd</label>
+                                        <label class="form-label">Parolni tasdiqlash</label>
                                         <input type="password" class="form-control" placeholder=""
                                                aria-label="Twitter" th:field="*{confirmPassword}">
                                         <!--                                               th:field="*{}"-->
@@ -205,13 +204,13 @@
                         <div class="col-xxl-6">
                             <row class="col-12">
                                 <div class="gap-3 d-md-flex">
-                                    <button type="button" class="btn btn-danger btn-lg">Delete profile</button>
+                                    <button type="button" class="btn btn-danger btn-lg">Profileni o'chirish</button>
                                 </div>
                             </row>
                             <br>
                             <row class="col-12">
                                 <div class="gap-3 d-md-flex">
-                                    <button type="button" class="btn btn-primary btn-lg">Update profile</button>
+                                    <button type="button" class="btn btn-primary btn-lg">Yangilash</button>
                                 </div>
                             </row>
                         </div>

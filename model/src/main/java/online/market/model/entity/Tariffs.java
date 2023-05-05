@@ -48,10 +48,6 @@ public class Tariffs extends BaseEntity {
     @Column(name = "description",columnDefinition = "text")
     private String description;
 
-    @OneToMany(mappedBy = "tariffs", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<Customer> customerSet = new HashSet<>();
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "product_tariff",
@@ -60,5 +56,8 @@ public class Tariffs extends BaseEntity {
     @JsonIgnore
     private Set<Product> products = new HashSet<>();
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order order;
 
 }
