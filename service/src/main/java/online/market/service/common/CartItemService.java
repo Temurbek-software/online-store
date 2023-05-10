@@ -5,6 +5,7 @@ import online.market.model.entity.CartItem;
 import online.market.model.repository.CartItemRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -12,8 +13,10 @@ import java.util.List;
 public class CartItemService {
     private final CartItemRepository cartItemRepository;
 
-    public List<CartItem> getCartItemsByCustomerId(Long customerId) {
-        return cartItemRepository.findCartItemsByCustomerId(customerId);
+    public List<CartItem> getCartItemsByCustomerId(Long customerId)
+    {
+        List<CartItem> cartItemsByCustomerId = cartItemRepository.findCartItemsByCustomerId(customerId);
+        return cartItemsByCustomerId ==null?new ArrayList<>(): cartItemsByCustomerId;
     }
     public int counter(Long customerId)
     {

@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
 
-public interface ContractsRepository extends JpaRepository<Contracts,Long> {
+public interface ContractsRepository extends JpaRepository<Contracts,Long>
+{
     @Transactional
     @Modifying
     @Query(value = "delete from contracts s where s.id=:id ", nativeQuery = true)

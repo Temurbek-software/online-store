@@ -6,6 +6,7 @@ import online.market.model.entity.CartItem;
 import online.market.model.entity.Customer;
 import online.market.model.payload.CustomerDto;
 import online.market.service.common.CartItemService;
+import online.market.service.common.CustomerTariffService;
 import online.market.service.common.ShoppingCartService;
 import online.market.service.entity.CategoryService;
 import online.market.service.entity.CustomerService;
@@ -28,7 +29,7 @@ public class AccountController {
     private final CategoryService categoryService;
     private final CartItemService cartItemService;
     private final ShoppingCartService shoppingCartService;
-
+    private final CustomerTariffService customerTariffService;
 
     public void addCartAttributes(Model model, Principal principal) {
         List<CartItem> cartItemList = new ArrayList<>();
@@ -66,7 +67,8 @@ public class AccountController {
         customerDto.setUsername(customer.getUsername());
         model.addAttribute("customer", customerDto);
         model.addAttribute("categoryList", categoryService.getAllCategoryWithSubCategory());
-
+        model.addAttribute("currentTariffList",customerTariffService.customerTariffList(customer.getId()));
+        model.addAttribute("historyTariff",customerTariffService.customerTariffsHistory(customer.getId()));
         return "/userAccount/UserAccount";
     }
 }

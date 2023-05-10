@@ -17,5 +17,4 @@ public interface PublisherRepository extends JpaRepository<Publisher, Long> {
 
     @Query(value = "SELECT * FROM publisher s WHERE extract (YEAR from s.created_at)=:year limit 3", nativeQuery = true)
     List<Publisher> getPublisherByCreatedAt(int year);
-
 }

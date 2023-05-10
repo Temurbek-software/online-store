@@ -16,18 +16,6 @@ public interface AuthorRepository extends JpaRepository<Author, Long>
 
     Author getAuthorById(long id);
 
-    // get mostly active authors
-    @Query(value = "select * from author limit 4", nativeQuery = true)
-    List<Author> getAuthorsByActiveMost();
-
     @Query(value = "SELECT * FROM author s WHERE extract (YEAR from s.created_at)=:year limit 3", nativeQuery = true)
     List<Author> getAuthorByCreatedAt(int year);
-
-
-//    @Modifying
-//    @Query("update User u set u.firstname = ?1, u.lastname = ?2 where u.id = ?3")
-//    void setAuthorById(String firstname, String lastname, Integer userId);
-
-//    Author findAuthorById(long id);
-
 }

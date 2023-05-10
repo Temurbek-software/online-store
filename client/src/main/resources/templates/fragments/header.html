@@ -8,7 +8,7 @@
                             <li>
                                 <div class="select-position">
                                     <select id="select4">
-                                        <option value="0" selected="">$ USD</option>
+                                        <option value="0" selected="">Uzb</option>
                                         <option value="1">€ EURO</option>
                                         <option value="2">$ CAD</option>
                                         <option value="3">₹ INR</option>
@@ -20,7 +20,7 @@
                             <li>
                                 <div class="select-position">
                                     <select id="select5">
-                                        <option value="0" selected="">English</option>
+                                        <option value="0" selected="">Uzbek</option>
                                         <option value="1">Español</option>
                                         <option value="2">Filipino</option>
                                         <option value="3">Français</option>
@@ -119,13 +119,11 @@
                                     <span class="total-items">0</span>
                                 </a>
                             </div>
-                            <!--                            -->
                             <div sec:authorize="isAuthenticated()" class="cart-items">
                                 <a href="javascript:void(0)" class="main-btn">
                                     <i class="lni lni-cart"></i>
                                     <span class="total-items" th:text="${counter}"></span>
                                 </a>
-
                                 <div class="shopping-item">
                                     <div class="dropdown-cart-header" th:if="${counter!=null}">
                                         <span th:text="(${counter}+' ta kitob tanladingiz')"></span>
@@ -134,17 +132,12 @@
                                     <div class="shopping-cart-container">
                                         <ul class="shopping-list" th:if="${cartList != null}">
                                             <li th:each="item:${cartList}">
-                                                <a
-                                                        href="javascript:void(0)"
-                                                        class="remove"
-                                                        title="Remove this item">
+                                                <a href="javascript:void(0)" class="remove"  title="Remove this item">
                                                     <i class="lni lni-close"></i>
                                                 </a>
                                                 <div class="cart-img-head">
                                                     <a class="cart-img" th:href="@{/book-details(id=${item.id})}">
-                                                        <img
-                                                                th:src="#{adminPath}+${item.product.getFullImage1Url()}"
-                                                                alt="#"/>
+                                                        <img th:src="#{adminPath}+${item.product.getFullImage1Url()}" alt="#"/>
                                                     </a>
                                                 </div>
                                                 <div class="content">

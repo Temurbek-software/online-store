@@ -1,6 +1,5 @@
 package online.market.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -74,12 +73,8 @@ public class Customer extends BaseEntity {
     @OneToOne(mappedBy = "customer",cascade = CascadeType.ALL)
     private ShoppingCart shoppingCart;
 
-
-
-
-//    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-//    @JsonIgnore
-//    private Set<Payment> paymentHashSet = new HashSet<>();
+    @OneToMany(mappedBy = "customer")
+    private Set<CustomerTariff> customerTariffs = new HashSet<>();
 
     public String getFullName()
     {

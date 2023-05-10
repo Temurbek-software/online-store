@@ -28,8 +28,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value = "SELECT * FROM public.product s WHERE s.audio_price IS NULL AND s.printed_price IS NULL;",nativeQuery = true)
     List<Product> getProductByEAndForE_Price();
-
-
-
-
 }

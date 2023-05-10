@@ -66,7 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(PUBLIC_MATCHERS)
                 .permitAll()
-                .antMatchers("/my-account", "/add-to-cart","/payment")
+                .antMatchers("/addTariff","/my-account", "/add-to-cart","/payment")
                 .authenticated()
                 .anyRequest().authenticated();
         http
@@ -97,7 +97,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/mail/**",
             "/ico/**",
             "/",
-            "/addTariff",
             "/bookType",
             "/cart",
             "/publishers",

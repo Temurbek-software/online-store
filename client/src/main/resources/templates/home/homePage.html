@@ -174,8 +174,6 @@
                                     <img th:src="@{'http://localhost:81/admin' + ${item.getFullImage1Url()}}"
                                          class="d-block w-100" alt="..." th:height="380" th:width="1300">
                                     <div class="carousel-caption d-none d-md-block">
-<!--                                        <h5 th:text="${item.titleForAd}"></h5>-->
-<!--                                        <p th:text="${item.description}"></p>-->
                                     </div>
                                 </div>
                             </div>
@@ -396,11 +394,14 @@
                                 <ul class="list-unstyled">
                                     <li><i class="fa fa-book"></i>Butun kutubxonamizga cheksiz kirish</li>
                                     <li><i class="fa fa-credit-card"></i><span
-                                            th:text="${tariff.priceFor}"></span>  so'm
+                                            th:text="${tariff.priceFor}"></span> so'm
                                     </li>
-                                    <li><i class="fa fa-check"></i> Hech qanday majburiyat yo'q, istalgan vaqtda bekor qiling</li>
+                                    <li><i class="fa fa-check"></i> Hech qanday majburiyat yo'q, istalgan vaqtda bekor
+                                        qiling
+                                    </li>
                                 </ul>
-                                <a  th:href="@{/tariff(id=${tariff.id})}" class="btn btn-sm btn-outline-secondary">A'zo bo'lish</a>
+                                <a th:href="@{/tariff(id=${tariff.id})}" class="btn btn-sm btn-outline-secondary">A'zo
+                                    bo'lish</a>
                             </div>
                         </div>
                     </div>

@@ -42,10 +42,10 @@ public class Tariffs extends BaseEntity {
     @Column(name = "renewal")
     private Boolean renewal;
 
-    @Column(name = "term_and_condition",columnDefinition = "text")
+    @Column(name = "term_and_condition", columnDefinition = "text")
     private String term_And_Condition;
 
-    @Column(name = "description",columnDefinition = "text")
+    @Column(name = "description", columnDefinition = "text")
     private String description;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -56,8 +56,11 @@ public class Tariffs extends BaseEntity {
     @JsonIgnore
     private Set<Product> products = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "orderTariff", fetch = FetchType.EAGER)
     private Order order;
+
+
+    @OneToMany(mappedBy = "tariffs")
+    private Set<CustomerTariff> customerTariffs = new HashSet<>();
 
 }

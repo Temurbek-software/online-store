@@ -71,6 +71,12 @@
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
         }
+
+        .adding {
+            margin: 1px;
+            padding: 1px;
+
+        }
     </style>
 </head>
 <body>
@@ -215,6 +221,62 @@
                             </row>
                         </div>
                     </div> <!-- Row END -->
+                    <!-- Page title -->
+                    <div class="my-5">
+                        <h3>Hozirgi vaqtdagi tariff</h3>
+                        <!--                    <p class="lead">Hello, <strong th:text="${customer.firstName}+' '+${customer.lastName}"></strong> - To update your account information.</p>-->
+                        <hr>
+                        <div th:if="${currentTariffList != null}">
+                            <div class="card-group">
+                                <div class="adding">
+                                    <div th:each="item: ${currentTariffList}"
+                                         class="card border-dark mb-3 d-inline-block" style="max-width: 18rem;">
+                                        <div class="card-header">Ayni vaqtdagi tariff</div>
+                                        <div class="card-body text-dark">
+                                            <h5 class="card-title" th:text="${item.tariffs.tariffName}"></h5>
+                                            <p class="card-text">
+                                                <small class="text-muted" th:text="${item.startDate}+' dan boshlangan'"></small>
+                                            </p>
+                                            <p class="card-text">
+                                                <small class="text-muted" th:text="${item.endDate}+' da tugaydi'"></small>
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div th:if="${currentTariffList == null}">
+                            <p>Hozircha hech qanday tariffda azo emassz</p>
+                        </div>
+
+                        <h3>Eski tarifflar</h3>
+                        <!--                    <p class="lead">Hello, <strong th:text="${customer.firstName}+' '+${customer.lastName}"></strong> - To update your account information.</p>-->
+                        <hr>
+                        <div th:if="${historyTariff != null}">
+                            <div class="d-inline-block">
+                                <div th:each="item: ${historyTariff}" class="card border-dark mb-3"
+                                     style="max-width: 18rem;">
+                                    <div class="card-header">Oldingi tarifflar</div>
+                                    <div class="card-body text-dark">
+                                        <h5 class="card-title" th:text="${item.tariffs.tariffName}"></h5>
+                                        <p class="card-text">
+                                            <small class="text-muted" th:text="${item.startDate}+' dan boshlangan'"></small>
+                                        </p>
+                                        <p class="card-text">
+                                            <small class="text-muted" th:text="${item.endDate}+' da tugagan'"></small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:if="${historyTariff == null}">
+                            <p>Oldin hech qanday tariffni yoqmagansz</p>
+                        </div>
+                    </div>
                     <!-- button -->
                 </form> <!-- Form END -->
             </div>

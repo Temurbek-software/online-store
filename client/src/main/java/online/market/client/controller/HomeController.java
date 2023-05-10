@@ -7,6 +7,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import online.market.model.entity.*;
 import online.market.service.common.CartItemService;
+import online.market.service.common.CustomerTariffService;
 import online.market.service.common.OrderService;
 import online.market.service.common.ShoppingCartService;
 import online.market.service.entity.*;
@@ -55,7 +56,7 @@ public class HomeController {
     private final CartItemService cartItemService;
     private final ShoppingCartService shoppingCartService;
     private final OrderService orderService;
-
+    private final CustomerTariffService customerTariffService;
 
     public void addCartAttributes(Model model, Principal principal) {
         List<CartItem> cartItemList = new ArrayList<>();
@@ -63,9 +64,9 @@ public class HomeController {
         float subtotal = 0;
         if (principal != null) {
             Customer customer = customerService.findByUsername(principal.getName());
-            cartItemList = cartItemService.getCartItemsByCustomerId(customer.id);
-            number = customer.id;
-            subtotal = shoppingCartService.getSubTotal(customer.getShoppingCart());
+            cartItemList = cartItemService.getCartItemsByCustomerId(customer.getId());
+            number = customer.getId();
+            subtotal = shoppingCartService.getSubTotal(customer.getShoppingCart())==null?0:shoppingCartService.getSubTotal(customer.getShoppingCart());
         }
         model.addAttribute("cartList", cartItemList);
         model.addAttribute("counter", cartItemService.counter(number));
@@ -99,7 +100,7 @@ public class HomeController {
         addCartAttributes(model, principal);
         Tariffs tariffs = tariffServices.getOneTariff(id);
         Customer customer = customerService.findByUsername(principal.getName());//get logged in user
-
+        customerTariffService.attachTariffToCustomer(customer,tariffs);
         orderService.saveOrderTariff(tariffs, customer);
         return "redirect:/tariff?id=" + id + "&addtotariff";
     }
@@ -175,7 +176,8 @@ public class HomeController {
 
 
     @RequestMapping("/bookType")
-    public String getProductType(@RequestParam("id") Long id, Model model, Principal principal) {
+    public String getProductType(@RequestParam("id") Long id, Model model, Principal principal)
+    {
         addCartAttributes(model, principal);
         List<Product> productList = new ArrayList<>();
         model.addAttribute("categoryOfList", categoryService.categoryList(false));

@@ -45,8 +45,10 @@ public class ShoppingCartService {
 
     public Float getSubTotal(ShoppingCart shoppingCart) {
         Float subTotal = 0.0F;
-        for (CartItem cartItem : shoppingCart.getCartItemList()) {
-            subTotal += cartItem.getTotalPrice();
+        if (shoppingCart != null) {
+            for (CartItem cartItem : shoppingCart.getCartItemList()) {
+                subTotal += cartItem.getTotalPrice();
+            }
         }
         return subTotal;
     }
